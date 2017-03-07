@@ -1,7 +1,8 @@
 {
   "name": "mbv-media/bambee-composer",
+  "description": "Core library of the MBV-Media Bambee theme",
   "minimum-stability": "dev",
-  "version": "1.4",
+  "version": "1.4.1",
   "repositories": [
     {
       "type": "vcs",
