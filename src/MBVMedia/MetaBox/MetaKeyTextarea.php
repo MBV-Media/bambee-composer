@@ -16,7 +16,6 @@ class MetaKeyTextarea extends MetaKey {
      * MetaKeyTextfield constructor.
      * @param $key
      * @param $label
-     * @param string $inpitType
      * @param int $type
      */
     public function __construct( $key, $label, $type = self::TYPE_DEFAULT ) {
