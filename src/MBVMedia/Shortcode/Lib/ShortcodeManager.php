@@ -100,7 +100,10 @@ class ShortcodeManager {
      * @return mixed
      */
     public function tinyMceRegisterPlugin( $pluginArray ) {
-        $pluginArray['ShortcodeSelector'] = get_template_directory_uri() . '/vendor/mbv-media/bambee-composer/src/MBVMedia/shortcode/lib/tinyMcePlugin.js';
+        $relativePath = str_replace( realpath( get_template_directory() ), '', realpath( dirname( __FILE__ ) ) );
+        $relativePath = str_replace( '\\', '/', $relativePath );
+        $url = get_template_directory_uri() . $relativePath;
+        $pluginArray['ShortcodeSelector'] = $url . '/tinyMcePlugin.js';
         return $pluginArray;
     }
 }
