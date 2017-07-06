@@ -1,7 +1,7 @@
 {
   "name": "mbv-media/bambee-core",
   "minimum-stability": "dev",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "repositories": [
     {
       "type": "vcs",
