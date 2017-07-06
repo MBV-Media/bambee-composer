@@ -1,7 +1,8 @@
 {
   "name": "mbv-media/bambee-core",
+  "description": "The core php library of the Bambee-WordPress-Theme",
   "minimum-stability": "dev",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "repositories": [
     {
       "type": "vcs",

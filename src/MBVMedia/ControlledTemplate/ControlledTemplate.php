@@ -126,18 +126,24 @@ abstract class ControlledTemplate {
         <script type="text/javascript">
             (function($) {
                 $('<?php echo $this->selectorOnClick; ?>').on('click', function(e) {
-                    e.preventDefault();
+                    var preventDefault = $(this).is('[data-prevent-default]');
+                    if(preventDefault) {
+                        e.preventDefault();
+                    }
                     $('<?php echo $this->selectorContainer; ?>').addClass('hidden');
                     $.ajax({
                         type: 'post',
                         dataType: 'json',
                         url: '<?php echo admin_url( 'admin-ajax.php' ); ?>',
+                        cache: false,
                         data: {
                             action: '<?php echo $this->nonce; ?>',
                             nonce: '<?php echo wp_create_nonce( $this->nonce ); ?>'
                         }
                     });
-                    return false;
+                    if(preventDefault) {
+                        return false;
+                    }
                 });
             })(jQuery);
         </script>
