@@ -114,7 +114,7 @@ abstract class Bambee extends BambeeBase {
      *
      */
     public function addFilters() {
-        // TODO: Implement addFilters() method.
+        add_filter( 'get_post_metadata', 'add_dynamic_post_meta', 10, 4 );
     }
 
     /**
