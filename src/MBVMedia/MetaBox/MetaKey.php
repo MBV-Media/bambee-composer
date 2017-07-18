@@ -95,4 +95,18 @@ abstract class MetaKey {
 
         return get_post_meta( $postId, $this->key, true );
     }
+
+    /**
+     *
+     */
+    public function save( $postId ) {
+
+        if( $this->getType() === FILTER_DEFAULT ) {
+            $value = filter_input( INPUT_POST, $this->getKey() );
+        }
+        else {
+            $value =filter_input( INPUT_POST, $this->getKey(), FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+        }
+
+        update_post_meta( $postId, $this->getKey(), $value );}
 }

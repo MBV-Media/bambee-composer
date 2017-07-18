@@ -2,13 +2,7 @@
   "name": "mbv-media/bambee-core",
   "description": "The core php library of the Bambee-WordPress-Theme",
   "minimum-stability": "dev",
-  "version": "1.6.3",
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/MBV-Media/MagicAdminPage"
-    }
-  ],
+  "version": "1.6.4",
   "require": {
     "mobiledetect/mobiledetectlib": "*"
   },
