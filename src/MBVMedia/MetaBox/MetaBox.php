@@ -122,8 +122,7 @@ class MetaBox {
         }
 
         foreach ( $this->metaKeyList as $metaKey ) {
-            $metaValue = filter_input( INPUT_POST, $metaKey->getKey(), FILTER_DEFAULT, $metaKey->getType() );
-            update_post_meta( $postId, $metaKey->getKey(), $metaValue );
+            $metaKey->save( $postId );
         }
     }
 
