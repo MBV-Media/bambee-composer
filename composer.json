@@ -2,7 +2,7 @@
   "name": "mbv-media/bambee-core",
   "description": "The core php library of the Bambee-WordPress-Theme",
   "minimum-stability": "dev",
-  "version": "1.6.4",
+  "version": "1.6.5",
   "require": {
     "mobiledetect/mobiledetectlib": "*"
   },
