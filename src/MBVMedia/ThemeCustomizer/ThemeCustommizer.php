@@ -10,40 +10,45 @@ namespace MBVMedia\ThemeCustomizer;
 
 class ThemeCustommizer {
 
-    const SECTION_ID = 'bambee_comment';
-    const CONTROL_ID = self::SECTION_ID . '_textbox';
-    const SETTING_ID = self::CONTROL_ID . '_position';
+    /**
+     * @var array
+     */
+    private $elementList;
 
-    private $panelList;
-    private $sectionList;
-
+    /**
+     * ThemeCustommizer constructor.
+     */
     public function __construct() {
-        $this->panelList = array();
-        $this->sectionList = array();
+        $this->elementList = array();
     }
 
+    /**
+     * @param Panel $panel
+     */
     public function addPanel( Panel $panel ) {
-        $this->panelList[$panel->getId()] = $panel;
+        $this->elementList[$panel->getId()] = $panel;
     }
 
+    /**
+     * @param Section $section
+     */
     public function addSection( Section $section ) {
-        $this->sectionList[$section->getId()] = $section;
+        $this->elementList[$section->getId()] = $section;
     }
 
+    /**
+     *
+     */
     public function register() {
         add_action( 'customize_register', array( $this, 'actionCustomizeRegister' ) );
     }
 
-    public function actionCustomizeRegister( $wp_customize ) {
-
-        $wpCustomize = $wp_customize;
-
-        foreach ( $this->panelList as $panel ) {
-            $panel->register( $wpCustomize );
-        }
-
-        foreach ( $this->sectionList as $section ) {
-            $section->register( $wpCustomize );
+    /**
+     * @param $wpCustomize
+     */
+    public function actionCustomizeRegister( $wpCustomize ) {
+        foreach ( $this->elementList as $element ) {
+            $element->register( $wpCustomize );
         }
     }
 }
