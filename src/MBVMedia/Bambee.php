@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * @since 1.0.0
+ * @author R4c00n <marcel.kempf93@gmail.com>
+ * @licence MIT
+ */
+namespace MBVMedia;
+
+
 if( !defined( 'TextDomain' ) ) {
     define( 'TextDomain', 'bambee' );
 }
@@ -10,18 +18,10 @@ if( !defined( 'ThemeUrl' ) ) {
     define( 'ThemeUrl', get_stylesheet_directory_uri() );
 }
 
-/**
- * @since 1.0.0
- * @author R4c00n <marcel.kempf93@gmail.com>
- * @licence MIT
- */
-namespace MBVMedia;
-
 
 use MBVMedia\ControlledTemplate\CookieControlledTemplate;
 use MBVMedia\Lib\ThemeView;
 use MBVMedia\Shortcode\Lib\ShortcodeManager;
-use MBVMedia\ThemeCustomizer\Control;
 use MBVMedia\ThemeCustomizer\Panel;
 use MBVMedia\ThemeCustomizer\Section;
 use MBVMedia\ThemeCustomizer\Setting;
