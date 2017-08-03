@@ -133,7 +133,7 @@ abstract class Bambee extends BambeeBase {
      *
      */
     public function actionAfterSetupTheme() {
-        $this->addThemeSupportPostThumbnails();
+        $this->addThemeSupportFeaturedImages();
         $this->addThemeSupportCustomLogo();
         $this->addThemeSupportCustomHeader();
         $this->addThemeSupportCustomBackground();

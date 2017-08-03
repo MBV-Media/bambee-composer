@@ -70,4 +70,11 @@ class ThemeView {
 
         return $templatePart;
     }
+
+    /**
+     *
+     */
+    public function printContent() {
+        echo $this->render();
+    }
 }
