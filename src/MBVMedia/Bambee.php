@@ -1,4 +1,15 @@
 <?php
+
+if( !defined( 'TextDomain' ) ) {
+    define( 'TextDomain', 'bambee' );
+}
+if( !defined( 'ThemeDir' ) ) {
+    define( 'ThemeDir', get_stylesheet_directory() );
+}
+if( !defined( 'ThemeUrl' ) ) {
+    define( 'ThemeUrl', get_stylesheet_directory_uri() );
+}
+
 /**
  * @since 1.0.0
  * @author R4c00n <marcel.kempf93@gmail.com>
@@ -61,10 +72,15 @@ abstract class Bambee extends BambeeBase {
     private $shortcodeManager;
 
     /**
-     * @var
+     * @since 1.7.0
+     * @var ThemeCustommizer
      */
     private $themeCustomizer;
 
+    /**
+     * @since 1.5.0
+     * @var Bambee
+     */
     private static $instance = null;
 
     /**
@@ -105,46 +121,56 @@ abstract class Bambee extends BambeeBase {
         $this->initDynamicFrontpage();
         $this->initCookieNotice();
         $this->initThemeCustomizer();
+
     }
 
     /**
      *
      */
     public function addActions() {
+
         add_action( 'init', array( $this, 'actionInit' ) );
         add_action( 'after_setup_theme', array( $this, 'actionAfterSetupTheme' ) );
+
     }
 
     /**
      *
      */
     public function addFilters() {
+
         // TODO: Implement addFilters() method.
+
     }
 
     /**
      *
      */
     public function actionInit() {
+
         $this->registerPostTypes();
+
     }
 
     /**
      *
      */
     public function actionAfterSetupTheme() {
+
         $this->addThemeSupportFeaturedImages();
         $this->addThemeSupportCustomLogo();
         $this->addThemeSupportCustomHeader();
         $this->addThemeSupportCustomBackground();
         $this->addPostTypeSupportExcerpt();
         $this->registerMenus();
+
     }
 
     /**
      *
      */
     private function addPostTypeGallery() {
+
         $componentUrl = $this->getComponentUrl();
         $this->addPostType( 'gallery', array(
             'labels' => array(
@@ -172,12 +198,14 @@ abstract class Bambee extends BambeeBase {
             'publicly_queryable' => true,
             'excerpt' => true,
         ) );
+
     }
 
     /**
-     *
+     * Initializes the shorcode-manager and loads the shortcodes.
      */
     public function initShortcodes() {
+
         $this->shortcodeManager = new ShortcodeManager();
         $this->shortcodeManager->loadShortcodes(
             dirname( __FILE__ ) . '/Shortcode/',
@@ -187,32 +215,38 @@ abstract class Bambee extends BambeeBase {
             ThemeDir . '/lib/shortcode/',
             '\Lib\Shortcode\\'
         );
+
     }
 
     /**
-     *
+     * Initializes the dynamic frontpage depending on the theme option "bambee_dynamic_front_page_show".
      */
     public function initDynamicFrontpage() {
-        if( get_theme_mod( 'bambee_dynamic_front_page_show', true ) ) {
-            $interval = get_theme_mod( 'bambee_dynamic_front_page_interval', '24:00:00' );
-            $interval = empty( $interval ) ? '24:00:00' : $interval;
-            $interval = strtotime( $interval ) - strtotime( 'TODAY' );
 
-            $entranceOverlay = new CookieControlledTemplate(
-                new ThemeView( 'partials/overlay-entrance.php' ),
-                'enter',
-                '.overlay-entry .js-enter',
-                '.overlay-entry',
-                $interval
-            );
-            $entranceOverlay->addActions();
+        if( !get_theme_mod( 'bambee_dynamic_front_page_show', true ) ) {
+            return;
         }
+
+        $interval = get_theme_mod( 'bambee_dynamic_front_page_interval', '24:00:00' );
+        $interval = empty( $interval ) ? '24:00:00' : $interval;
+        $interval = strtotime( $interval ) - strtotime( 'TODAY' );
+
+        $entranceOverlay = new CookieControlledTemplate(
+            new ThemeView( 'partials/overlay-entrance.php' ),
+            'enter',
+            '.overlay-entry .js-enter',
+            '.overlay-entry',
+            $interval
+        );
+        $entranceOverlay->addActions();
+
     }
 
     /**
-     *
+     * Initializes the coocie notice.
      */
     public function initCookieNotice() {
+
         $cookieNotice = new CookieControlledTemplate(
             new ThemeView( 'partials/cookie-notice.php' ),
             'cookie',
@@ -220,24 +254,47 @@ abstract class Bambee extends BambeeBase {
             '.cookie-notice'
         );
         $cookieNotice->addActions();
+
     }
 
     /**
-     *
+     * Initializes the theme customizer inclusively all customizable theme options:
+     * <ul>
+     *  <li>bambee_dynamic_front_page_show</li>
+     *  <li>bambee_dynamic_front_page_interval</li>
+     *  <li>bambee_comment_textbox_position</li>
+     *  <li>bambee_core_data_address</li>
+     *  <li>bambee_core_data_email</li>
+     *  <li>bambee_core_data_phone</li>
+     *  <li>bambee_google_maps_latitude</li>
+     *  <li>bambee_google_maps_longitude</li>
+     *  <li>bambee_google_maps_zoom</li>
+     *  <li>bambee_google_maps_api_key</li>
+     *  <li>bambee_google_maps_styles</li>
+     *  <li>bambee_google_analytics_tracking_id</li>
+     * </ul>
      */
     public function initThemeCustomizer() {
+
         $this->themeCustomizer = new ThemeCustommizer();
         $this->initThemeSettingsDynamicFrontPage();
         $this->initThemeSettingsComments();
         $this->initThemeSettingsCoreData();
         $this->initThemeSettingsGoogle();
         $this->themeCustomizer->register();
+
     }
 
     /**
-     *
+     * Adds a "Dynamic frontpage" section to the Wordpress customizer and
+     * initializes all customizable dynamic front-page theme settings:
+     * <ul>
+     *  <li>bambee_dynamic_front_page_show</li>
+     *  <li>bambee_dynamic_front_page_interval</li>
+     * </ul>
      */
     public function initThemeSettingsDynamicFrontPage() {
+
         $settingDynamicFrontpageShow = new Setting(
             'bambee_dynamic_front_page_show',
             array(
@@ -272,12 +329,18 @@ abstract class Bambee extends BambeeBase {
         $sectionDynamicFrontpage->addSetting( $settingDynamicFrontpageInterval );
 
         $this->themeCustomizer->addSection( $sectionDynamicFrontpage );
+
     }
 
     /**
-     *
+     * Adds a "Comments" section to the Wordpress customizer and
+     * initializes all customizable comments theme settings:
+     * <ul>
+     *  <li>bambee_comment_textbox_position</li>
+     * </ul>
      */
     public function initThemeSettingsComments() {
+
         $settingCommentTextboxPosition = new Setting(
             'bambee_comment_textbox_position',
             array(
@@ -296,12 +359,20 @@ abstract class Bambee extends BambeeBase {
         $sectionComment->addSetting( $settingCommentTextboxPosition );
 
         $this->themeCustomizer->addSection( $sectionComment );
+
     }
 
     /**
-     *
+     * Adds a "Core data" section to the Wordpress customizer and
+     * initializes all customizable core data theme settings:
+     * <ul>
+     *  <li>bambee_core_data_address</li>
+     *  <li>bambee_core_data_email</li>
+     *  <li>bambee_core_data_phone</li>
+     * </ul>
      */
     public function initThemeSettingsCoreData() {
+
         $settingCoreDataAddress = new Setting(
             'bambee_core_data_address',
             array(
@@ -352,12 +423,23 @@ abstract class Bambee extends BambeeBase {
         $sectionCoreData->addSetting( $settingCoreDataPhone );
 
         $this->themeCustomizer->addSection( $sectionCoreData );
+
     }
 
     /**
-     *
+     * Adds a "Google" panel along with a "Maps" and "Analytics" section to the Wordpress customizer and
+     * initializes all customizable core data theme settings:
+     * <ul>
+     *  <li>bambee_google_maps_latitude</li>
+     *  <li>bambee_google_maps_longitude</li>
+     *  <li>bambee_google_maps_zoom</li>
+     *  <li>bambee_google_maps_api_key</li>
+     *  <li>bambee_google_maps_styles</li>
+     *  <li>bambee_google_analytics_tracking_id</li>
+     * </ul>
      */
     public function initThemeSettingsGoogle() {
+
         $settingGoogleMapsLatitude = new Setting(
             'bambee_google_maps_latitude',
             array(
@@ -460,33 +542,46 @@ abstract class Bambee extends BambeeBase {
         $panelGoogle->addSection( $sectionGoogleAnalytics );
 
         $this->themeCustomizer->addPanel( $panelGoogle );
+
     }
 
     /**
+     * Get the shortcode manager.
+     *
      * @since 1.4.2
      * @return ShortcodeManager
      */
     public function getShortcodeManager() {
+
         return $this->shortcodeManager;
+
     }
 
     /**
+     * Get the theme customizer.
+     *
      * @return ThemeCustommizer
      */
     public function getThemeCustomizer() {
+
         return $this->themeCustomizer;
+
     }
 
     /**
+     * @deprecated Will be removed in 1.8.0.<br>Can now be set by theme option "bambee_post_thumbnail_width".
      * @since 1.4.2
      *
      * @param int $postThumbnailWidth
      */
     public function setPostThumbnailWidth( $postThumbnailWidth ) {
+
         $this->postThumbnail['width'] = $postThumbnailWidth;
+
     }
 
     /**
+     * @deprecated Will be removed in 1.8.0.<br>Can now be set by theme option "bambee_post_thumbnail_height".
      * @since 1.4.2
      *
      * @param int $postThumbnailHeight
@@ -496,16 +591,19 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
+     * @deprecated Will be removed in 1.8.0.<br>Can now be set by theme option "bambee_post_thumbnail_corp".
      * @since 1.4.2
      *
      * @param boolean $postThumbnailCrop
      */
     public function setPostThumbnailCrop( $postThumbnailCrop ) {
+
         $this->postThumbnail['crop'] = $postThumbnailCrop;
+
     }
 
     /**
-     *
+     * Adds an additional menu to register in Wordpress.
      *
      * @since 1.4.0
      *
@@ -513,32 +611,39 @@ abstract class Bambee extends BambeeBase {
      * @param $title
      */
     public function addMenu( $slug, $title ) {
+
         $this->menuList[$slug] = $title;
+
     }
 
     /**
-     * Register menus.
+     * Registers all previously added menus.
      *
      * @since 1.0.0
      * @return void
      */
     public function registerMenus() {
+
         register_nav_menus( $this->menuList );
+
     }
 
     /**
+     * Adds an additional post type to register in Wordpress.
+     *
      * @since 1.4.2
      *
      * @param $postType
      * @param array $args
      */
     public function addPostType( $postType, array $args ) {
+
         $this->postTypeList[ $postType ] = $args;
+
     }
 
     /**
-     * Register post types.
-     * type 'page'.
+     * Register all previously added post types.
      *
      * @since 1.0.0
      * @return void
@@ -548,6 +653,7 @@ abstract class Bambee extends BambeeBase {
         foreach( $this->postTypeList as $postType => $args ) {
             register_post_type( $postType, $args );
         }
+
     }
 
     /**
@@ -556,6 +662,7 @@ abstract class Bambee extends BambeeBase {
      * @return mixed
      */
     public function getComponentUrl() {
+
         // fix for windows path
         $fixedAbsPath = str_replace( '\\', '/', ABSPATH );
         $fixedDirName = str_replace( '\\', '/', dirname( __FILE__ ) );
@@ -563,6 +670,7 @@ abstract class Bambee extends BambeeBase {
         $componentUrl = str_replace( $fixedAbsPath, get_bloginfo( 'wpurl' ) . '/', $fixedDirName );
 
         return $componentUrl;
+
     }
 
     /**
@@ -573,14 +681,17 @@ abstract class Bambee extends BambeeBase {
      *
      */
     public function loadThemeTextdomain() {
+
         $path = ThemeDir . '/languages';
         load_theme_textdomain( TextDomain, $path );
+
     }
 
     /**
      *
      */
     public function addThemeSupportFeaturedImages() {
+
         add_theme_support( 'post-thumbnails' );
 
         $featuredImageSize = get_option( 'bambee_featured_images', $this->postThumbnail );
@@ -590,44 +701,55 @@ abstract class Bambee extends BambeeBase {
             $featuredImageSize['height'],
             $featuredImageSize['crop']
         );
+
     }
 
     /**
      *
      */
     public function addThemeSupportCustomLogo() {
+
         add_theme_support( 'custom-logo', $this->customLogo );
+
     }
 
     /**
      *
      */
     public function addThemeSupportCustomHeader() {
+
         add_theme_support( 'custom-header', $this->customHeader );
+
     }
 
     /**
      *
      */
     public function addThemeSupportCustomBackground() {
+
         add_theme_support( 'custom-background' );
+
     }
 
     /**
      *
      */
     public function addPostTypeSupportExcerpt() {
+
         add_post_type_support( 'page', 'excerpt', true );
+
     }
 
     /**
      * @return static
      */
     public static function self() {
+
         if( null === self::$instance ) {
             self::$instance = new static();
         }
 
         return self::$instance;
+
     }
 }
