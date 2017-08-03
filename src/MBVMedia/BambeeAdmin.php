@@ -5,7 +5,7 @@
  * @licence MIT
  */
 namespace MBVMedia;
-
+use MBVMedia\Lib\ThemeView;
 
 
 /**
@@ -24,6 +24,7 @@ abstract class BambeeAdmin extends BambeeBase {
      */
     public function addActions() {
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueueStyles' ) );
+        add_action( 'admin_init', array( $this, 'registerSettings' ) );
         add_action( 'admin_init', array( $this, 'displaySvgThumbs' ) );
         add_action( 'manage_posts_custom_column' , array( $this, 'customColumnsData' ), 10, 2 );
         add_action( 'manage_pages_custom_column' , array( $this, 'customColumnsData' ), 10, 2 );
@@ -51,6 +52,68 @@ abstract class BambeeAdmin extends BambeeBase {
      */
     public function enqueueStyles() {
         wp_enqueue_style( 'custom_css', ThemeUrl . '/css/admin.min.css' );
+    }
+
+    /**
+     *
+     */
+    public function registerSettings() {
+
+        $featuredImageWidthTemplate = new ThemeView(
+            'partials/admin/input',
+            array(
+                'name' => 'featured_image_width',
+                'type' => 'number',
+                'min' => 0,
+                'value' => '',
+            )
+        );
+        $featuredImageWidthCallback = array( $featuredImageWidthTemplate, 'render' );
+        add_settings_field(
+            'featured_image_width',
+            __( 'Featured image width', TextDomain ),
+            $featuredImageWidthCallback,
+            'media',
+            'default' // image sizes
+        );
+
+        $featuredImageHeightTemplate = new ThemeView(
+            'partials/admin/input',
+            array(
+                'name' => 'featured_image_height',
+                'type' => 'number',
+                'min' => 0,
+                'value' => '',
+            )
+        );
+        $featuredImageWidthCallback = array( $featuredImageHeightTemplate, 'render' );
+        add_settings_field(
+            'featured_image_height',
+            __( 'Featured image height', TextDomain ),
+            $featuredImageWidthCallback,
+            'media',
+            'default' // image sizes
+        );
+
+        $featuredImageCropTemplate = new ThemeView(
+            'partials/admin/input',
+            array(
+                'name' => 'featured_image_height',
+                'type' => 'checkbox',
+                'min' => 0,
+                'value' => '',
+                'checked' => '',
+            )
+        );
+        $featuredImageWidthCallback = array( $featuredImageCropTemplate, 'render' );
+        add_settings_field(
+            'featured_image_crop',
+            __( 'Featured image crop', TextDomain ),
+            $featuredImageWidthCallback,
+            'media',
+            'default' // image sizes
+        );
+
     }
 
 
