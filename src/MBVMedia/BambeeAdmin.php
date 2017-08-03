@@ -65,11 +65,7 @@ abstract class BambeeAdmin extends BambeeBase {
             array( $this, 'validateFeaturedImagesOptions' )
         );
 
-        $settings = get_option( 'bambee_featured_images', array(
-            'width' => 624,
-            'height' => 999,
-            'crop' => false,
-        ) );
+        $settings = get_option( 'bambee_featured_images', Bambee::self()->getFeaturedImageDefaults() );
         $settingFeaturedImagesTemplate = new ThemeView( 'partials/admin/setting-featured-images.php', $settings );
         $settingFeaturedImagesCallback = array( $settingFeaturedImagesTemplate, 'printContent' );
         add_settings_field(

@@ -569,6 +569,13 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
+     * @return array
+     */
+    public function getFeaturedImageDefaults() {
+        return $this->postThumbnail;
+    }
+
+    /**
      * @deprecated Will be removed in 1.8.0.<br>Can now be set by theme option "bambee_post_thumbnail_width".
      * @since 1.4.2
      *
