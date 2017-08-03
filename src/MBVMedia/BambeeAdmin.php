@@ -59,60 +59,41 @@ abstract class BambeeAdmin extends BambeeBase {
      */
     public function registerSettings() {
 
-        $featuredImageWidthTemplate = new ThemeView(
-            'partials/admin/input',
-            array(
-                'name' => 'featured_image_width',
-                'type' => 'number',
-                'min' => 0,
-                'value' => '',
-            )
+        register_setting(
+            'media',
+            'bambee_featured_images',
+            array( $this, 'validateFeaturedImagesOptions' )
         );
-        $featuredImageWidthCallback = array( $featuredImageWidthTemplate, 'render' );
+
+        $settings = get_option( 'bambee_featured_images', array(
+            'width' => 624,
+            'height' => 999,
+            'crop' => false,
+        ) );
+        $settingFeaturedImagesTemplate = new ThemeView( 'partials/admin/setting-featured-images.php', $settings );
+        $settingFeaturedImagesCallback = array( $settingFeaturedImagesTemplate, 'printContent' );
         add_settings_field(
-            'featured_image_width',
-            __( 'Featured image width', TextDomain ),
-            $featuredImageWidthCallback,
+            'featured_images_size',
+            __( 'Featured images', TextDomain ),
+            $settingFeaturedImagesCallback,
             'media',
             'default' // image sizes
         );
 
-        $featuredImageHeightTemplate = new ThemeView(
-            'partials/admin/input',
-            array(
-                'name' => 'featured_image_height',
-                'type' => 'number',
-                'min' => 0,
-                'value' => '',
-            )
-        );
-        $featuredImageWidthCallback = array( $featuredImageHeightTemplate, 'render' );
-        add_settings_field(
-            'featured_image_height',
-            __( 'Featured image height', TextDomain ),
-            $featuredImageWidthCallback,
-            'media',
-            'default' // image sizes
-        );
+    }
 
-        $featuredImageCropTemplate = new ThemeView(
-            'partials/admin/input',
-            array(
-                'name' => 'featured_image_height',
-                'type' => 'checkbox',
-                'min' => 0,
-                'value' => '',
-                'checked' => '',
-            )
-        );
-        $featuredImageWidthCallback = array( $featuredImageCropTemplate, 'render' );
-        add_settings_field(
-            'featured_image_crop',
-            __( 'Featured image crop', TextDomain ),
-            $featuredImageWidthCallback,
-            'media',
-            'default' // image sizes
-        );
+    /**
+     * @param $input
+     * @return array
+     */
+    public function validateFeaturedImagesOptions( $input ) {
+
+        $valid = [
+            'width' => absint( $input['width'] ),
+            'height' => absint( $input['height'] ),
+            'crop' => boolval( $input['crop'] ),
+        ] ;
+        return $valid;
 
     }
 

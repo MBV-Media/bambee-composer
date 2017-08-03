@@ -580,12 +580,15 @@ abstract class Bambee extends BambeeBase {
     /**
      *
      */
-    public function addThemeSupportPostThumbnails() {
+    public function addThemeSupportFeaturedImages() {
         add_theme_support( 'post-thumbnails' );
+
+        $featuredImageSize = get_option( 'bambee_featured_images', $this->postThumbnail );
+
         set_post_thumbnail_size(
-            $this->postThumbnail['width'],
-            $this->postThumbnail['height'],
-            $this->postThumbnail['crop']
+            $featuredImageSize['width'],
+            $featuredImageSize['height'],
+            $featuredImageSize['crop']
         );
     }
 
