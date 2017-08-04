@@ -68,9 +68,9 @@ abstract class BambeeWebsite extends BambeeBase {
      */
     protected function __construct() {
 
-        $this->scripts = array();
-        $this->localizedScripts = array();
-        $this->styles = array();
+        $this->scripts = [];
+        $this->localizedScripts = [];
+        $this->styles = [];
 
         $this->commentPaginationNextText = __( 'Next &raquo;', TextDomain );
         $this->commentPaginationPrevText = __( '&laquo; Prev', TextDomain );
@@ -154,15 +154,15 @@ abstract class BambeeWebsite extends BambeeBase {
      */
     public function addActions() {
 
-        add_action( 'init', array( $this, 'disableEmojis' ) );
-        add_action( 'wp_enqueue_scripts', array( $this, 'enqueueScripts' ) );
-        add_action( 'wp_enqueue_scripts', array( $this, 'enqueueLocalizeScripts' ) );
-        add_action( 'wp_enqueue_scripts', array( $this, 'enqueueStyles' ) );
-        add_action( 'wp_footer', array( $this, 'printGoogleAnalyticsCode' ) );
-        add_action( 'wpcf7_before_send_mail', array( $this, 'addCF7DefaultRecipient' ) );
+        add_action( 'init', [ $this, 'disableEmojis' ] );
+        add_action( 'wp_enqueue_scripts', [ $this, 'enqueueScripts' ] );
+        add_action( 'wp_enqueue_scripts', [ $this, 'enqueueLocalizeScripts' ] );
+        add_action( 'wp_enqueue_scripts', [ $this, 'enqueueStyles' ] );
+        add_action( 'wp_footer', [ $this, 'printGoogleAnalyticsCode' ] );
+        add_action( 'wpcf7_before_send_mail', [ $this, 'addCF7DefaultRecipient' ] );
 
         if ( get_theme_mod( 'bambee_comment_textbox_position' ) ) {
-            add_filter( 'comment_form_fields', array( $this, 'moveCommentFieldToBottom' ) );
+            add_filter( 'comment_form_fields', [ $this, 'moveCommentFieldToBottom' ] );
         }
 
     }
@@ -185,14 +185,14 @@ abstract class BambeeWebsite extends BambeeBase {
         $this->addScript(
             'vendor',
             ThemeUrl . '/js/vendor.min.js',
-            array( 'jquery' ),
+            [ 'jquery' ],
             false,
             true
         );
         $this->addScript(
             'main',
             ThemeUrl . '/js/main.min.js',
-            array( 'jquery' ),
+            [ 'jquery' ],
             false,
             true
         );
@@ -217,15 +217,15 @@ abstract class BambeeWebsite extends BambeeBase {
      * @param bool $ver
      * @param bool $inFooter
      */
-    public function addScript( $handle, $src, $deps = array(), $ver = false, $inFooter = false ) {
+    public function addScript( $handle, $src, $deps = [], $ver = false, $inFooter = false ) {
 
-        $this->scripts[] = array(
+        $this->scripts[] = [
             'handle' => $handle,
             'src' => $src,
             'deps' => $deps,
             'ver' => $ver,
             'in_footer' => $inFooter,
-        );
+        ];
 
     }
 
@@ -238,11 +238,11 @@ abstract class BambeeWebsite extends BambeeBase {
      */
     public function addLocalizedScript( $handle, $name, array $data ) {
 
-        $this->localizedScripts[] = array(
+        $this->localizedScripts[] = [
             'handle' => $handle,
             'name' => $name,
             'data' => $data,
-        );
+        ];
 
     }
 
@@ -255,15 +255,15 @@ abstract class BambeeWebsite extends BambeeBase {
      * @param bool $ver
      * @param string $media
      */
-    public function addStyle( $handle, $src, $deps = array(), $ver = false, $media = 'all' ) {
+    public function addStyle( $handle, $src, $deps = [], $ver = false, $media = 'all' ) {
 
-        $this->styles[] = array(
+        $this->styles[] = [
             'handle' => $handle,
             'src' => $src,
             'deps' => $deps,
             'ver' => $ver,
             'media' => $media,
-        );
+        ];
 
     }
 
@@ -309,13 +309,13 @@ abstract class BambeeWebsite extends BambeeBase {
         $tag = ( 'div' == $args['style'] ) ? 'div' : 'li';
         $addBelow = 'comment';
 
-        $commentListTemplate = new ThemeView( '/partials/comment-list.php', array(
+        $commentListTemplate = new ThemeView( '/partials/comment-list.php', [
             'comment' => $comment,
             'arguments' => $args,
             'depth' => $depth,
             'tag' => $tag,
             'addBelow' => $addBelow,
-        ) );
+        ] );
         return $commentListTemplate->render();
 
     }
@@ -338,7 +338,7 @@ abstract class BambeeWebsite extends BambeeBase {
      */
     public function getCommentPagination() {
 
-        $pagination = paginate_comments_links( array(
+        $pagination = paginate_comments_links( [
             'echo' => false,
             'mid_size' => 2,
             'end_size' => 3,
@@ -346,7 +346,7 @@ abstract class BambeeWebsite extends BambeeBase {
             'add_fragment' => '',
             'next_text' => $this->commentPaginationNextText,
             'prev_text' => $this->commentPaginationPrevText,
-        ) );
+        ] );
 
         $paginationPages = '';
         $paginationPrev = '';
@@ -372,11 +372,11 @@ abstract class BambeeWebsite extends BambeeBase {
             }
         }
 
-        $template = new ThemeView( '/partials/comment-pagination.php', array(
+        $template = new ThemeView( '/partials/comment-pagination.php', [
             'paginationPrev' => $paginationPrev,
             'paginationPages' => $paginationPages,
             'paginationNext' => $paginationNext,
-        ) );
+        ] );
         return $template->render();
 
     }
@@ -396,9 +396,9 @@ abstract class BambeeWebsite extends BambeeBase {
         }
 
         $mail['recipient'] = get_bloginfo( 'admin_email' );
-        $cf7->set_properties( array(
+        $cf7->set_properties( [
             'mail' => $mail,
-        ) );
+        ] );
 
     }
 
@@ -528,7 +528,7 @@ abstract class BambeeWebsite extends BambeeBase {
      * @param array $queryArgs
      * @param ThemeView|null $noPosts
      */
-    public function customLoop( ThemeView $partial, array $queryArgs = array(), ThemeView $noPosts = null ) {
+    public function customLoop( ThemeView $partial, array $queryArgs = [], ThemeView $noPosts = null ) {
 
         $theQuery = new \WP_Query( $queryArgs );
 

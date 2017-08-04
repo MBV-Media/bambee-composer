@@ -4,6 +4,7 @@
   "minimum-stability": "dev",
   "version": "1.6.6",
   "require": {
+    "php": ">=5.4.0",
     "mobiledetect/mobiledetectlib": "*"
   },
   "autoload": {

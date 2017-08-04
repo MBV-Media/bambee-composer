@@ -30,7 +30,7 @@ class MetaKeyTaxonomy extends MetaKey {
      */
     public function __construct( $key, $label, $type = self::TYPE_DEFAULT ) {
 
-        $this->taxonomy = array();
+        $this->taxonomy = [];
 
         $this->setTermTemplate( new ThemeView( 'partials/admin/meta-key-term-default.php' ) );
 
@@ -76,7 +76,7 @@ class MetaKeyTaxonomy extends MetaKey {
     public function getValue( $postId = null ) {
 
         $value = parent::getValue( $postId );
-        return empty( $value ) ? array() : $value;
+        return empty( $value ) ? [] : $value;
 
     }
 

@@ -7,6 +7,8 @@
 
 namespace MBVMedia\Lib;
 
+use MBVMedia\Bambee;
+
 
 /**
  * The class representing a view.
@@ -17,9 +19,9 @@ namespace MBVMedia\Lib;
  *
  * @example
  *  Usage:
- *    $template = new ThemeView( 'path/to/view.php', array(
+ *    $template = new ThemeView( 'path/to/view.php', [
  *      'param1' => 'This is passed to the view as $param1'
- *    ) );
+ *    ] );
  *    echo $template->render()
  */
 class ThemeView {
@@ -42,7 +44,7 @@ class ThemeView {
      * @param array $args
      * @return void
      */
-    public function __construct( $file, $args = array() ) {
+    public function __construct( $file, $args = [] ) {
 
         $this->file = $file;
         $this->args = $args;

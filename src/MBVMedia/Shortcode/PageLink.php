@@ -33,7 +33,7 @@ class PageLink extends BambeeShortcode {
     /**
      * @inheritdoc
      */
-    public function handleShortcode( array $atts = array(), $content = '' ) {
+    public function handleShortcode( array $atts = [], $content = '' ) {
 
         $id = $atts['id'];
         return get_permalink( $id );

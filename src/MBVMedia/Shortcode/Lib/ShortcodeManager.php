@@ -15,7 +15,7 @@ class ShortcodeManager {
      */
     public function __construct() {
 
-        $this->shortcodeList = array();
+        $this->shortcodeList = [];
 
     }
 
@@ -31,11 +31,11 @@ class ShortcodeManager {
 
                 $class = $namespace . pathinfo( $shortcodeFile, PATHINFO_FILENAME );
 
-                $this->shortcodeList[] = array(
+                $this->shortcodeList[] = [
                     'class' => $class,
                     'file' => $shortcodeFile,
                     'tag' => $class::getShortcodeAlias(),
-                );
+                ];
             }
         }
 
@@ -48,7 +48,7 @@ class ShortcodeManager {
 
         foreach ( $this->shortcodeList as $shortcode ) {
             $class = $shortcode['class'];
-            if ( is_callable( array( $class, 'addShortcode' ) ) ) {
+            if ( is_callable( [ $class, 'addShortcode' ] ) ) {
                 $class::addShortcode();
             }
         }
@@ -60,9 +60,9 @@ class ShortcodeManager {
      */
     public function extendTinyMCE() {
 
-        add_action( 'admin_head', array( $this, 'printShortcodeData' ) );
-        add_filter( 'mce_buttons', array( $this, 'tinyMceRegisterButton' ) );
-        add_filter( 'mce_external_plugins', array( $this, 'tinyMceRegisterPlugin' ) );
+        add_action( 'admin_head', [ $this, 'printShortcodeData' ] );
+        add_filter( 'mce_buttons', [ $this, 'tinyMceRegisterButton' ] );
+        add_filter( 'mce_external_plugins', [ $this, 'tinyMceRegisterPlugin' ] );
 
     }
 

@@ -19,7 +19,7 @@ abstract class BambeeShortcode implements Handleable {
      * BambeeShortcode constructor.
      */
     public function __construct() {
-        $this->supportedAtts = array();
+        $this->supportedAtts = [];
     }
 
     /**
@@ -37,11 +37,11 @@ abstract class BambeeShortcode implements Handleable {
     public function addAttribute( $name, $default = '', $type = 'text' ) {
 
 //        $this->supportedAtts[$name] = $default;
-        $this->supportedAtts[] = array(
+        $this->supportedAtts[] = [
             'name' => $name,
             'default' => $default,
             'type' => $type,
-        );
+        ];
 
     }
 
@@ -75,7 +75,7 @@ abstract class BambeeShortcode implements Handleable {
             $tag = self::getUnqualifiedClassName( $class );
         }
 
-        add_shortcode( $tag, array( $class, 'doShortcode' ) );
+        add_shortcode( $tag, [ $class, 'doShortcode' ] );
 
     }
 
@@ -84,11 +84,11 @@ abstract class BambeeShortcode implements Handleable {
      * @param string $content
      * @return mixed
      */
-    public static function doShortcode( $atts = array(), $content = '' ) {
+    public static function doShortcode( $atts = [], $content = '' ) {
 
         $shortcodeObject = new static();
         $supportedAtts = $shortcodeObject->getSupportedAtts();
-        $defaultAtts = array();
+        $defaultAtts = [];
         foreach ( $supportedAtts as $attribute ) {
             $defaultAtts[$attribute['name']] = $attribute['default'];
         }

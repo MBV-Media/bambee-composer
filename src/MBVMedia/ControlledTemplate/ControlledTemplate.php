@@ -65,9 +65,9 @@ abstract class ControlledTemplate {
      */
     private function addWebsiteActions() {
 
-        add_action( 'init', array( $this, 'checkForNonce' ) );
-        add_action( 'wp_footer', array( $this, 'renderTemplate' ) );
-        add_action( 'wp_footer', array( $this, 'printScript' ) );
+        add_action( 'init', [ $this, 'checkForNonce' ] );
+        add_action( 'wp_footer', [ $this, 'renderTemplate' ] );
+        add_action( 'wp_footer', [ $this, 'printScript' ] );
 
     }
 
@@ -76,8 +76,8 @@ abstract class ControlledTemplate {
      */
     private function addAdminActions() {
 
-        add_action( 'wp_ajax_' . $this->nonce, array( $this, 'ajaxCallback' ) );
-        add_action( 'wp_ajax_nopriv_' . $this->nonce, array( $this, 'ajaxCallback' ) );
+        add_action( 'wp_ajax_' . $this->nonce, [ $this, 'ajaxCallback' ] );
+        add_action( 'wp_ajax_nopriv_' . $this->nonce, [ $this, 'ajaxCallback' ] );
 
     }
 

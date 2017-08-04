@@ -24,7 +24,7 @@ class MetaKeyColorPicker extends MetaKey {
         $defaultTemplate = new ThemeView( 'partials/admin/meta-key-color-picker-default.php' );
         $this->setTemplate( $defaultTemplate );
 
-        add_action( 'admin_enqueue_scripts', array( $this, 'actionAdminEnqueueScripts' ) );
+        add_action( 'admin_enqueue_scripts', [ $this, 'actionAdminEnqueueScripts' ] );
 
         parent::__construct( $key, $label, $type );
 

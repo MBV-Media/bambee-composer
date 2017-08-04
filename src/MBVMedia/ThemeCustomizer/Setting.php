@@ -21,7 +21,7 @@ class Setting extends ThemeCustommizerElement {
      * @param array $settingArgs
      * @param array $controlArgs
      */
-    public function __construct( $id, array $settingArgs, $controlArgs = array() ) {
+    public function __construct( $id, array $settingArgs, $controlArgs = [] ) {
 
         parent::__construct( $id, $settingArgs );
         $this->control = new Control( $id . '_control', $controlArgs );

@@ -20,7 +20,7 @@ class ThemeCustommizer {
      */
     public function __construct() {
 
-        $this->elementList = array();
+        $this->elementList = [];
 
     }
 
@@ -57,7 +57,7 @@ class ThemeCustommizer {
      */
     public function register() {
 
-        add_action( 'customize_register', array( $this, 'actionCustomizeRegister' ) );
+        add_action( 'customize_register', [ $this, 'actionCustomizeRegister' ] );
 
     }
 

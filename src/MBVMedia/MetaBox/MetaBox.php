@@ -72,15 +72,15 @@ class MetaBox {
 
         $this->template = $template;
 
-        $this->metaKeyList = array();
+        $this->metaKeyList = [];
 
-        $this->postTypeList = array();
+        $this->postTypeList = [];
 
         $this->nonceName = get_class( $this );
         $this->nonceAction = 'save-' . $this->nonceName;
 
-        add_action( 'add_meta_boxes', array( $this, 'actionAddMetaBox' ), $priority, 1 );
-        add_action( 'save_post', array( $this, 'actionSavePost' ), 10, 3 );
+        add_action( 'add_meta_boxes', [ $this, 'actionAddMetaBox' ], $priority, 1 );
+        add_action( 'save_post', [ $this, 'actionSavePost' ], 10, 3 );
 
     }
 
@@ -109,8 +109,8 @@ class MetaBox {
 
         $this->postTypeList[] = $postType;
 
-        remove_action( 'add_meta_boxes', array( $this, 'actionAddMetaBox' ) );
-        add_action( 'add_meta_boxes_' . $postType, array( $this, 'actionAddMetaBox' ), $priority, 1 );
+        remove_action( 'add_meta_boxes', [ $this, 'actionAddMetaBox' ] );
+        add_action( 'add_meta_boxes_' . $postType, [ $this, 'actionAddMetaBox' ], $priority, 1 );
 
     }
 
@@ -120,7 +120,7 @@ class MetaBox {
     public function actionAddMetaBox( $post ) {
 
         $postType = $post instanceof \WP_Post ? $post->post_type : $post;
-        add_meta_box( $this->id, $this->title, array( $this, 'renderMetaBox' ), $postType, $this->context );
+        add_meta_box( $this->id, $this->title, [ $this, 'renderMetaBox' ], $postType, $this->context );
 
     }
 
@@ -185,7 +185,7 @@ class MetaBox {
      */
     public function getPostMetas( $postId = null ) {
 
-        $postMetas = array();
+        $postMetas = [];
 
         foreach ( $this->metaKeyList as $metaKey => $type ) {
             $postMetas[$metaKey] = $this->getPostMeta( $metaKey, $postId );

@@ -24,7 +24,7 @@ class Panel extends ThemeCustommizerElement {
     public function __construct( $id, array $args ) {
 
         parent::__construct( $id, $args );
-        $this->sectionList = array();
+        $this->sectionList = [];
 
     }
 

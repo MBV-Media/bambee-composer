@@ -50,7 +50,7 @@ class BambeeWalkerComment extends \Walker_Comment {
                 $end = $total_top - $oldstart;
             }
 
-            $empty_array = array();
+            $empty_array = [];
             foreach ( $elements as $e ) {
                 $count++;
                 if ( $count < $start )
@@ -71,8 +71,8 @@ class BambeeWalkerComment extends \Walker_Comment {
          * Children_elements is two dimensional array, e.g.
          * $children_elements[10][] contains all sub-elements whose parent is 10.
          */
-        $top_level_elements = array();
-        $children_elements = array();
+        $top_level_elements = [];
+        $children_elements = [];
         foreach ( $elements as $e ) {
             if ( 0 == $e->$parent_field )
                 $top_level_elements[] = $e;
@@ -108,7 +108,7 @@ class BambeeWalkerComment extends \Walker_Comment {
         }
 
         if ( $end >= $total_top && count( $children_elements ) > 0 ) {
-            $empty_array = array();
+            $empty_array = [];
             foreach ( $children_elements as $orphans )
                 foreach ( $orphans as $op )
                     $this->display_element( $op, $empty_array, 1, 0, $args, $output );

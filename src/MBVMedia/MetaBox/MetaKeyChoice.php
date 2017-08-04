@@ -22,7 +22,7 @@ class MetaKeyChoice extends MetaKey {
      */
     public function __construct( $key, $label, $type = self::TYPE_DEFAULT ) {
 
-        $this->choices = array();
+        $this->choices = [];
 
         $defaultTemplate = new ThemeView( 'partials/admin/meta-key-choice-default.php' );
         $this->setTemplate( $defaultTemplate );
@@ -46,10 +46,10 @@ class MetaKeyChoice extends MetaKey {
      */
     public function addChoice( $value, $label ) {
 
-        $this->choices[] = array(
+        $this->choices[] = [
             'value' => $value,
             'label' => $label,
-        );
+        ];
 
     }
 

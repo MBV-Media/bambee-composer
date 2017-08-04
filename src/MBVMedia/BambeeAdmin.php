@@ -36,11 +36,11 @@ abstract class BambeeAdmin extends BambeeBase {
      */
     public function addActions() {
 
-        add_action( 'admin_enqueue_scripts', array( $this, 'enqueueStyles' ) );
-        add_action( 'admin_init', array( $this, 'registerSettings' ) );
-        add_action( 'admin_init', array( $this, 'displaySvgThumbs' ) );
-        add_action( 'manage_posts_custom_column', array( $this, 'customColumnsData' ), 10, 2 );
-        add_action( 'manage_pages_custom_column', array( $this, 'customColumnsData' ), 10, 2 );
+        add_action( 'admin_enqueue_scripts', [ $this, 'enqueueStyles' ] );
+        add_action( 'admin_init', [ $this, 'registerSettings' ] );
+        add_action( 'admin_init', [ $this, 'displaySvgThumbs' ] );
+        add_action( 'manage_posts_custom_column', [ $this, 'customColumnsData' ], 10, 2 );
+        add_action( 'manage_pages_custom_column', [ $this, 'customColumnsData' ], 10, 2 );
 
     }
 
@@ -49,9 +49,9 @@ abstract class BambeeAdmin extends BambeeBase {
      */
     public function addFilters() {
 
-        add_filter( 'upload_mimes', array( $this, 'addSvgMediaSupport' ) );
-        add_filter( 'manage_posts_columns', array( $this, 'customColumns' ) );
-        add_filter( 'manage_pages_columns', array( $this, 'customColumns' ) );
+        add_filter( 'upload_mimes', [ $this, 'addSvgMediaSupport' ] );
+        add_filter( 'manage_posts_columns', [ $this, 'customColumns' ] );
+        add_filter( 'manage_pages_columns', [ $this, 'customColumns' ] );
 
     }
 
@@ -80,12 +80,12 @@ abstract class BambeeAdmin extends BambeeBase {
         register_setting(
             'media',
             'bambee_featured_images',
-            array( $this, 'validateFeaturedImagesOptions' )
+            [ $this, 'validateFeaturedImagesOptions' ]
         );
 
         $settings = get_option( 'bambee_featured_images', Bambee::self()->getFeaturedImageDefaults() );
         $settingFeaturedImagesTemplate = new ThemeView( 'partials/admin/setting-featured-images.php', $settings );
-        $settingFeaturedImagesCallback = array( $settingFeaturedImagesTemplate, 'renderAndEcho' );
+        $settingFeaturedImagesCallback = [ $settingFeaturedImagesTemplate, 'renderAndEcho' ];
         add_settings_field(
             'featured_images_size',
             __( 'Featured images', TextDomain ),
@@ -135,8 +135,8 @@ abstract class BambeeAdmin extends BambeeBase {
 
         ob_start();
 
-        add_action( 'shutdown', array( $this, 'svgThumbsFilter' ), 0 );
-        add_filter( 'final_output', array( $this, 'svgFinalOutput' ) );
+        add_action( 'shutdown', [ $this, 'svgThumbsFilter' ], 0 );
+        add_filter( 'final_output', [ $this, 'svgFinalOutput' ] );
 
     }
 
@@ -198,7 +198,7 @@ abstract class BambeeAdmin extends BambeeBase {
 
         return array_merge(
             array_slice( $columns, 0, $offset ),
-            array( 'featured_image' => __( 'Beitragsbild', TextDomain ) ),
+            [ 'featured_image' => __( 'Beitragsbild', TextDomain ) ],
             array_slice( $columns, $offset, null )
         );
 

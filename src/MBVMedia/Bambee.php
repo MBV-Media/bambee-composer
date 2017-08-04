@@ -92,29 +92,29 @@ abstract class Bambee extends BambeeBase {
 
         $this->loadThemeTextdomain();
 
-        $this->postThumbnail = array(
+        $this->postThumbnail = [
             'width' => 624,
             'height' => 999,
             'crop' => false,
-        );
+        ];
 
-        $this->customLogo = array(
+        $this->customLogo = [
             'width' => 300,
             'height' => 200,
             'flex-width' => true,
             'flex-height' => true,
-        );
+        ];
 
-        $this->customHeader = array(
+        $this->customHeader = [
             'width' => 1200,
             'height' => 450,
             'flex-width' => true,
             'flex-height' => true,
-        );
+        ];
 
-        $this->menuList = array();
+        $this->menuList = [];
 
-        $this->postTypeList = array();
+        $this->postTypeList = [];
 
         $this->addPostTypeGallery();
 
@@ -130,8 +130,8 @@ abstract class Bambee extends BambeeBase {
      */
     public function addActions() {
 
-        add_action( 'init', array( $this, 'actionInit' ) );
-        add_action( 'after_setup_theme', array( $this, 'actionAfterSetupTheme' ) );
+        add_action( 'init', [ $this, 'actionInit' ] );
+        add_action( 'after_setup_theme', [ $this, 'actionAfterSetupTheme' ] );
 
     }
 
@@ -173,12 +173,12 @@ abstract class Bambee extends BambeeBase {
     private function addPostTypeGallery() {
 
         $componentUrl = $this->getComponentUrl();
-        $this->addPostType( 'gallery', array(
-            'labels' => array(
+        $this->addPostType( 'gallery', [
+            'labels' => [
                 'name' => __( 'Galleries', TextDomain ),
                 'singular_name' => __( 'Gallery', TextDomain ),
-            ),
-            'taxonomies' => array( 'category' ),
+            ],
+            'taxonomies' => [ 'category' ],
             'menu_icon' => $componentUrl . '/assets/img/icons/gallery.png',
             'public' => true,
             'has_archive' => true,
@@ -186,7 +186,7 @@ abstract class Bambee extends BambeeBase {
             'show_ui' => true,
             'capability_type' => 'post',
             'hierarchical' => true,
-            'supports' => array(
+            'supports' => [
                 'title',
                 'author',
                 'editor',
@@ -194,11 +194,11 @@ abstract class Bambee extends BambeeBase {
                 'trackbacks',
                 'custom-fields',
                 'revisions',
-            ),
+            ],
             'exclude_from_search' => true,
             'publicly_queryable' => true,
             'excerpt' => true,
-        ) );
+        ] );
 
     }
 
@@ -298,34 +298,34 @@ abstract class Bambee extends BambeeBase {
 
         $settingDynamicFrontpageShow = new Setting(
             'bambee_dynamic_front_page_show',
-            array(
+            [
                 'default' => true,
-            ),
-            array(
+            ],
+            [
                 'label' => __( 'Show frontpage-overlay', TextDomain ),
                 'type' => 'checkbox',
-            )
+            ]
         );
 
         $settingDynamicFrontpageInterval = new Setting(
             'bambee_dynamic_front_page_interval',
-            array(
+            [
                 'default' => '',
-            ),
-            array(
+            ],
+            [
                 'label' => __( 'Anzeige Intervall', TextDomain ),
                 'description' => __( 'Zeit nach der Das Overlay erneut angezeigt wird. (Standard: 24:00:00)', TextDomain ),
                 'type' => 'text',
-                'input_attrs' => array(
+                'input_attrs' => [
                     'placeholder' => 'hh:mm:ss',
-                ),
-            )
+                ],
+            ]
         );
 
-        $sectionDynamicFrontpage = new Section( 'bambee_dynamic_front_page', array(
+        $sectionDynamicFrontpage = new Section( 'bambee_dynamic_front_page', [
             'title' => __( 'Dynamic frontpage', TextDomain ),
             'priority' => 120,
-        ) );
+        ] );
         $sectionDynamicFrontpage->addSetting( $settingDynamicFrontpageShow );
         $sectionDynamicFrontpage->addSetting( $settingDynamicFrontpageInterval );
 
@@ -344,19 +344,19 @@ abstract class Bambee extends BambeeBase {
 
         $settingCommentTextboxPosition = new Setting(
             'bambee_comment_textbox_position',
-            array(
+            [
                 'default' => false,
-            ),
-            array(
+            ],
+            [
                 'label' => __( 'Move form textfield to the bottom', TextDomain ),
                 'type' => 'checkbox',
-            )
+            ]
         );
 
-        $sectionComment = new Section( 'bambee_comment', array(
+        $sectionComment = new Section( 'bambee_comment', [
             'title' => __( 'Comments' ),
             'priority' => 80,
-        ) );
+        ] );
         $sectionComment->addSetting( $settingCommentTextboxPosition );
 
         $this->themeCustomizer->addSection( $sectionComment );
@@ -376,41 +376,41 @@ abstract class Bambee extends BambeeBase {
 
         $settingCoreDataAddress = new Setting(
             'bambee_core_data_address',
-            array(
+            [
                 'type' => 'option',
                 'default' => '',
-            ),
-            array(
+            ],
+            [
                 'label' => __( 'Address', TextDomain ),
                 'type' => 'textarea',
-            )
+            ]
         );
 
         $settingCoreDataEmail = new Setting(
             'bambee_core_data_email',
-            array(
+            [
                 'type' => 'option',
                 'default' => '',
-            ),
-            array(
+            ],
+            [
                 'label' => __( 'E-Mail address', TextDomain ),
                 'type' => 'text',
-            )
+            ]
         );
 
         $settingCoreDataPhone = new Setting(
             'bambee_core_data_phone',
-            array(
+            [
                 'type' => 'option',
                 'default' => '',
-            ),
-            array(
+            ],
+            [
                 'label' => __( 'Phone', TextDomain ),
                 'type' => 'text',
-            )
+            ]
         );
 
-        $sectionCoreData = new Section( 'bambee_core_data_section', array(
+        $sectionCoreData = new Section( 'bambee_core_data_section', [
             'title' => __( 'Core data', TextDomain ),
             'priority' => 700,
             'description' => __(
@@ -418,7 +418,7 @@ abstract class Bambee extends BambeeBase {
                 ' shortcode to display the core data field inside a post.',
                 TextDomain
             ),
-        ) );
+        ] );
         $sectionCoreData->addSetting( $settingCoreDataAddress );
         $sectionCoreData->addSetting( $settingCoreDataEmail );
         $sectionCoreData->addSetting( $settingCoreDataPhone );
@@ -443,71 +443,71 @@ abstract class Bambee extends BambeeBase {
 
         $settingGoogleMapsLatitude = new Setting(
             'bambee_google_maps_latitude',
-            array(
+            [
                 'type' => 'option',
                 'default' => '',
-            ),
-            array(
+            ],
+            [
                 'label' => __( 'Latitude', TextDomain ),
                 'type' => 'text',
-            )
+            ]
         );
 
         $settingGoogleMapsLongitude = new Setting(
             'bambee_google_maps_longitude',
-            array(
+            [
                 'type' => 'option',
                 'default' => '',
-            ),
-            array(
+            ],
+            [
                 'label' => __( 'Longitude', TextDomain ),
                 'type' => 'text',
-            )
+            ]
         );
 
         $settingGoogleMapsZoom = new Setting(
             'bambee_google_maps_zoom',
-            array(
+            [
                 'type' => 'option',
                 'default' => 15,
-            ),
-            array(
+            ],
+            [
                 'label' => __( 'Zoom', TextDomain ),
                 'type' => 'number',
-                'input_attrs' => array(
+                'input_attrs' => [
                     'min' => 0,
-                ),
-            )
+                ],
+            ]
         );
 
         $settingGoogleMapsApiKey = new Setting(
             'bambee_google_maps_api_key',
-            array(
+            [
                 'type' => 'option',
                 'default' => '',
-            ),
-            array(
+            ],
+            [
                 'label' => __( 'API-Key', TextDomain ),
                 'type' => 'text',
-            )
+            ]
         );
 
         $settingGoogleMapsStyles = new Setting(
             'bambee_google_maps_styles',
-            array(
+            [
                 'type' => 'option',
                 'default' => '',
-            ),
-            array(
+            ],
+            [
                 'label' => __( 'Styles', TextDomain ),
                 'description' => sprintf( __( 'Das erstellte %sMap-Style%s JSON in das Textfeld kopieren.', TextDomain ), '<a href="https://mapstyle.withgoogle.com/" target="_blank">', '</a>' ),
                 'type' => 'textarea',
-            )
+            ]
         );
 
-        $sectionGoogleMaps = new Section( 'bambee_google_maps_section', array(
+        $sectionGoogleMaps = new Section( 'bambee_google_maps_section', [
             'title' => __( 'Maps', TextDomain ),
-        ) );
+        ] );
         $sectionGoogleMaps->addSetting( $settingGoogleMapsLatitude );
         $sectionGoogleMaps->addSetting( $settingGoogleMapsLongitude );
         $sectionGoogleMaps->addSetting( $settingGoogleMapsZoom );
@@ -516,29 +516,29 @@ abstract class Bambee extends BambeeBase {
 
         $settingGoogleAnalyticsTracktingId = new Setting(
             'bambee_google_analytics_tracking_id',
-            array(
+            [
                 'type' => 'option',
-            ),
-            array(
+            ],
+            [
                 'label' => __( 'Trackting-ID', TextDomain ),
                 'type' => 'text',
-                'input_attrs' => array(
+                'input_attrs' => [
                     'placeholder' => 'UA-XXXXX-X',
-                ),
-            )
+                ],
+            ]
         );
 
-        $sectionGoogleAnalytics = new Section( 'bambee_google_analytics_section', array(
+        $sectionGoogleAnalytics = new Section( 'bambee_google_analytics_section', [
             'title' => __( 'Analytics', TextDomain ),
             'description' => __( 'Nach Eingabe der Tracking-ID wird das Google Analytics Script automatisch eingebunden.', TextDomain ),
-        ) );
+        ] );
         $sectionGoogleAnalytics->addSetting( $settingGoogleAnalyticsTracktingId );
 
-        $panelGoogle = new Panel( 'bambee_google_panel', array(
+        $panelGoogle = new Panel( 'bambee_google_panel', [
             'priority' => 800,
             'title' => __( 'Google', TextDomain ),
             'description' => '',
-        ) );
+        ] );
         $panelGoogle->addSection( $sectionGoogleMaps );
         $panelGoogle->addSection( $sectionGoogleAnalytics );
 

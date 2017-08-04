@@ -10,6 +10,6 @@ interface Handleable {
      * @param string $content
      * @return mixed
      */
-    public function handleShortcode( array $atts = array(), $content = '' );
+    public function handleShortcode( array $atts = [], $content = '' );
 
 }

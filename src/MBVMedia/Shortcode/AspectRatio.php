@@ -30,7 +30,7 @@ class AspectRatio extends BambeeShortcode {
         $this->addAttribute( 'ratio', '16:9' );
         $this->addAttribute( 'class' );
 
-        $this->predefinedRatioList = array(
+        $this->predefinedRatioList = [
             'square' => 'square',
             '1:1' => 'square',
             '2:1' => '2to1',
@@ -39,7 +39,7 @@ class AspectRatio extends BambeeShortcode {
             '1:2' => '1to2',
             '3:4' => '3to4',
             '9:16' => '9to16',
-        );
+        ];
 
         $this->ratio = '';
 
@@ -48,7 +48,7 @@ class AspectRatio extends BambeeShortcode {
     /**
      * @inheritdoc
      */
-    public function handleShortcode( array $atts = array(), $content = '' ) {
+    public function handleShortcode( array $atts = [], $content = '' ) {
 
         $this->ratio = $atts['ratio'];
 

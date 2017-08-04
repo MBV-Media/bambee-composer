@@ -36,7 +36,7 @@ class SessionControlledTemplate extends ControlledTemplate {
      */
     public function addActions() {
 
-        add_action( 'init', array( 'MBVMedia\Lib\Session', 'start' ) );
+        add_action( 'init', [ 'MBVMedia\Lib\Session', 'start' ] );
         parent::addActions();
 
     }

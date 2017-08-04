@@ -23,7 +23,7 @@ class Section extends ThemeCustommizerElement {
     public function __construct( $id, array $args ) {
 
         parent::__construct( $id, $args );
-        $this->settingList = array();
+        $this->settingList = [];
 
     }
 

@@ -32,7 +32,7 @@ class Row extends BambeeShortcode {
     /**
      * @inheritdoc
      */
-    public function handleShortcode( array $atts = array(), $content = '' ) {
+    public function handleShortcode( array $atts = [], $content = '' ) {
 
         $class = isset( $atts['class'] ) ? $atts['class'] : '';
         $content = sprintf(
