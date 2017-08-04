@@ -14,10 +14,12 @@ class Session {
      * @param int $lifetime
      */
     public static function start( $lifetime = 0 ) {
-        if( session_status() == PHP_SESSION_NONE ) {
+
+        if ( session_status() == PHP_SESSION_NONE ) {
             session_set_cookie_params( $lifetime );
             session_start();
         }
+
     }
 
     /**
@@ -25,11 +27,13 @@ class Session {
      * @return mixed|null
      */
     public static function getVar( $var ) {
-        if( isset( $_SESSION[$var] ) ) {
+
+        if ( isset( $_SESSION[$var] ) ) {
             return $_SESSION[$var];
         }
 
         return null;
+
     }
 
     /**
@@ -37,6 +41,9 @@ class Session {
      * @param $value
      */
     public static function setVar( $var, $value ) {
+
         $_SESSION[$var] = $value;
+
     }
+
 }

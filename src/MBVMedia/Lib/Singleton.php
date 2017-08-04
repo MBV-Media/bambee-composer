@@ -9,5 +9,10 @@ namespace MBVMedia\Lib;
 
 
 interface Singleton {
+
+    /**
+     * @return static
+     */
     public static function self();
+
 }

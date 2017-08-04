@@ -4,6 +4,7 @@
  * @author R4c00n <marcel.kempf93@gmail.com>
  * @licence MIT
  */
+
 namespace MBVMedia\Lib;
 
 
@@ -42,16 +43,20 @@ class ThemeView {
      * @return void
      */
     public function __construct( $file, $args = array() ) {
+
         $this->file = $file;
         $this->args = $args;
+
     }
 
     /**
      * @param $arg
      * @param $value
      */
-    public function setArg( $arg, $value) {
-        $this->args[ $arg ] = $value;
+    public function setArg( $arg, $value ) {
+
+        $this->args[$arg] = $value;
+
     }
 
     /**
@@ -61,6 +66,7 @@ class ThemeView {
      * @return string
      */
     public function render() {
+
         extract( $this->args );
         ob_start();
         if ( locate_template( $this->file ) ) {
@@ -69,12 +75,16 @@ class ThemeView {
         $templatePart = ob_get_clean();
 
         return $templatePart;
+
     }
 
     /**
      *
      */
     public function printContent() {
+
         echo $this->render();
+
     }
+
 }

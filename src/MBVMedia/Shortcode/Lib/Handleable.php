@@ -4,5 +4,12 @@ namespace MBVMedia\Shortcode\Lib;
 
 
 interface Handleable {
-    public function handleShortcode( array $atts = array(), $content = '');
+
+    /**
+     * @param array $atts
+     * @param string $content
+     * @return mixed
+     */
+    public function handleShortcode( array $atts = array(), $content = '' );
+
 }

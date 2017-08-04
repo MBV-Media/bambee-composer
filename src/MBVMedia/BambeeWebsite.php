@@ -4,6 +4,7 @@
  * @author R4c00n <marcel.kempf93@gmail.com>
  * @licence MIT
  */
+
 namespace MBVMedia;
 
 
@@ -55,6 +56,10 @@ abstract class BambeeWebsite extends BambeeBase {
      */
     private $commentPaginationPageTemplate;
 
+    /**
+     * @since 1.5.0
+     * @var BambeeWebsite
+     */
     private static $instance = null;
 
     /**
@@ -71,10 +76,11 @@ abstract class BambeeWebsite extends BambeeBase {
         $this->commentPaginationPrevText = __( '&laquo; Prev', TextDomain );
         $this->commentPaginationPageTemplate = '<li>%s</li>';
 
-        # Grunt livereload (development only)
+        # Gulp livereload (development only)
         if ( WP_DEBUG ) {
             $this->addScript( 'livereload', '//localhost:35729/livereload.js' );
         }
+
     }
 
     /**
@@ -83,7 +89,9 @@ abstract class BambeeWebsite extends BambeeBase {
      * @return string
      */
     public function getCommentPaginationNextText() {
+
         return $this->commentPaginationNextText;
+
     }
 
     /**
@@ -92,7 +100,9 @@ abstract class BambeeWebsite extends BambeeBase {
      * @param string $commentPaginationNextText
      */
     public function setCommentPaginationNextText( $commentPaginationNextText ) {
+
         $this->commentPaginationNextText = $commentPaginationNextText;
+
     }
 
     /**
@@ -101,7 +111,9 @@ abstract class BambeeWebsite extends BambeeBase {
      * @return string
      */
     public function getCommentPaginationPrevText() {
+
         return $this->commentPaginationPrevText;
+
     }
 
     /**
@@ -110,7 +122,9 @@ abstract class BambeeWebsite extends BambeeBase {
      * @param string $commentPaginationPrevText
      */
     public function setCommentPaginationPrevText( $commentPaginationPrevText ) {
+
         $this->commentPaginationPrevText = $commentPaginationPrevText;
+
     }
 
     /**
@@ -119,7 +133,9 @@ abstract class BambeeWebsite extends BambeeBase {
      * @return string
      */
     public function getCommentPaginationPageTemplate() {
+
         return $this->commentPaginationPageTemplate;
+
     }
 
     /**
@@ -128,13 +144,16 @@ abstract class BambeeWebsite extends BambeeBase {
      * @param string $commentPaginationPageTemplate
      */
     public function setCommentPaginationPageTemplate( $commentPaginationPageTemplate ) {
+
         $this->commentPaginationPageTemplate = $commentPaginationPageTemplate;
+
     }
 
     /**
      *
      */
     public function addActions() {
+
         add_action( 'init', array( $this, 'disableEmojis' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueueScripts' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueueLocalizeScripts' ) );
@@ -142,22 +161,26 @@ abstract class BambeeWebsite extends BambeeBase {
         add_action( 'wp_footer', array( $this, 'printGoogleAnalyticsCode' ) );
         add_action( 'wpcf7_before_send_mail', array( $this, 'addCF7DefaultRecipient' ) );
 
-        if( get_theme_mod( 'bambee_comment_textbox_position' ) ) {
+        if ( get_theme_mod( 'bambee_comment_textbox_position' ) ) {
             add_filter( 'comment_form_fields', array( $this, 'moveCommentFieldToBottom' ) );
         }
+
     }
 
     /**
      *
      */
     public function addFilters() {
+
         add_filter( 'show_admin_bar', '__return_false' );
+
     }
 
     /**
      * Enqueue additional scripts
      */
     public function addScripts() {
+
         $this->addScript( 'comment-reply', false );
         $this->addScript(
             'vendor',
@@ -173,13 +196,16 @@ abstract class BambeeWebsite extends BambeeBase {
             false,
             true
         );
+
     }
 
     /**
      * Enqueue additional styles
      */
     public function addStyles() {
+
         $this->addStyle( 'main', ThemeUrl . '/css/main.min.css' );
+
     }
 
     /**
@@ -192,13 +218,15 @@ abstract class BambeeWebsite extends BambeeBase {
      * @param bool $inFooter
      */
     public function addScript( $handle, $src, $deps = array(), $ver = false, $inFooter = false ) {
+
         $this->scripts[] = array(
-                'handle' => $handle,
-                'src' => $src,
-                'deps' => $deps,
-                'ver' => $ver,
-                'in_footer' => $inFooter
+            'handle' => $handle,
+            'src' => $src,
+            'deps' => $deps,
+            'ver' => $ver,
+            'in_footer' => $inFooter,
         );
+
     }
 
     /**
@@ -209,11 +237,13 @@ abstract class BambeeWebsite extends BambeeBase {
      * @param array $data
      */
     public function addLocalizedScript( $handle, $name, array $data ) {
+
         $this->localizedScripts[] = array(
-                'handle' => $handle,
-                'name' => $name,
-                'data' => $data
+            'handle' => $handle,
+            'name' => $name,
+            'data' => $data,
         );
+
     }
 
     /**
@@ -226,24 +256,28 @@ abstract class BambeeWebsite extends BambeeBase {
      * @param string $media
      */
     public function addStyle( $handle, $src, $deps = array(), $ver = false, $media = 'all' ) {
+
         $this->styles[] = array(
-                'handle' => $handle,
-                'src' => $src,
-                'deps' => $deps,
-                'ver' => $ver,
-                'media' => $media
+            'handle' => $handle,
+            'src' => $src,
+            'deps' => $deps,
+            'ver' => $ver,
+            'media' => $media,
         );
+
     }
 
     /**
      *
      */
     public function disableEmojis() {
+
         remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
         remove_action( 'wp_print_styles', 'print_emoji_styles' );
         remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
         remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
         remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
+
     }
 
     /**
@@ -256,7 +290,9 @@ abstract class BambeeWebsite extends BambeeBase {
      * @return void
      */
     public function commentList( $comment, $args, $depth ) {
+
         echo $this->getCommentList( $comment, $args, $depth );
+
     }
 
     /**
@@ -267,6 +303,7 @@ abstract class BambeeWebsite extends BambeeBase {
      * @return string
      */
     public function getCommentList( $comment, $args, $depth ) {
+
         $GLOBALS['comment'] = $comment;
 
         $tag = ( 'div' == $args['style'] ) ? 'div' : 'li';
@@ -280,6 +317,7 @@ abstract class BambeeWebsite extends BambeeBase {
             'addBelow' => $addBelow,
         ) );
         return $commentListTemplate->render();
+
     }
 
     /**
@@ -289,7 +327,9 @@ abstract class BambeeWebsite extends BambeeBase {
      * @return void
      */
     public function commentPagination() {
+
         echo $this->getCommentPagination();
+
     }
 
     /**
@@ -297,6 +337,7 @@ abstract class BambeeWebsite extends BambeeBase {
      * @return string
      */
     public function getCommentPagination() {
+
         $pagination = paginate_comments_links( array(
             'echo' => false,
             'mid_size' => 2,
@@ -337,6 +378,7 @@ abstract class BambeeWebsite extends BambeeBase {
             'paginationNext' => $paginationNext,
         ) );
         return $template->render();
+
     }
 
 
@@ -346,9 +388,10 @@ abstract class BambeeWebsite extends BambeeBase {
      * @param $cf7
      */
     public function addCF7DefaultRecipient( $cf7 ) {
+
         $mail = $cf7->prop( 'mail' );
 
-        if( !empty( $mail['recipient'] ) ) {
+        if ( !empty( $mail['recipient'] ) ) {
             return;
         }
 
@@ -356,6 +399,7 @@ abstract class BambeeWebsite extends BambeeBase {
         $cf7->set_properties( array(
             'mail' => $mail,
         ) );
+
     }
 
     /**
@@ -363,10 +407,12 @@ abstract class BambeeWebsite extends BambeeBase {
      * @return mixed
      */
     public function moveCommentFieldToBottom( $fields ) {
+
         $commentField = $fields['comment'];
         unset( $fields['comment'] );
         $fields['comment'] = $commentField;
         return $fields;
+
     }
 
     /**
@@ -375,6 +421,7 @@ abstract class BambeeWebsite extends BambeeBase {
      * @since 1.4.2
      */
     public function enqueueScripts() {
+
         if ( !empty( $this->scripts ) ) {
             foreach ( $this->scripts as $script ) {
                 wp_enqueue_script(
@@ -386,6 +433,7 @@ abstract class BambeeWebsite extends BambeeBase {
                 );
             }
         }
+
     }
 
     /**
@@ -394,6 +442,7 @@ abstract class BambeeWebsite extends BambeeBase {
      * @since 1.4.2
      */
     public function enqueueLocalizeScripts() {
+
         if ( !empty( $this->localizedScripts ) ) {
             foreach ( $this->localizedScripts as $localized_script ) {
                 wp_localize_script(
@@ -403,6 +452,7 @@ abstract class BambeeWebsite extends BambeeBase {
                 );
             }
         }
+
     }
 
     /**
@@ -411,6 +461,7 @@ abstract class BambeeWebsite extends BambeeBase {
      * @since 1.4.2
      */
     public function enqueueStyles() {
+
         if ( !empty( $this->styles ) ) {
             foreach ( $this->styles as $style ) {
                 wp_enqueue_style(
@@ -422,6 +473,7 @@ abstract class BambeeWebsite extends BambeeBase {
                 );
             }
         }
+
     }
 
     /**
@@ -431,41 +483,44 @@ abstract class BambeeWebsite extends BambeeBase {
      */
     public function printGoogleAnalyticsCode() {
 
-        if( WP_DEBUG ) {
+        if ( WP_DEBUG ) {
             return;
         }
 
         $googleTrackingId = get_option( 'bambee_google_analytics_tracking_id' );
-        if ( ! empty( $googleTrackingId )) {
+        if ( !empty( $googleTrackingId ) ) {
             ?>
             <script>
-                (function (b, o, i, l, e, r) {
-                    b.GoogleAnalyticsObject = l;
-                    b[l] || (b[l] =
-                        function () {
-                            (b[l].q = b[l].q || []).push(arguments)
-                        });
-                    b[l].l = +new Date;
-                    e = o.createElement(i);
-                    r = o.getElementsByTagName(i)[0];
-                    e.src = 'https://www.google-analytics.com/analytics.js';
-                    r.parentNode.insertBefore(e, r)
-                }(window, document, 'script', 'ga'));
-                ga('create', '<?php echo $googleTrackingId; ?>', 'auto');
-                ga('send', 'pageview');
+              (function (b, o, i, l, e, r) {
+                b.GoogleAnalyticsObject = l;
+                b[l] || (b[l] =
+                  function () {
+                    (b[l].q = b[l].q || []).push(arguments)
+                  });
+                b[l].l = +new Date;
+                e = o.createElement(i);
+                r = o.getElementsByTagName(i)[0];
+                e.src = 'https://www.google-analytics.com/analytics.js';
+                r.parentNode.insertBefore(e, r)
+              }(window, document, 'script', 'ga'));
+              ga('create', '<?php echo $googleTrackingId; ?>', 'auto');
+              ga('send', 'pageview');
             </script>
             <?php
         }
+
     }
 
     /**
      * @param ThemeView $partial
      */
     public function mainLoop( ThemeView $partial ) {
+
         while ( have_posts() ) {
             the_post();
             echo $partial->render();
         }
+
     }
 
     /**
@@ -477,32 +532,35 @@ abstract class BambeeWebsite extends BambeeBase {
 
         $theQuery = new \WP_Query( $queryArgs );
 
-        if( $theQuery->have_posts() ) {
+        if ( $theQuery->have_posts() ) {
 
             $partial->setArg( 'theQuery', $theQuery );
 
-            while( $theQuery->have_posts() ) {
+            while ( $theQuery->have_posts() ) {
 
                 $theQuery->the_post();
                 echo $partial->render();
             }
-        }
-        elseif( null !== $noPosts ) {
+        } elseif ( null !== $noPosts ) {
             $noPosts->setArg( 'theQuery', $theQuery );
             echo $noPosts->render();
         }
 
         wp_reset_postdata();
+
     }
 
     /**
      * @return static
      */
     public static function self() {
-        if( null === self::$instance ) {
+
+        if ( null === self::$instance ) {
             self::$instance = new static();
         }
 
         return self::$instance;
+
     }
+
 }

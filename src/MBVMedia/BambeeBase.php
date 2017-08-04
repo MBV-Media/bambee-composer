@@ -25,4 +25,5 @@ abstract class BambeeBase implements Singleton {
      * @return void
      */
     abstract public function addFilters();
+
 }

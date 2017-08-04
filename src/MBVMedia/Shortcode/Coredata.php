@@ -21,7 +21,11 @@ use MBVMedia\Shortcode\Lib\BambeeShortcode;
  */
 class CoreData extends BambeeShortcode {
 
+    /**
+     * @inheritdoc
+     */
     public function handleShortcode( array $atts = array(), $content = '' ) {
+
         return nl2br( get_option( 'bambee_core_data_' . $content, '' ) );
     }
 }

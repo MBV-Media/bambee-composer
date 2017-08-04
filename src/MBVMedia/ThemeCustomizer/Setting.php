@@ -22,23 +22,30 @@ class Setting extends ThemeCustommizerElement {
      * @param array $controlArgs
      */
     public function __construct( $id, array $settingArgs, $controlArgs = array() ) {
+
         parent::__construct( $id, $settingArgs );
         $this->control = new Control( $id . '_control', $controlArgs );
         $this->getControl()->setArg( 'settings', $this->getId() );
+
     }
 
     /**
      * @return Control
      */
     public function getControl() {
+
         return $this->control;
+
     }
 
     /**
-     * @param \WP_Customize_Manager $wpCustomize
+     * @inheritdoc
      */
     public function register( \WP_Customize_Manager $wpCustomize ) {
+
         $wpCustomize->add_setting( $this->getId(), $this->getArgs() );
         $this->control->register( $wpCustomize );
+
     }
+
 }

@@ -5,16 +5,17 @@
  * @author R4c00n <marcel.kempf93@gmail.com>
  * @licence MIT
  */
+
 namespace MBVMedia;
 
 
-if( !defined( 'TextDomain' ) ) {
+if ( !defined( 'TextDomain' ) ) {
     define( 'TextDomain', 'bambee' );
 }
-if( !defined( 'ThemeDir' ) ) {
+if ( !defined( 'ThemeDir' ) ) {
     define( 'ThemeDir', get_stylesheet_directory() );
 }
-if( !defined( 'ThemeUrl' ) ) {
+if ( !defined( 'ThemeUrl' ) ) {
     define( 'ThemeUrl', get_stylesheet_directory_uri() );
 }
 
@@ -223,7 +224,7 @@ abstract class Bambee extends BambeeBase {
      */
     public function initDynamicFrontpage() {
 
-        if( !get_theme_mod( 'bambee_dynamic_front_page_show', true ) ) {
+        if ( !get_theme_mod( 'bambee_dynamic_front_page_show', true ) ) {
             return;
         }
 
@@ -317,7 +318,7 @@ abstract class Bambee extends BambeeBase {
                 'type' => 'text',
                 'input_attrs' => array(
                     'placeholder' => 'hh:mm:ss',
-                )
+                ),
             )
         );
 
@@ -416,7 +417,7 @@ abstract class Bambee extends BambeeBase {
                 'You can use the [coredata]key[coredata]' .
                 ' shortcode to display the core data field inside a post.',
                 TextDomain
-            )
+            ),
         ) );
         $sectionCoreData->addSetting( $settingCoreDataAddress );
         $sectionCoreData->addSetting( $settingCoreDataEmail );
@@ -534,9 +535,9 @@ abstract class Bambee extends BambeeBase {
         $sectionGoogleAnalytics->addSetting( $settingGoogleAnalyticsTracktingId );
 
         $panelGoogle = new Panel( 'bambee_google_panel', array(
-            'priority'       => 800,
-            'title'          => __( 'Google', TextDomain ),
-            'description'    => '',
+            'priority' => 800,
+            'title' => __( 'Google', TextDomain ),
+            'description' => '',
         ) );
         $panelGoogle->addSection( $sectionGoogleMaps );
         $panelGoogle->addSection( $sectionGoogleAnalytics );
@@ -572,7 +573,9 @@ abstract class Bambee extends BambeeBase {
      * @return array
      */
     public function getFeaturedImageDefaults() {
+
         return $this->postThumbnail;
+
     }
 
     /**
@@ -594,7 +597,9 @@ abstract class Bambee extends BambeeBase {
      * @param int $postThumbnailHeight
      */
     public function setPostThumbnailHeight( $postThumbnailHeight ) {
+
         $this->postThumbnail['height'] = $postThumbnailHeight;
+
     }
 
     /**
@@ -645,7 +650,7 @@ abstract class Bambee extends BambeeBase {
      */
     public function addPostType( $postType, array $args ) {
 
-        $this->postTypeList[ $postType ] = $args;
+        $this->postTypeList[$postType] = $args;
 
     }
 
@@ -657,7 +662,7 @@ abstract class Bambee extends BambeeBase {
      */
     public function registerPostTypes() {
 
-        foreach( $this->postTypeList as $postType => $args ) {
+        foreach ( $this->postTypeList as $postType => $args ) {
             register_post_type( $postType, $args );
         }
 
@@ -752,11 +757,12 @@ abstract class Bambee extends BambeeBase {
      */
     public static function self() {
 
-        if( null === self::$instance ) {
+        if ( null === self::$instance ) {
             self::$instance = new static();
         }
 
         return self::$instance;
 
     }
+
 }

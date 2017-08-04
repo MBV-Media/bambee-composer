@@ -12,7 +12,14 @@ use MBVMedia\Lib\ThemeView;
 
 abstract class MetaKey {
 
+    /**
+     *
+     */
     const TYPE_DEFAULT = FILTER_DEFAULT;
+
+    /**
+     *
+     */
     const TYPE_ARRAY = FILTER_REQUIRE_ARRAY;
 
     /**
@@ -41,46 +48,58 @@ abstract class MetaKey {
      * @param $label
      * @param $type
      */
-    public function __construct( $key, $label, $type) {
+    public function __construct( $key, $label, $type ) {
+
         $this->key = $key;
         $this->type = $type;
         $this->label = $label;
+
     }
 
     /**
      * @return mixed
      */
     public function getKey() {
+
         return $this->key;
+
     }
 
     /**
      * @return mixed
      */
     public function getLabel() {
+
         return $this->label;
+
     }
 
     /**
      * @return mixed
      */
     public function getType() {
+
         return $this->type;
+
     }
 
     /**
      * @return ThemeView
      */
     public function getTemplate() {
+
         return $this->template;
+
     }
 
     /**
      * @param ThemeView $template
      */
     public function setTemplate( ThemeView $template ) {
+
         $template->setArg( 'metaKey', $this );
         $this->template = $template;
+
     }
 
     /**
@@ -89,11 +108,12 @@ abstract class MetaKey {
      */
     public function getValue( $postId = null ) {
 
-        if (  null === $postId ) {
+        if ( null === $postId ) {
             $postId = get_the_ID();
         }
 
         return get_post_meta( $postId, $this->key, true );
+
     }
 
     /**
@@ -101,12 +121,13 @@ abstract class MetaKey {
      */
     public function save( $postId ) {
 
-        if( $this->getType() === FILTER_DEFAULT ) {
+        if ( $this->getType() === FILTER_DEFAULT ) {
             $value = filter_input( INPUT_POST, $this->getKey() );
-        }
-        else {
-            $value =filter_input( INPUT_POST, $this->getKey(), FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+        } else {
+            $value = filter_input( INPUT_POST, $this->getKey(), FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
         }
 
-        update_post_meta( $postId, $this->getKey(), $value );}
+        update_post_meta( $postId, $this->getKey(), $value );
+    }
+
 }

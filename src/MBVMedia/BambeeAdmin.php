@@ -4,7 +4,9 @@
  * @author R4c00n <marcel.kempf93@gmail.com>
  * @licence MIT
  */
+
 namespace MBVMedia;
+
 use MBVMedia\Lib\ThemeView;
 
 
@@ -17,26 +19,40 @@ use MBVMedia\Lib\ThemeView;
  */
 abstract class BambeeAdmin extends BambeeBase {
 
+    /**
+     * BambeeAdmin constructor.
+     */
+    protected function __construct() {
+    }
+
+    /**
+     * @since 1.5.0
+     * @var BambeeAdmin
+     */
     private static $instance = null;
 
     /**
      *
      */
     public function addActions() {
+
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueueStyles' ) );
         add_action( 'admin_init', array( $this, 'registerSettings' ) );
         add_action( 'admin_init', array( $this, 'displaySvgThumbs' ) );
-        add_action( 'manage_posts_custom_column' , array( $this, 'customColumnsData' ), 10, 2 );
-        add_action( 'manage_pages_custom_column' , array( $this, 'customColumnsData' ), 10, 2 );
+        add_action( 'manage_posts_custom_column', array( $this, 'customColumnsData' ), 10, 2 );
+        add_action( 'manage_pages_custom_column', array( $this, 'customColumnsData' ), 10, 2 );
+
     }
 
     /**
      *
      */
     public function addFilters() {
+
         add_filter( 'upload_mimes', array( $this, 'addSvgMediaSupport' ) );
-        add_filter('manage_posts_columns' , array( $this, 'customColumns' ) );
-        add_filter('manage_pages_columns' , array( $this, 'customColumns' ) );
+        add_filter( 'manage_posts_columns', array( $this, 'customColumns' ) );
+        add_filter( 'manage_pages_columns', array( $this, 'customColumns' ) );
+
     }
 
 
@@ -51,7 +67,9 @@ abstract class BambeeAdmin extends BambeeBase {
      * @return void
      */
     public function enqueueStyles() {
+
         wp_enqueue_style( 'custom_css', ThemeUrl . '/css/admin.min.css' );
+
     }
 
     /**
@@ -88,7 +106,7 @@ abstract class BambeeAdmin extends BambeeBase {
             'width' => absint( $input['width'] ),
             'height' => absint( $input['height'] ),
             'crop' => boolval( $input['crop'] ),
-        ] ;
+        ];
         return $valid;
 
     }
@@ -103,9 +121,11 @@ abstract class BambeeAdmin extends BambeeBase {
      * @return mixed
      */
     public function addSvgMediaSupport( $mimes ) {
+
         $mimes['svg'] = 'image/svg+xml';
         $mimes['svgz'] = 'image/svg+xml';
         return $mimes;
+
     }
 
     /**
@@ -117,6 +137,7 @@ abstract class BambeeAdmin extends BambeeBase {
 
         add_action( 'shutdown', array( $this, 'svgThumbsFilter' ), 0 );
         add_filter( 'final_output', array( $this, 'svgFinalOutput' ) );
+
     }
 
     /**
@@ -134,6 +155,7 @@ abstract class BambeeAdmin extends BambeeBase {
         }
 
         echo apply_filters( 'final_output', $final );
+
     }
 
     /**
@@ -163,6 +185,7 @@ abstract class BambeeAdmin extends BambeeBase {
         );
 
         return $content;
+
     }
 
     /**
@@ -173,11 +196,12 @@ abstract class BambeeAdmin extends BambeeBase {
 
         $offset = array_search( 'date', array_keys( $columns ) );
 
-        return array_merge (
+        return array_merge(
             array_slice( $columns, 0, $offset ),
             array( 'featured_image' => __( 'Beitragsbild', TextDomain ) ),
-            array_slice( $columns, $offset, null)
+            array_slice( $columns, $offset, null )
         );
+
     }
 
     /**
@@ -185,21 +209,26 @@ abstract class BambeeAdmin extends BambeeBase {
      * @param $postId
      */
     public function customColumnsData( $column, $postId ) {
+
         switch ( $column ) {
             case 'featured_image':
                 echo the_post_thumbnail( 'thumbnail' );
                 break;
         }
+
     }
 
     /**
      * @return static
      */
     public static function self() {
-        if( null === self::$instance ) {
+
+        if ( null === self::$instance ) {
             self::$instance = new static();
         }
 
         return self::$instance;
+
     }
+
 }

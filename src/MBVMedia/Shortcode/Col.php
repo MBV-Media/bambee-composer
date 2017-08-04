@@ -20,14 +20,23 @@ use MBVMedia\Shortcode\Lib\BambeeShortcode;
  */
 class Col extends BambeeShortcode {
 
+    /**
+     * Col constructor.
+     */
     public function __construct() {
+
         $this->addAttribute( 'small' );
         $this->addAttribute( 'medium' );
         $this->addAttribute( 'large' );
         $this->addAttribute( 'class' );
+
     }
 
+    /**
+     * @inheritdoc
+     */
     public function handleShortcode( array $atts = array(), $content = '' ) {
+
         $class = 'column ';
 
         if ( !empty( $atts['small'] ) ) {
@@ -45,11 +54,13 @@ class Col extends BambeeShortcode {
         }
 
         $content = sprintf(
-                '<div class="%s">%s</div>',
-                $class,
-                $content
+            '<div class="%s">%s</div>',
+            $class,
+            $content
         );
 
         return $content;
+
     }
+
 }

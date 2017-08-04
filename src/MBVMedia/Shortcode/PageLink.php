@@ -1,4 +1,5 @@
 <?php
+
 namespace MBVMedia\Shortcode;
 
 
@@ -20,16 +21,31 @@ use MBVMedia\Shortcode\Lib\BambeeShortcode;
  */
 class PageLink extends BambeeShortcode {
 
+    /**
+     * PageLink constructor.
+     */
     public function __construct() {
+
         $this->addAttribute( 'id' );
+
     }
 
+    /**
+     * @inheritdoc
+     */
     public function handleShortcode( array $atts = array(), $content = '' ) {
+
         $id = $atts['id'];
         return get_permalink( $id );
+
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function getShortcodeAlias() {
+
         return 'page-link';
+
     }
 }

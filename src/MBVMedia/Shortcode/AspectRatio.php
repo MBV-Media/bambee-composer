@@ -10,7 +10,7 @@ namespace MBVMedia\Shortcode;
 
 use MBVMedia\Shortcode\Lib\BambeeShortcode;
 
-class AspectRatio extends BambeeShortcode{
+class AspectRatio extends BambeeShortcode {
 
     /**
      * @var array
@@ -22,7 +22,11 @@ class AspectRatio extends BambeeShortcode{
      */
     private $ratio;
 
+    /**
+     * AspectRatio constructor.
+     */
     public function __construct() {
+
         $this->addAttribute( 'ratio', '16:9' );
         $this->addAttribute( 'class' );
 
@@ -38,8 +42,12 @@ class AspectRatio extends BambeeShortcode{
         );
 
         $this->ratio = '';
+
     }
 
+    /**
+     * @inheritdoc
+     */
     public function handleShortcode( array $atts = array(), $content = '' ) {
 
         $this->ratio = $atts['ratio'];
@@ -48,14 +56,13 @@ class AspectRatio extends BambeeShortcode{
 
         try {
             $ratioStyle = empty( $ratioClass ) ? $this->getRatioStyle() : '';
-        }
-        catch( \InvalidArgumentException $e ) {
+        } catch ( \InvalidArgumentException $e ) {
             return $e->getMessage();
         }
 
         $class = empty( $atts['class'] ) ? '' : ' ' . $atts['class'];
 
-        $output  = '<div class="responsive-aspect-ratio%s"%s>';
+        $output = '<div class="responsive-aspect-ratio%s"%s>';
         $output .= '    <div class="aspect-ratio-content%s">';
         $output .= '        ' . $content;
         $output .= '    </div>';
@@ -64,10 +71,16 @@ class AspectRatio extends BambeeShortcode{
         $output = sprintf( $output, $ratioClass, $ratioStyle, $class );
 
         return $output;
+
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function getShortcodeAlias() {
+
         return 'aspect-ratio';
+
     }
 
 
@@ -75,7 +88,9 @@ class AspectRatio extends BambeeShortcode{
      * @return array
      */
     public function &getPredefinedRatioList() {
+
         return $this->predefinedRatioList;
+
     }
 
     /**
@@ -83,16 +98,20 @@ class AspectRatio extends BambeeShortcode{
      * @return string
      */
     private function getRatioClass() {
+
         return isset( $this->predefinedRatioList[$this->ratio] )
             ? ' ratio-' . $this->predefinedRatioList[$this->ratio]
             : '';
+
     }
 
     /**
      * @return string
      */
     private function getRatioStyle() {
+
         return ' style="padding-top: ' . $this->calculatePadding() . '%;"';
+
     }
 
     /**
@@ -100,6 +119,7 @@ class AspectRatio extends BambeeShortcode{
      * @return float
      */
     private function calculatePadding() {
+
         $ratio = explode( ':', $this->ratio );
 
         if ( count( $ratio ) !== 2 ) {
@@ -107,5 +127,7 @@ class AspectRatio extends BambeeShortcode{
         }
 
         return $ratio[1] / $ratio[0] * 100;
+
     }
+
 }

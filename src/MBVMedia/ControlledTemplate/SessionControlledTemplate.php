@@ -17,30 +17,46 @@ class SessionControlledTemplate extends ControlledTemplate {
      */
     private $sessionVar;
 
+    /**
+     * SessionControlledTemplate constructor.
+     * @param \MBVMedia\Lib\ThemeView|string $template
+     * @param string $sessionVar
+     * @param string $selectorOnClick
+     * @param string $selectorContainer
+     */
     public function __construct( $template, $sessionVar, $selectorOnClick, $selectorContainer ) {
+
         $this->sessionVar = $sessionVar;
-        parent::__construct(  $template, $sessionVar, $selectorOnClick, $selectorContainer );
+        parent::__construct( $template, $sessionVar, $selectorOnClick, $selectorContainer );
+
     }
 
     /**
      *
      */
     public function addActions() {
+
         add_action( 'init', array( 'MBVMedia\Lib\Session', 'start' ) );
         parent::addActions();
+
     }
 
     /**
      *
      */
     public function hide() {
+
         Session::setVar( $this->sessionVar, true );
+
     }
 
     /**
      * @return bool
      */
     public function hidden() {
+
         return Session::getVar( $this->sessionVar ) === true;
+
     }
+
 }

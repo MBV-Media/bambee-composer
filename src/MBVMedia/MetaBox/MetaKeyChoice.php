@@ -28,13 +28,16 @@ class MetaKeyChoice extends MetaKey {
         $this->setTemplate( $defaultTemplate );
 
         parent::__construct( $key, $label, $type );
+
     }
 
     /**
      * @return array
      */
     public function getChoices() {
+
         return $this->choices;
+
     }
 
     /**
@@ -42,10 +45,12 @@ class MetaKeyChoice extends MetaKey {
      * @param $label
      */
     public function addChoice( $value, $label ) {
+
         $this->choices[] = array(
             'value' => $value,
             'label' => $label,
         );
+
     }
 
 }

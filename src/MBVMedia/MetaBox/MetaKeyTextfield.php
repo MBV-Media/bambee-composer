@@ -25,5 +25,7 @@ class MetaKeyTextfield extends MetaKey {
         $this->setTemplate( $defaultTemplate );
 
         parent::__construct( $key, $label, $type );
+
     }
+
 }

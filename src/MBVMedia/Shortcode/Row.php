@@ -20,17 +20,27 @@ use MBVMedia\Shortcode\Lib\BambeeShortcode;
  */
 class Row extends BambeeShortcode {
 
+    /**
+     * Row constructor.
+     */
     public function __construct() {
+
         $this->addAttribute( 'class' );
+
     }
 
+    /**
+     * @inheritdoc
+     */
     public function handleShortcode( array $atts = array(), $content = '' ) {
+
         $class = isset( $atts['class'] ) ? $atts['class'] : '';
         $content = sprintf(
-                '<div class="row %s">%s</div>',
-                $class,
-                $content
+            '<div class="row %s">%s</div>',
+            $class,
+            $content
         );
         return $content;
+
     }
 }

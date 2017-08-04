@@ -22,26 +22,33 @@ abstract class ThemeCustommizerElement {
 
     /**
      * ThemeCustommizerElement constructor.
+     *
      * @param $id
      * @param array $args
      */
     public function __construct( $id, array $args ) {
+
         $this->id = $id;
         $this->args = $args;
+
     }
 
     /**
      * @return mixed
      */
     public function getId() {
+
         return $this->id;
+
     }
 
     /**
      * @return array
      */
     public function getArgs() {
+
         return $this->args;
+
     }
 
     /**
@@ -49,12 +56,14 @@ abstract class ThemeCustommizerElement {
      * @param $value
      */
     public function setArg( $name, $value ) {
+
         $this->args[$name] = $value;
+
     }
 
     /**
      * @param \WP_Customize_Manager $wpCustomize
-     * @return mixed
      */
     public abstract function register( \WP_Customize_Manager $wpCustomize );
+
 }

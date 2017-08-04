@@ -17,20 +17,25 @@ class Panel extends ThemeCustommizerElement {
 
     /**
      * Panel constructor.
+     *
      * @param $id
      * @param array $args
      */
     public function __construct( $id, array $args ) {
+
         parent::__construct( $id, $args );
         $this->sectionList = array();
+
     }
 
     /**
      * @param Section $section
      */
     public function addSection( Section $section ) {
+
         $section->setArg( 'panel', $this->getId() );
         $this->sectionList[$section->getId()] = $section;
+
     }
 
     /**
@@ -38,17 +43,21 @@ class Panel extends ThemeCustommizerElement {
      * @return Section|null
      */
     public function getSection( $id ) {
+
         return isset( $this->sectionList[$id] ) ? $this->sectionList[$id] : null;
+
     }
 
     /**
-     * @param \WP_Customize_Manager $wpCustomize
+     * @inheritdoc
      */
     public function register( \WP_Customize_Manager $wpCustomize ) {
 
-        foreach( $this->sectionList as $section ) {
+        foreach ( $this->sectionList as $section ) {
             $section->register( $wpCustomize );
         }
         $wpCustomize->add_panel( $this->getId(), $this->getArgs() );
+
     }
+
 }

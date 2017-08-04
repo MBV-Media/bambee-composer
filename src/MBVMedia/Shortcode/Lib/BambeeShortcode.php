@@ -35,26 +35,32 @@ abstract class BambeeShortcode implements Handleable {
      * @param string $type TinyMCE input type
      */
     public function addAttribute( $name, $default = '', $type = 'text' ) {
+
 //        $this->supportedAtts[$name] = $default;
         $this->supportedAtts[] = array(
-                'name' => $name,
-                'default' => $default,
-                'type' => $type
+            'name' => $name,
+            'default' => $default,
+            'type' => $type,
         );
+
     }
 
     /**
      * @return mixed
      */
     public function getDescription() {
+
         return $this->description;
+
     }
 
     /**
      * @param $description
      */
     public function setDescription( $description ) {
+
         $this->description = $description;
+
     }
 
     /**
@@ -70,6 +76,7 @@ abstract class BambeeShortcode implements Handleable {
         }
 
         add_shortcode( $tag, array( $class, 'doShortcode' ) );
+
     }
 
     /**
@@ -78,6 +85,7 @@ abstract class BambeeShortcode implements Handleable {
      * @return mixed
      */
     public static function doShortcode( $atts = array(), $content = '' ) {
+
         $shortcodeObject = new static();
         $supportedAtts = $shortcodeObject->getSupportedAtts();
         $defaultAtts = array();
@@ -89,23 +97,29 @@ abstract class BambeeShortcode implements Handleable {
         $atts = shortcode_atts( $defaultAtts, $atts );
 
         return do_shortcode( $shortcodeObject->handleShortcode( $atts, $content ) );
+
     }
 
     /**
      * @return string
      */
     public static function getShortcodeAlias() {
+
         return self::getUnqualifiedClassName();
+
     }
 
     /**
      * @return string
      */
     public static function getUnqualifiedClassName( $class = null ) {
+
         if ( $class === null ) {
             $class = get_called_class();
         }
         $reflect = new \ReflectionClass( $class );
         return strtolower( $reflect->getShortName() );
+
     }
+
 }

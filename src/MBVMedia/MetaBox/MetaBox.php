@@ -12,16 +12,44 @@ use MBVMedia\Lib\ThemeView;
 
 class MetaBox {
 
+    /**
+     * @var
+     */
     private $id;
+
+    /**
+     * @var
+     */
     private $title;
+
+    /**
+     * @var string
+     */
     private $context;
+
+    /**
+     * @var ThemeView
+     */
     private $template;
 
+    /**
+     * @var array
+     */
     private $metaKeyList;
 
+    /**
+     * @var array
+     */
     private $postTypeList;
 
+    /**
+     * @var string
+     */
     private $nonceName;
+
+    /**
+     * @var string
+     */
     private $nonceAction;
 
     /**
@@ -38,7 +66,7 @@ class MetaBox {
         $this->title = $title;
         $this->context = $context;
 
-        if( null === $template ) {
+        if ( null === $template ) {
             $template = new ThemeView( 'partials/admin/meta-box-default.php' );
         }
 
@@ -51,8 +79,9 @@ class MetaBox {
         $this->nonceName = get_class( $this );
         $this->nonceAction = 'save-' . $this->nonceName;
 
-        add_action( 'add_meta_boxes' , array( $this, 'actionAddMetaBox' ), $priority, 1 );
+        add_action( 'add_meta_boxes', array( $this, 'actionAddMetaBox' ), $priority, 1 );
         add_action( 'save_post', array( $this, 'actionSavePost' ), 10, 3 );
+
     }
 
     /**
@@ -66,8 +95,10 @@ class MetaBox {
      * @param MetaKey $metaKey
      */
     public function addMetaKey( MetaKey $metaKey ) {
+
         $metaKey->getTemplate()->setArg( 'metaBox', $this );
         $this->metaKeyList[] = $metaKey;
+
     }
 
     /**
@@ -75,27 +106,33 @@ class MetaBox {
      * @param int $priority
      */
     public function addPostTypeSupport( $postType, $priority = 10 ) {
+
         $this->postTypeList[] = $postType;
 
-        remove_action( 'add_meta_boxes' , array( $this, 'actionAddMetaBox' ) );
-        add_action( 'add_meta_boxes_' . $postType , array( $this, 'actionAddMetaBox' ), $priority, 1 );
+        remove_action( 'add_meta_boxes', array( $this, 'actionAddMetaBox' ) );
+        add_action( 'add_meta_boxes_' . $postType, array( $this, 'actionAddMetaBox' ), $priority, 1 );
+
     }
 
     /**
      * @param $post
      */
     public function actionAddMetaBox( $post ) {
+
         $postType = $post instanceof \WP_Post ? $post->post_type : $post;
         add_meta_box( $this->id, $this->title, array( $this, 'renderMetaBox' ), $postType, $this->context );
+
     }
 
     /**
      * @param $post
      */
     public function renderMetaBox( $post ) {
+
         wp_nonce_field( $this->nonceAction, $this->nonceName );
         $this->template->setArg( 'metaKeyList', $this->getMetaKeyList() );
         echo $this->template->render();
+
     }
 
     /**
@@ -108,7 +145,7 @@ class MetaBox {
         $postType = get_post_type_object( $post->post_type );
         $currentUserCanEditPostType = current_user_can( $postType->cap->edit_post, $postId );
 
-        if ( wp_is_post_autosave( $postId ) || wp_is_post_revision( $postId ) || ! $currentUserCanEditPostType ) {
+        if ( wp_is_post_autosave( $postId ) || wp_is_post_revision( $postId ) || !$currentUserCanEditPostType ) {
             return;
         }
 
@@ -117,13 +154,14 @@ class MetaBox {
             $nonce = filter_input( INPUT_GET, $this->nonceName );
         }
 
-        if( !wp_verify_nonce( $nonce, $this->nonceAction ) ) {
+        if ( !wp_verify_nonce( $nonce, $this->nonceAction ) ) {
             return;
         }
 
         foreach ( $this->metaKeyList as $metaKey ) {
             $metaKey->save( $postId );
         }
+
     }
 
     /**
@@ -138,6 +176,7 @@ class MetaBox {
         }
 
         return get_post_meta( $postId, $metaKey, true );
+
     }
 
     /**
@@ -153,5 +192,7 @@ class MetaBox {
         }
 
         return $postMetas;
+
     }
+
 }

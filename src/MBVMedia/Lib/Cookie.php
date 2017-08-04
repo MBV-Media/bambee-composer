@@ -15,11 +15,13 @@ class Cookie {
      * @return mixed
      */
     public static function read( $name ) {
+
         /*
          * Dont't use filter_input in this place.
          * It will always be null if the cookie was set in this process.
          */
         return isset( $_COOKIE[$name] ) ? $_COOKIE[$name] : null;
+
     }
 
     /**
@@ -28,7 +30,10 @@ class Cookie {
      * @param int $expire
      */
     public static function write( $name, $value, $expire = 86400, $path = '/' ) {
+
         $_COOKIE[$name] = $value;
         setcookie( $name, $value, time() + $expire, $path );
+
     }
+
 }

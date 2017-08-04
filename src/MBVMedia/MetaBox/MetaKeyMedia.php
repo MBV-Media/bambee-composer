@@ -24,6 +24,7 @@ class MetaKeyMedia extends MetaKey {
         $this->setTemplate( $defaultTemplate );
 
         parent::__construct( $key, $label, $type );
+
     }
 
     /**
@@ -33,7 +34,9 @@ class MetaKeyMedia extends MetaKey {
      * @param string $attr
      */
     public static function thePostMedia( $key, $postId = null, $size = 'thumbnail', $attr = '' ) {
+
         echo self::getThePostMedia( $key, $postId, $size, $attr );
+
     }
 
     /**
@@ -44,7 +47,9 @@ class MetaKeyMedia extends MetaKey {
      * @return string
      */
     public static function getThePostMedia( $key, $postId = null, $size = 'thumbnail', $attr = '' ) {
+
         return wp_get_attachment_image( self::getPostMediaId( $key, $postId ), $size, false, $attr );
+
     }
 
     /**
@@ -53,10 +58,13 @@ class MetaKeyMedia extends MetaKey {
      * @return mixed
      */
     public static function getPostMediaId( $key, $postId = null ) {
+
         if ( null === $postId ) {
             $postId = get_the_ID();
         }
 
-        return get_post_meta( $postId, $key, true);
+        return get_post_meta( $postId, $key, true );
+
     }
+
 }

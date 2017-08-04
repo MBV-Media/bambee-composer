@@ -39,20 +39,22 @@ abstract class ControlledTemplate {
      * @param $selectorContainer string
      */
     public function __construct( ThemeView $template, $nonce, $selectorOnClick, $selectorContainer ) {
+
         $this->template = $template;
         $this->nonce = $nonce;
         $this->selectorOnClick = $selectorOnClick;
         $this->selectorContainer = $selectorContainer;
+
     }
 
     /**
      *
      */
     public function addActions() {
-        if( is_admin() ) {
+
+        if ( is_admin() ) {
             $this->addAdminActions();
-        }
-        else {
+        } else {
             $this->addWebsiteActions();
         }
 
@@ -62,23 +64,28 @@ abstract class ControlledTemplate {
      *
      */
     private function addWebsiteActions() {
+
         add_action( 'init', array( $this, 'checkForNonce' ) );
         add_action( 'wp_footer', array( $this, 'renderTemplate' ) );
         add_action( 'wp_footer', array( $this, 'printScript' ) );
+
     }
 
     /**
      *
      */
     private function addAdminActions() {
+
         add_action( 'wp_ajax_' . $this->nonce, array( $this, 'ajaxCallback' ) );
-        add_action( 'wp_ajax_nopriv_' . $this->nonce , array( $this, 'ajaxCallback' ) );
+        add_action( 'wp_ajax_nopriv_' . $this->nonce, array( $this, 'ajaxCallback' ) );
+
     }
 
     /**
      *
      */
     public function ajaxCallback() {
+
         $nonce = filter_input( INPUT_POST, 'nonce' );
 
         if ( !defined( 'DOING_AJAX' ) || !DOING_AJAX || !wp_verify_nonce( $nonce, $this->nonce ) ) {
@@ -88,66 +95,73 @@ abstract class ControlledTemplate {
         $this->hide();
 
         die();
+
     }
 
     /**
      *
      */
     public function renderTemplate() {
-        if( $this->hidden() ) {
+
+        if ( $this->hidden() ) {
             return;
         }
 
         echo $this->template->render();
+
     }
 
     /**
      *
      */
     public function checkForNonce() {
+
         $nonce = filter_input( INPUT_GET, $this->nonce );
 
-        if( $nonce === null ) {
+        if ( $nonce === null ) {
             return;
         }
 
         $this->hide();
+
     }
 
     /**
      *
      */
     public function printScript() {
-        if( $this->hidden() ) {
+
+        if ( $this->hidden() ) {
             return;
         }
 
         ?>
         <script type="text/javascript">
-            (function($) {
-                $('<?php echo $this->selectorOnClick; ?>').on('click', function(e) {
-                    var preventDefault = $(this).is('[data-prevent-default]');
-                    if(preventDefault) {
-                        e.preventDefault();
-                    }
-                    $('<?php echo $this->selectorContainer; ?>').addClass('hidden');
-                    $.ajax({
-                        type: 'post',
-                        dataType: 'json',
-                        url: '<?php echo admin_url( 'admin-ajax.php' ); ?>',
-                        cache: false,
-                        data: {
-                            action: '<?php echo $this->nonce; ?>',
-                            nonce: '<?php echo wp_create_nonce( $this->nonce ); ?>'
-                        }
-                    });
-                    if(preventDefault) {
-                        return false;
-                    }
-                });
-            })(jQuery);
+          (function ($) {
+            $('<?php echo $this->selectorOnClick; ?>').on('click', function (e) {
+              var preventDefault = $(this).is('[data-prevent-default]');
+              if (preventDefault) {
+                e.preventDefault();
+              }
+              $('<?php echo $this->selectorContainer; ?>').addClass('hidden');
+              $.ajax({
+                type: 'post',
+                dataType: 'json',
+                url: '<?php echo admin_url( 'admin-ajax.php' ); ?>',
+                cache: false,
+                data: {
+                  action: '<?php echo $this->nonce; ?>',
+                  nonce: '<?php echo wp_create_nonce( $this->nonce ); ?>'
+                }
+              });
+              if (preventDefault) {
+                return false;
+              }
+            });
+          })(jQuery);
         </script>
         <?php
+
     }
 
     /**
@@ -159,4 +173,5 @@ abstract class ControlledTemplate {
      * @return bool
      */
     public abstract function hidden();
+
 }

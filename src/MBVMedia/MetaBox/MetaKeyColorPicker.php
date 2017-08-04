@@ -27,13 +27,17 @@ class MetaKeyColorPicker extends MetaKey {
         add_action( 'admin_enqueue_scripts', array( $this, 'actionAdminEnqueueScripts' ) );
 
         parent::__construct( $key, $label, $type );
+
     }
 
     /**
      *
      */
     public function actionAdminEnqueueScripts() {
+
         wp_enqueue_style( 'wp-color-picker' );
-        wp_enqueue_script( 'wp-color-picker');
+        wp_enqueue_script( 'wp-color-picker' );
+
     }
+
 }

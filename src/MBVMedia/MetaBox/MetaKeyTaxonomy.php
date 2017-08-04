@@ -38,28 +38,35 @@ class MetaKeyTaxonomy extends MetaKey {
         $this->setTemplate( $defaultTemplate );
 
         parent::__construct( $key, $label, $type );
+
     }
 
     /**
      * @param $taxonomy
      */
     public function addTaxonomy( $taxonomy ) {
+
         $this->taxonomy[] = $taxonomy;
+
     }
 
     /**
      * @return array
      */
     public function getTaxonomies() {
+
         return $this->taxonomy;
+
     }
 
     /**
      * @param ThemeView $template
      */
     public function setTermTemplate( ThemeView $template ) {
+
         $template->setArg( 'metaKey', $this );
         $this->termTemplate = $template;
+
     }
 
     /**
@@ -67,7 +74,10 @@ class MetaKeyTaxonomy extends MetaKey {
      * @return array
      */
     public function getValue( $postId = null ) {
+
         $value = parent::getValue( $postId );
         return empty( $value ) ? array() : $value;
+
     }
+
 }
