@@ -79,9 +79,11 @@ class ThemeView {
     }
 
     /**
+     * Renders and echos the view.
      *
+     * @since 1.7.0
      */
-    public function printContent() {
+    public function renderAndEcho() {
 
         echo $this->render();
 
