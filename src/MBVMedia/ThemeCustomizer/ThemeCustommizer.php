@@ -37,6 +37,14 @@ class ThemeCustommizer {
     }
 
     /**
+     * @param $id
+     * @return ThemeCustommizerElement|null
+     */
+    public function getElement( $id ) {
+        return isset( $this->elementList[$id] ) ? $this->elementList[$id] : null;
+    }
+
+    /**
      *
      */
     public function register() {

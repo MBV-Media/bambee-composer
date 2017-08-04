@@ -34,6 +34,14 @@ class Panel extends ThemeCustommizerElement {
     }
 
     /**
+     * @param $id
+     * @return Section|null
+     */
+    public function getSection( $id ) {
+        return isset( $this->sectionList[$id] ) ? $this->sectionList[$id] : null;
+    }
+
+    /**
      * @param \WP_Customize_Manager $wpCustomize
      */
     public function register( \WP_Customize_Manager $wpCustomize ) {
