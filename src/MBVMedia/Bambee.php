@@ -320,8 +320,8 @@ abstract class Bambee extends BambeeBase {
                 'default' => '',
             ],
             [
-                'label' => __( 'Anzeige Intervall', TextDomain ),
-                'description' => __( 'Zeit nach der Das Overlay erneut angezeigt wird. (Standard: 24:00:00)', TextDomain ),
+                'label' => __( 'Interval', TextDomain ),
+                'description' => sprintf( __( 'Time after which the overlay is displayed again. (Default: %s)', TextDomain ), $this->dynamicFrontpageInterval ),
                 'type' => 'text',
                 'input_attrs' => [
                     'placeholder' => 'hh:mm:ss',
@@ -507,7 +507,7 @@ abstract class Bambee extends BambeeBase {
             ],
             [
                 'label' => __( 'Styles', TextDomain ),
-                'description' => sprintf( __( 'Das erstellte %sMap-Style%s JSON in das Textfeld kopieren.', TextDomain ), '<a href="https://mapstyle.withgoogle.com/" target="_blank">', '</a>' ),
+                'description' => sprintf( __( 'Copy the created %smap-style%s-JSON to the textarea.', TextDomain ), '<a href="https://mapstyle.withgoogle.com/" target="_blank">', '</a>' ),
                 'type' => 'textarea',
             ]
         );
@@ -537,7 +537,7 @@ abstract class Bambee extends BambeeBase {
 
         $sectionGoogleAnalytics = new Section( 'bambee_google_analytics_section', [
             'title' => __( 'Analytics', TextDomain ),
-            'description' => __( 'Nach Eingabe der Tracking-ID wird das Google Analytics Script automatisch eingebunden.', TextDomain ),
+            'description' => __( 'After entering the tracking ID, the Google Analytics Script is automatically included.', TextDomain ),
         ] );
         $sectionGoogleAnalytics->addSetting( $settingGoogleAnalyticsTracktingId );
 

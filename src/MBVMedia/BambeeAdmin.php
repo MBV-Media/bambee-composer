@@ -88,7 +88,7 @@ abstract class BambeeAdmin extends BambeeBase {
         $settingFeaturedImagesCallback = [ $settingFeaturedImagesTemplate, 'renderAndEcho' ];
         add_settings_field(
             'featured_images_size',
-            __( 'Featured images', TextDomain ),
+            __( 'Featured Images' ),
             $settingFeaturedImagesCallback,
             'media',
             'default' // image sizes
@@ -198,7 +198,7 @@ abstract class BambeeAdmin extends BambeeBase {
 
         return array_merge(
             array_slice( $columns, 0, $offset ),
-            [ 'featured_image' => __( 'Beitragsbild', TextDomain ) ],
+            [ 'featured_image' => __( 'Featured Image' ) ],
             array_slice( $columns, $offset, null )
         );
 
