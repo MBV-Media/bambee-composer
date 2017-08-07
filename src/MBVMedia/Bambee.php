@@ -39,6 +39,11 @@ use MBVMedia\ThemeCustomizer\ThemeCustommizer;
 abstract class Bambee extends BambeeBase {
 
     /**
+     * @var string
+     */
+    private $dynamicFrontpageInterval;
+
+    /**
      * @since 1.0.0
      * @var array
      */
@@ -91,6 +96,8 @@ abstract class Bambee extends BambeeBase {
     protected function __construct() {
 
         $this->loadThemeTextdomain();
+
+        $this->dynamicFrontpageInterval = '24:00:00';
 
         $this->postThumbnail = [
             'width' => 624,
@@ -228,8 +235,8 @@ abstract class Bambee extends BambeeBase {
             return;
         }
 
-        $interval = get_theme_mod( 'bambee_dynamic_front_page_interval', '24:00:00' );
-        $interval = empty( $interval ) ? '24:00:00' : $interval;
+        $interval = get_theme_mod( 'bambee_dynamic_front_page_interval', $this->dynamicFrontpageInterval );
+        $interval = empty( $interval ) ? $this->dynamicFrontpageInterval : $interval;
         $interval = strtotime( $interval ) - strtotime( 'TODAY' );
 
         $entranceOverlay = new CookieControlledTemplate(
