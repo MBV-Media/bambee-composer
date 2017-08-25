@@ -139,7 +139,7 @@ abstract class Bambee extends BambeeBase {
 
         $this->postThumbnail = [
             'width' => 624,
-            'height' => 999,
+            'height' => 624,
             'crop' => false,
         ];
 
