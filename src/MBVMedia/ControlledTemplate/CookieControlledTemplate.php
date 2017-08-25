@@ -1,8 +1,6 @@
 <?php
 /**
- * @since 1.0.0
- * @author hterhoeven
- * @licence MIT
+ * CookieControlledTemplate.php
  */
 
 namespace MBVMedia\ControlledTemplate;
@@ -10,20 +8,34 @@ namespace MBVMedia\ControlledTemplate;
 
 use MBVMedia\Lib\Cookie;
 
+/**
+ * Class CookieControlledTemplate
+ *
+ * @package BambeeCore
+ * @author hterhoeven
+ * @licence MIT
+ * @since 1.5.0
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/ControlledTemplate/CookieControlledTemplate.html
+ */
 class CookieControlledTemplate extends ControlledTemplate {
 
     /**
      * @var string
+     *
+     * @ignore
      */
     private $cookieName;
 
     /**
      * @var int
+     *
+     * @ignore
      */
     private $interval;
 
     /**
      * CookieControlledTemplate constructor.
+     *
      * @param \MBVMedia\Lib\ThemeView|string $template
      * @param string $cookieName
      * @param string $selectorOnClick
@@ -39,7 +51,7 @@ class CookieControlledTemplate extends ControlledTemplate {
     }
 
     /**
-     *
+     * {@inheritdoc}
      */
     public function hide() {
 
@@ -48,7 +60,7 @@ class CookieControlledTemplate extends ControlledTemplate {
     }
 
     /**
-     * @return bool
+     * {@inheritdoc}
      */
     public function hidden() {
 

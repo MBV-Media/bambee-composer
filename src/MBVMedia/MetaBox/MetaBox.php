@@ -1,8 +1,9 @@
 <?php
+
 /**
- * @since 1.0.0
- * @author hterhoeven
- * @licence MIT
+ * Singleton.php
+ *
+ * @see https://github.com/MBV-Media/bambee-core
  */
 
 namespace MBVMedia\MetaBox;
@@ -10,55 +11,81 @@ namespace MBVMedia\MetaBox;
 
 use MBVMedia\Lib\ThemeView;
 
+/**
+ * Class MetaBox
+ *
+ * @package BambeeCore
+ * @author Holger Terhoeven <h.terhoeven@mbv-media.com>
+ * @licence MIT
+ * @since 1.6.0
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/MetaBox/MetaBox.html
+ */
 class MetaBox {
 
     /**
      * @var
+     *
+     * @ignore
      */
     private $id;
 
     /**
      * @var
+     *
+     * @ignore
      */
     private $title;
 
     /**
      * @var string
+     *
+     * @ignore
      */
     private $context;
 
     /**
      * @var ThemeView
+     *
+     * @ignore
      */
     private $template;
 
     /**
      * @var array
+     *
+     * @ignore
      */
     private $metaKeyList;
 
     /**
      * @var array
+     *
+     * @ignore
      */
     private $postTypeList;
 
     /**
      * @var string
+     *
+     * @ignore
      */
     private $nonceName;
 
     /**
      * @var string
+     *
+     * @ignore
      */
     private $nonceAction;
 
     /**
      * MetaBox constructor.
+     *
      * @param $id
      * @param $title
      * @param $context
-     * @param ThemeView $template
-     * @param int $priority
+     * @param int $priority (optional)
+     * @param ThemeView $template (optional)
      */
     public function __construct( $id, $title, $context = 'advanced', $priority = 10, ThemeView $template = null ) {
 
@@ -85,6 +112,8 @@ class MetaBox {
     }
 
     /**
+     * Get the meta key list.
+     *
      * @return array
      */
     public function getMetaKeyList() {
@@ -92,7 +121,11 @@ class MetaBox {
     }
 
     /**
+     * Add a meta key
+     *
      * @param MetaKey $metaKey
+     *
+     * @return void
      */
     public function addMetaKey( MetaKey $metaKey ) {
 
@@ -102,8 +135,15 @@ class MetaBox {
     }
 
     /**
+     * Add support for a specific post type.
+     *
+     * Note: By default the meta box will be added to every post type.
+     * If you add supported post types, the meta box will only appear on these post types.
+     *
      * @param $postType
-     * @param int $priority
+     * @param int $priority (optional)
+     *
+     * @return void
      */
     public function addPostTypeSupport( $postType, $priority = 10 ) {
 
@@ -115,7 +155,11 @@ class MetaBox {
     }
 
     /**
+     * 'add_meta_boxes' action hook callback.
+     *
      * @param $post
+     *
+     * @return void
      */
     public function actionAddMetaBox( $post ) {
 
@@ -125,7 +169,11 @@ class MetaBox {
     }
 
     /**
+     * Renders the meta box.
+     *
      * @param $post
+     *
+     * @return void
      */
     public function renderMetaBox( $post ) {
 
@@ -136,9 +184,13 @@ class MetaBox {
     }
 
     /**
+     * 'save_post' action hook callback.
+     *
      * @param $postId
      * @param $post
      * @param $update
+     *
+     * @return void
      */
     public function actionSavePost( $postId, $post, $update ) {
 
@@ -165,8 +217,11 @@ class MetaBox {
     }
 
     /**
+     * Get the post meta.
+     *
      * @param $metaKey
-     * @param null $postId
+     * @param mixed|null $postId (optional)
+     *
      * @return mixed
      */
     public function getPostMeta( $metaKey, $postId = null ) {
@@ -180,7 +235,10 @@ class MetaBox {
     }
 
     /**
-     * @param null $postId
+     * Get all post metas.
+     *
+     * @param mixed|null $postId (optional)
+     *
      * @return array
      */
     public function getPostMetas( $postId = null ) {

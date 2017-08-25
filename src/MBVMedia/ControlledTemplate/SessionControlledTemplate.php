@@ -1,30 +1,45 @@
 <?php
+
+
 /**
- * @since 1.0.0
- * @author hterhoeven
- * @licence MIT
+ * SessionControlledTemplate.php
+ *
+ * @see https://github.com/MBV-Media/bambee-core
  */
 
 namespace MBVMedia\ControlledTemplate;
 
 
 use MBVMedia\Lib\Session;
+use MBVMedia\Lib\ThemeView;
 
+/**
+ * Class SessionControlledTemplate
+ *
+ * @package BambeeCore
+ * @author Holger Terhoeven <h.terhoeven@mbv-media.com>
+ * @licence MIT
+ * @since 1.5.0
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/ControlledTemplate/SessionControlledTemplate.html
+ */
 class SessionControlledTemplate extends ControlledTemplate {
 
     /**
      * @var string
+     *
+     * @ignore
      */
     private $sessionVar;
 
     /**
      * SessionControlledTemplate constructor.
-     * @param \MBVMedia\Lib\ThemeView|string $template
+     *
+     * @param ThemeView $template
      * @param string $sessionVar
      * @param string $selectorOnClick
      * @param string $selectorContainer
      */
-    public function __construct( $template, $sessionVar, $selectorOnClick, $selectorContainer ) {
+    public function __construct( ThemeView $template, $sessionVar, $selectorOnClick, $selectorContainer ) {
 
         $this->sessionVar = $sessionVar;
         parent::__construct( $template, $sessionVar, $selectorOnClick, $selectorContainer );
@@ -32,7 +47,7 @@ class SessionControlledTemplate extends ControlledTemplate {
     }
 
     /**
-     *
+     * {@inheritdoc}
      */
     public function addActions() {
 
@@ -42,7 +57,7 @@ class SessionControlledTemplate extends ControlledTemplate {
     }
 
     /**
-     *
+     * {@inheritdoc}
      */
     public function hide() {
 
@@ -51,7 +66,7 @@ class SessionControlledTemplate extends ControlledTemplate {
     }
 
     /**
-     * @return bool
+     * {@inheritdoc}
      */
     public function hidden() {
 

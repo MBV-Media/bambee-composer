@@ -1,11 +1,11 @@
 <?php
+
 /**
- * @since 1.0.0
- * @author R4c00n <marcel.kempf93@gmail.com>
- * @licence MIT
+ * BambeeAdmin.php
  */
 
 namespace MBVMedia;
+
 
 use MBVMedia\Lib\ThemeView;
 
@@ -13,11 +13,22 @@ use MBVMedia\Lib\ThemeView;
 /**
  * The class representing the WordPress Admin.
  *
- * @since 1.0.0
+ * @package BambeeCore
  * @author R4c00n <marcel.kempf93@gmail.com>
+ * @author Holger Terhoeven <h.terhoeven@mbv-media.com>
  * @licence MIT
+ * @since 1.0.0
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/BambeeAdmin.html
  */
 abstract class BambeeAdmin extends BambeeBase {
+
+    /**
+     * @var BambeeAdmin
+     *
+     * @since 1.5.0
+     * @ignore
+     */
+    private static $instance = null;
 
     /**
      * BambeeAdmin constructor.
@@ -26,18 +37,12 @@ abstract class BambeeAdmin extends BambeeBase {
     }
 
     /**
-     * @since 1.5.0
-     * @var BambeeAdmin
-     */
-    private static $instance = null;
-
-    /**
-     *
+     * {@inheritdoc}
      */
     public function addActions() {
 
         add_action( 'admin_enqueue_scripts', [ $this, 'enqueueStyles' ] );
-        add_action( 'admin_init', [ $this, 'registerSettings' ] );
+        add_action( 'admin_init', [ $this, 'registerMediaSettings' ] );
         add_action( 'admin_init', [ $this, 'displaySvgThumbs' ] );
         add_action( 'manage_posts_custom_column', [ $this, 'customColumnsData' ], 10, 2 );
         add_action( 'manage_pages_custom_column', [ $this, 'customColumnsData' ], 10, 2 );
@@ -45,7 +50,7 @@ abstract class BambeeAdmin extends BambeeBase {
     }
 
     /**
-     *
+     * {@inheritdoc}
      */
     public function addFilters() {
 
@@ -55,16 +60,12 @@ abstract class BambeeAdmin extends BambeeBase {
 
     }
 
-
-    /**
-     * Action-hook callbacks
-     */
-
     /**
      * Enqueue the CSS.
      *
-     * @since 1.0.0
      * @return void
+     *
+     * @since 1.0.0
      */
     public function enqueueStyles() {
 
@@ -73,9 +74,13 @@ abstract class BambeeAdmin extends BambeeBase {
     }
 
     /**
+     * Register settings to the media screen.
      *
+     * @return void
+     *
+     * @since 1.7.0
      */
-    public function registerSettings() {
+    public function registerMediaSettings() {
 
         register_setting(
             'media',
@@ -97,7 +102,10 @@ abstract class BambeeAdmin extends BambeeBase {
     }
 
     /**
+     * Validates the featured image options.
+     *
      * @param $input
+     *
      * @return array
      */
     public function validateFeaturedImagesOptions( $input ) {
@@ -117,7 +125,10 @@ abstract class BambeeAdmin extends BambeeBase {
      */
 
     /**
+     * Add SVG support to mimes.
+     *
      * @param $mimes
+     *
      * @return mixed
      */
     public function addSvgMediaSupport( $mimes ) {
@@ -129,7 +140,9 @@ abstract class BambeeAdmin extends BambeeBase {
     }
 
     /**
+     * Show SVG thumbnails.
      *
+     * @return void
      */
     public function displaySvgThumbs() {
 
@@ -141,14 +154,16 @@ abstract class BambeeAdmin extends BambeeBase {
     }
 
     /**
+     * Filter SVG thumbnails.
      *
+     * @return void
      */
     public function svgThumbsFilter() {
 
         $final = '';
-        $ob_levels = count( ob_get_level() );
+        $obLevels = count( ob_get_level() );
 
-        for ( $i = 0; $i < $ob_levels; $i++ ) {
+        for ( $i = 0; $i < $obLevels; $i++ ) {
 
             $final .= ob_get_clean();
 
@@ -159,7 +174,10 @@ abstract class BambeeAdmin extends BambeeBase {
     }
 
     /**
+     * Get the final SVG output.
+     *
      * @param $content
+     *
      * @return mixed
      */
     public function svgFinalOutput( $content ) {
@@ -189,7 +207,10 @@ abstract class BambeeAdmin extends BambeeBase {
     }
 
     /**
+     * Add the featured image column to the Wordpress tables.
+     *
      * @param $columns
+     *
      * @return array
      */
     public function customColumns( $columns ) {
@@ -205,8 +226,12 @@ abstract class BambeeAdmin extends BambeeBase {
     }
 
     /**
+     * Prints data in a column.
+     *
      * @param $column
      * @param $postId
+     *
+     * @return void
      */
     public function customColumnsData( $column, $postId ) {
 
@@ -219,7 +244,7 @@ abstract class BambeeAdmin extends BambeeBase {
     }
 
     /**
-     * @return static
+     * {@inheritdoc}
      */
     public static function self() {
 

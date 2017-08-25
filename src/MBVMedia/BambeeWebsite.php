@@ -1,8 +1,9 @@
 <?php
+
 /**
- * @since 1.0.0
- * @author R4c00n <marcel.kempf93@gmail.com>
- * @licence MIT
+ * BambeeWebsite.php
+ *
+ * @see https://github.com/MBV-Media/bambee-core
  */
 
 namespace MBVMedia;
@@ -14,57 +15,75 @@ use MBVMedia\ThemeCustomizer\ThemeCustommizerComments;
 /**
  * The class representing the website (user frontend).
  *
- * @since 1.0.0
+ * @package BambeeCore
  * @author R4c00n <marcel.kempf93@gmail.com>
+ * @author Holger Terhoeven <h.terhoeven@mbv-media.com>
  * @licence MIT
+ * @since 1.5.0
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/BambeeWebsite.html
  */
 abstract class BambeeWebsite extends BambeeBase {
 
     /**
-     * @since 1.0.0
      * @var array
+     *
+     * @since 1.0.0
+     * @ignore
      */
     private $scripts;
 
     /**
-     * @since 1.0.0
      * @var array
+     *
+     * @since 1.0.0
+     * @ignore
      */
     private $localizedScripts;
 
     /**
-     * @since 1.0.0
      * @var array
+     *
+     * @since 1.0.0
+     * @ignore
      */
     private $styles;
 
     /**
-     * @since 1.1.0
      * @var string
+     *
+     * @since 1.1.0
+     * @ignore
      */
     private $commentPaginationNextText;
 
     /**
-     * @since 1.1.0
      * @var string
+     *
+     * @since 1.1.0
+     * @ignore
      */
     private $commentPaginationPrevText;
 
     /**
-     * @since 1.1.0
      * @var string
+     *
+     * @since 1.1.0
+     * @ignore
      */
     private $commentPaginationPageTemplate;
 
     /**
-     * @since 1.5.0
      * @var BambeeWebsite
+     *
+     * @since 1.5.0
+     * @ignore
      */
     private static $instance = null;
 
     /**
+     * BambeeWebsite constructor.
+     *
      * @since 1.0.0
-     * @return void
      */
     protected function __construct() {
 
@@ -84,9 +103,11 @@ abstract class BambeeWebsite extends BambeeBase {
     }
 
     /**
-     * @since 1.4.0
+     * Get the comment pagination text for the next-button.
      *
      * @return string
+     *
+     * @since 1.4.0
      */
     public function getCommentPaginationNextText() {
 
@@ -95,9 +116,13 @@ abstract class BambeeWebsite extends BambeeBase {
     }
 
     /**
-     * @since 1.4.0
+     * Set the comment pagination text for the next-button.
      *
      * @param string $commentPaginationNextText
+     *
+     * @return void
+     *
+     * @since 1.4.0
      */
     public function setCommentPaginationNextText( $commentPaginationNextText ) {
 
@@ -106,9 +131,11 @@ abstract class BambeeWebsite extends BambeeBase {
     }
 
     /**
-     * @since 1.4.0
+     * Get the comment pagination text for the previous-button.
      *
      * @return string
+     *
+     * @since 1.4.0
      */
     public function getCommentPaginationPrevText() {
 
@@ -117,9 +144,11 @@ abstract class BambeeWebsite extends BambeeBase {
     }
 
     /**
-     * @since 1.4.0
+     * Set the comment pagination text for the previous-button.
      *
      * @param string $commentPaginationPrevText
+     *
+     * @since 1.4.0
      */
     public function setCommentPaginationPrevText( $commentPaginationPrevText ) {
 
@@ -128,9 +157,11 @@ abstract class BambeeWebsite extends BambeeBase {
     }
 
     /**
-     * @since 1.4.0
+     * Get the comment pagination template.
      *
      * @return string
+     *
+     * @since 1.4.0
      */
     public function getCommentPaginationPageTemplate() {
 
@@ -139,9 +170,11 @@ abstract class BambeeWebsite extends BambeeBase {
     }
 
     /**
-     * @since 1.4.0
+     * Set the comment pagination template.
      *
      * @param string $commentPaginationPageTemplate
+     *
+     * @since 1.4.0
      */
     public function setCommentPaginationPageTemplate( $commentPaginationPageTemplate ) {
 
@@ -150,7 +183,7 @@ abstract class BambeeWebsite extends BambeeBase {
     }
 
     /**
-     *
+     * {@inheritdoc}
      */
     public function addActions() {
 
@@ -168,7 +201,7 @@ abstract class BambeeWebsite extends BambeeBase {
     }
 
     /**
-     *
+     * {@inheritdoc}
      */
     public function addFilters() {
 
@@ -177,7 +210,9 @@ abstract class BambeeWebsite extends BambeeBase {
     }
 
     /**
-     * Enqueue additional scripts
+     * Register additional scripts.
+     *
+     * @return void
      */
     public function addScripts() {
 
@@ -200,7 +235,9 @@ abstract class BambeeWebsite extends BambeeBase {
     }
 
     /**
-     * Enqueue additional styles
+     * Register additional styles.
+     *
+     * @return void
      */
     public function addStyles() {
 
@@ -209,13 +246,17 @@ abstract class BambeeWebsite extends BambeeBase {
     }
 
     /**
-     * @since 1.4.0
+     * Register a script.
      *
      * @param $handle
      * @param $src
-     * @param array $deps
-     * @param bool $ver
-     * @param bool $inFooter
+     * @param array $deps (optional)
+     * @param bool $ver (optional)
+     * @param bool $inFooter (optional)
+     *
+     * @return void
+     *
+     * @since 1.4.0
      */
     public function addScript( $handle, $src, $deps = [], $ver = false, $inFooter = false ) {
 
@@ -230,11 +271,15 @@ abstract class BambeeWebsite extends BambeeBase {
     }
 
     /**
-     * @since 1.4.0
+     * Register a localized script.
      *
      * @param $handle
      * @param $name
      * @param array $data
+     *
+     * @return void
+     *
+     * @since 1.4.0
      */
     public function addLocalizedScript( $handle, $name, array $data ) {
 
@@ -247,13 +292,17 @@ abstract class BambeeWebsite extends BambeeBase {
     }
 
     /**
-     * @since 1.4.0
+     * Regsiter a style.
      *
      * @param $handle
      * @param $src
-     * @param array $deps
-     * @param bool $ver
-     * @param string $media
+     * @param array $deps (optional)
+     * @param bool $ver (optional)
+     * @param string $media (optional)
+     *
+     * @return void
+     *
+     * @since 1.4.0
      */
     public function addStyle( $handle, $src, $deps = [], $ver = false, $media = 'all' ) {
 
@@ -268,7 +317,9 @@ abstract class BambeeWebsite extends BambeeBase {
     }
 
     /**
+     * Disable the Wordpress default emojis.
      *
+     * @return void
      */
     public function disableEmojis() {
 
@@ -283,11 +334,13 @@ abstract class BambeeWebsite extends BambeeBase {
     /**
      * Customize the comment list.
      *
-     * @since 1.0.0
      * @param string $comment
      * @param array $args
      * @param int $depth
+     *
      * @return void
+     *
+     * @since 1.0.0
      */
     public function commentList( $comment, $args, $depth ) {
 
@@ -296,11 +349,15 @@ abstract class BambeeWebsite extends BambeeBase {
     }
 
     /**
-     * @since 1.4.2
+     * Get the comment list.
+     *
      * @param $comment
      * @param $args
      * @param $depth
+     *
      * @return string
+     *
+     * @since 1.4.2
      */
     public function getCommentList( $comment, $args, $depth ) {
 
@@ -321,10 +378,11 @@ abstract class BambeeWebsite extends BambeeBase {
     }
 
     /**
-     * Display comments pagination.
+     * Renders the comment pagination.
+     *
+     * @return void
      *
      * @since 1.1.0
-     * @return void
      */
     public function commentPagination() {
 
@@ -333,8 +391,11 @@ abstract class BambeeWebsite extends BambeeBase {
     }
 
     /**
-     * @since 1.4.2
+     * Get the comment pagination.
+     *
      * @return string
+     *
+     * @since 1.4.2
      */
     public function getCommentPagination() {
 
@@ -383,9 +444,11 @@ abstract class BambeeWebsite extends BambeeBase {
 
 
     /**
-     * @since 1.4.2
+     * Sets a default recipient to contact form 7 mails.
      *
      * @param $cf7
+     *
+     * @since 1.4.2
      */
     public function addCF7DefaultRecipient( $cf7 ) {
 
@@ -403,7 +466,10 @@ abstract class BambeeWebsite extends BambeeBase {
     }
 
     /**
+     * Moves the comment textfield to the bottom of the form.
+     *
      * @param $fields
+     *
      * @return mixed
      */
     public function moveCommentFieldToBottom( $fields ) {
@@ -417,6 +483,8 @@ abstract class BambeeWebsite extends BambeeBase {
 
     /**
      * Enqueue all added JS files.
+     *
+     * @return void
      *
      * @since 1.4.2
      */
@@ -439,6 +507,8 @@ abstract class BambeeWebsite extends BambeeBase {
     /**
      * Enqueue all added localize JS files.
      *
+     * @return void
+     *
      * @since 1.4.2
      */
     public function enqueueLocalizeScripts() {
@@ -457,6 +527,8 @@ abstract class BambeeWebsite extends BambeeBase {
 
     /**
      * Enqueue all added CSS files.
+     *
+     * @return void
      *
      * @since 1.4.2
      */
@@ -478,6 +550,8 @@ abstract class BambeeWebsite extends BambeeBase {
 
     /**
      * Prints the Google Analytics code if a tracking code is set.
+     *
+     * @return void
      *
      * @since 1.4.2
      */
@@ -512,21 +586,35 @@ abstract class BambeeWebsite extends BambeeBase {
     }
 
     /**
+     * Performs the Wordpress main loop.
+     *
      * @param ThemeView $partial
+     * @param ThemeView|null $noPosts
+     *
+     * @return void
      */
-    public function mainLoop( ThemeView $partial ) {
+    public function mainLoop( ThemeView $partial, ThemeView $noPosts = null ) {
 
-        while ( have_posts() ) {
-            the_post();
-            echo $partial->render();
+        if ( have_posts() ) {
+            while ( have_posts() ) {
+                the_post();
+                echo $partial->render();
+            }
+        }
+        elseif ( null !== $noPosts ) {
+            echo $noPosts->render();
         }
 
     }
 
     /**
+     * Performs a custom loop.
+     *
      * @param ThemeView $partial
      * @param array $queryArgs
      * @param ThemeView|null $noPosts
+     *
+     * @return void
      */
     public function customLoop( ThemeView $partial, array $queryArgs = [], ThemeView $noPosts = null ) {
 
@@ -551,7 +639,7 @@ abstract class BambeeWebsite extends BambeeBase {
     }
 
     /**
-     * @return static
+     * {@inheritdoc}
      */
     public static function self() {
 

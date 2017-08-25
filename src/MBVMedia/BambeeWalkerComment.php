@@ -1,16 +1,23 @@
 <?php
+/**
+ * BambeeWalkerComment.php
+ */
 
 namespace MBVMedia;
 
 /**
- * @since 1.0.0
- * @author hterhoeven
+ * Class BambeeWalkerComment
+ *
+ * @package BambeeCore
+ * @author Holger Terhoeven <h.terhoeven@mbv-media.com>
  * @licence MIT
+ * @since 1.0.0
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/BambeeWalkerComment.html
  */
 class BambeeWalkerComment extends \Walker_Comment {
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function paged_walk( $elements, $max_depth, $page_num, $per_page ) {
 

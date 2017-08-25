@@ -1,7 +1,6 @@
 <?php
-/** * @since 2.0.3
- * @author hterhoeven
- * @licence MIT
+/**
+ * ControlledTemplate.php
  */
 
 namespace MBVMedia\ControlledTemplate;
@@ -9,34 +8,50 @@ namespace MBVMedia\ControlledTemplate;
 
 use MBVMedia\Lib\ThemeView;
 
+/**
+ * Class ControlledTemplate
+ *
+ * @package BambeeCore
+ * @author Holger Terhoeven <h.terhoeven@mbv-media.com>
+ * @licence MIT
+ * @since 1.0.0
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/ControlledTemplate/ControlledTemplate.html
+ */
 abstract class ControlledTemplate {
 
     /**
      * @var ThemeView
+     * @ignore
      */
     private $template;
 
     /**
      * @var string
+     * @ignore
      */
     private $nonce;
 
     /**
      * @var string
+     * @ignore
      */
     private $selectorOnClick;
 
     /**
      * @var string
+     * @ignore
      */
     private $selectorContainer;
 
     /**
      * SessionControledTemplate constructor.
+     *
      * @param $template string
      * @param $nonce string
      * @param $selectorOnClick string
      * @param $selectorContainer string
+     *
+     * @since 1.0.0
      */
     public function __construct( ThemeView $template, $nonce, $selectorOnClick, $selectorContainer ) {
 
@@ -48,7 +63,11 @@ abstract class ControlledTemplate {
     }
 
     /**
+     * Registers the required actions with Wordpress.
      *
+     * @return void
+     *
+     * @since 1.0.0
      */
     public function addActions() {
 
@@ -61,7 +80,7 @@ abstract class ControlledTemplate {
     }
 
     /**
-     *
+     * @ignore
      */
     private function addWebsiteActions() {
 
@@ -72,7 +91,7 @@ abstract class ControlledTemplate {
     }
 
     /**
-     *
+     * @ignore
      */
     private function addAdminActions() {
 
@@ -82,7 +101,11 @@ abstract class ControlledTemplate {
     }
 
     /**
+     * The ajax callback.
      *
+     * @return void
+     *
+     * @since 1.0.0
      */
     public function ajaxCallback() {
 
@@ -99,7 +122,11 @@ abstract class ControlledTemplate {
     }
 
     /**
+     * Renders the template.
      *
+     * @return void
+     *
+     * @since 1.0.0
      */
     public function renderTemplate() {
 
@@ -112,7 +139,11 @@ abstract class ControlledTemplate {
     }
 
     /**
+     * Checks for the nonce sent with HTTP GET.
      *
+     * @return void
+     *
+     * @since 1.0.0
      */
     public function checkForNonce() {
 
@@ -127,7 +158,11 @@ abstract class ControlledTemplate {
     }
 
     /**
+     * Prints the required javascript to the HTML document.
      *
+     * @return void
+     *
+     * @since 1.0.0
      */
     public function printScript() {
 
@@ -165,12 +200,20 @@ abstract class ControlledTemplate {
     }
 
     /**
+     * Hides the template.
      *
+     * @return void
+     *
+     * @since 1.0.0
      */
     public abstract function hide();
 
     /**
+     * Determines if the template is hidden.
+     *
      * @return bool
+     *
+     * @since 1.0.0
      */
     public abstract function hidden();
 

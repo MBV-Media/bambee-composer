@@ -1,8 +1,9 @@
 <?php
+
 /**
- * @since 1.0.0
- * @author hterhoeven
- * @licence MIT
+ * Singleton.php
+ *
+ * @see https://github.com/MBV-Media/bambee-core
  */
 
 namespace MBVMedia\MetaBox;
@@ -10,13 +11,19 @@ namespace MBVMedia\MetaBox;
 
 use MBVMedia\Lib\ThemeView;
 
+/**
+ * Class MetaKeyCheckbox
+ *
+ * @package BambeeCore
+ * @author Holger Terhoeven <h.terhoeven@mbv-media.com>
+ * @licence MIT
+ * @since 1.5.0
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/MetaBox/MetaKeyCheckbox.html
+ */
 class MetaKeyCheckbox extends MetaKey {
 
     /**
-     * MetaKeyCheckbox constructor.
-     * @param $key
-     * @param $label
-     * @param int $type
+     * {@inheritdoc}
      */
     public function __construct( $key, $label, $type = self::TYPE_DEFAULT ) {
 

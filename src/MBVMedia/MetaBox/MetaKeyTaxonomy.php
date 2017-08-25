@@ -1,8 +1,6 @@
 <?php
 /**
- * @since 1.0.0
- * @author hterhoeven
- * @licence MIT
+ * MetaKeyTaxonomy.php
  */
 
 namespace MBVMedia\MetaBox;
@@ -10,23 +8,41 @@ namespace MBVMedia\MetaBox;
 
 use MBVMedia\Lib\ThemeView;
 
+/**
+ * Class MetaKeyTaxonomy
+ *
+ * @package BambeeCore
+ * @author Holger Terhoeven <h.terhoeven@mbv-media.com>
+ * @licence MIT
+ * @since 1.6.0
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/MetaBox/MetaKeyTaxonomy.html
+ */
 class MetaKeyTaxonomy extends MetaKey {
 
     /**
      * @var array
+     *
+     * @since 1.6.0
+     * @ignore
      */
     private $taxonomy;
 
     /**
      * @var ThemeView
+     *
+     * @since 1.6.0
+     * @ignore
      */
     private $termTemplate;
 
     /**
      * MetaKeyCheckbox constructor.
+     *
      * @param $key
      * @param $label
      * @param int $type
+     *
+     * @since 1.6.0
      */
     public function __construct( $key, $label, $type = self::TYPE_DEFAULT ) {
 
@@ -42,7 +58,13 @@ class MetaKeyTaxonomy extends MetaKey {
     }
 
     /**
+     * Add a taxonomy.
+     *
      * @param $taxonomy
+     *
+     * @return void
+     *
+     * @since 1.6.0
      */
     public function addTaxonomy( $taxonomy ) {
 
@@ -51,7 +73,11 @@ class MetaKeyTaxonomy extends MetaKey {
     }
 
     /**
+     * Get the taxonomies.
+     *
      * @return array
+     *
+     * @since 1.6.0
      */
     public function getTaxonomies() {
 
@@ -60,7 +86,13 @@ class MetaKeyTaxonomy extends MetaKey {
     }
 
     /**
+     * Set the term template.
+     *
      * @param ThemeView $template
+     *
+     * @return void
+     *
+     * @since 1.6.0
      */
     public function setTermTemplate( ThemeView $template ) {
 
@@ -70,7 +102,10 @@ class MetaKeyTaxonomy extends MetaKey {
     }
 
     /**
-     * @param null $postId
+     * {@inheritdoc}
+     *
+     * @param $postId
+     *
      * @return array
      */
     public function getValue( $postId = null ) {

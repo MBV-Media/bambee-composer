@@ -1,8 +1,9 @@
 <?php
+
 /**
- * @since 1.0.0
- * @author hterhoeven
- * @licence MIT
+ * AspectRatio.php
+ *
+ * @see https://github.com/MBV-Media/bambee-core
  */
 
 namespace MBVMedia\Shortcode;
@@ -10,15 +11,28 @@ namespace MBVMedia\Shortcode;
 
 use MBVMedia\Shortcode\Lib\BambeeShortcode;
 
+/**
+ * Class AspectRatio
+ *
+ * @package BambeeCore
+ * @author Holger Terhoeven <h.terhoeven@mbv-media.com>
+ * @licence MIT
+ * @since 1.5.0
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/Shortcode/AspectRatio.html
+ */
 class AspectRatio extends BambeeShortcode {
 
     /**
      * @var array
+     *
+     * @ignore
      */
     private $predefinedRatioList;
 
     /**
      * @var string
+     *
+     * @ignore
      */
     private $ratio;
 
@@ -46,7 +60,7 @@ class AspectRatio extends BambeeShortcode {
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function handleShortcode( array $atts = [], $content = '' ) {
 
@@ -75,7 +89,7 @@ class AspectRatio extends BambeeShortcode {
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function getShortcodeAlias() {
 
@@ -85,6 +99,8 @@ class AspectRatio extends BambeeShortcode {
 
 
     /**
+     * Get the predefined ratio list.
+     *
      * @return array
      */
     public function &getPredefinedRatioList() {
@@ -96,6 +112,8 @@ class AspectRatio extends BambeeShortcode {
     /**
      * @throws \InvalidArgumentException
      * @return string
+     *
+     * @ignore
      */
     private function getRatioClass() {
 
@@ -107,6 +125,8 @@ class AspectRatio extends BambeeShortcode {
 
     /**
      * @return string
+     *
+     * @ignore
      */
     private function getRatioStyle() {
 
@@ -117,6 +137,8 @@ class AspectRatio extends BambeeShortcode {
     /**
      * @throws \InvalidArgumentException
      * @return float
+     *
+     * @ignore
      */
     private function calculatePadding() {
 

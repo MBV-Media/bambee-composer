@@ -1,22 +1,40 @@
 <?php
 
 /**
- * @since 1.0.0
- * @author R4c00n <marcel.kempf93@gmail.com>
- * @licence MIT
+ * Bambee.php
+ *
+ * @package BambeeCore
  */
 
 namespace MBVMedia;
 
 
 if ( !defined( 'TextDomain' ) ) {
+
+    /**
+     * Used to load the Wordpress theme textdomain.
+     * Should be used in every translation function __, _e, etc. for proper string translation.
+     */
     define( 'TextDomain', 'bambee' );
+
 }
+
 if ( !defined( 'ThemeDir' ) ) {
+
+    /**
+     * The theme's full directory path.
+     */
     define( 'ThemeDir', get_stylesheet_directory() );
+
 }
+
 if ( !defined( 'ThemeUrl' ) ) {
+
+    /**
+     * The theme's full URL.
+     */
     define( 'ThemeUrl', get_stylesheet_directory_uri() );
+
 }
 
 
@@ -28,70 +46,90 @@ use MBVMedia\ThemeCustomizer\Section;
 use MBVMedia\ThemeCustomizer\Setting;
 use MBVMedia\ThemeCustomizer\ThemeCustommizer;
 
-
 /**
  * The class representing both website (user frontend) and WordPress admin.
  *
- * @since 1.0.0
+ * @package BambeeCore
  * @author R4c00n <marcel.kempf93@gmail.com>
+ * @author Holger Terhoeven <h.terhoeven@mbv-media.com>
  * @licence MIT
+ * @since 1.0.0
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/Bambee.html
  */
 abstract class Bambee extends BambeeBase {
 
     /**
      * @var string
+     *
+     * @ignore
      */
     private $dynamicFrontpageInterval;
 
     /**
-     * @since 1.0.0
      * @var array
+     *
+     * @since 1.0.0
+     * @ignore
      */
     private $postThumbnail;
 
     /**
      * @var array
+     *
+     * @ignore
      */
     private $customLogo;
 
     /**
      * @var array
+     *
+     * @ignore
      */
     private $customHeader;
 
     /**
-     * @since 1.0.0
      * @var array
+     *
+     * @since 1.0.0
+     * @ignore
      */
     private $menuList;
 
     /**
-     * @since 1.4.2
      * @var array
+     *
+     * @since 1.4.2
+     * @ignore
      */
     private $postTypeList;
 
     /**
-     * @since 1.4.2
      * @var ShortcodeManager
+     *
+     * @since 1.4.2
+     * @ignore
      */
     private $shortcodeManager;
 
     /**
-     * @since 1.7.0
      * @var ThemeCustommizer
+     * @since 1.7.0
+     * @ignore
      */
     private $themeCustomizer;
 
     /**
-     * @since 1.5.0
      * @var Bambee
+     *
+     * @since 1.5.0
+     * @ignore
      */
     private static $instance = null;
 
     /**
+     * Bambee constructor.
+     *
      * @since 1.0.0
-     * @return void
      */
     protected function __construct() {
 
@@ -133,7 +171,7 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
-     *
+     * {@inheritdoc}
      */
     public function addActions() {
 
@@ -143,7 +181,7 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
-     *
+     * {@inheritdoc}
      */
     public function addFilters() {
 
@@ -152,7 +190,11 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
+     * "init" action hook callback.
      *
+     * @return void
+     *
+     * @since 1.4.0
      */
     public function actionInit() {
 
@@ -161,7 +203,11 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
+     * "after_setup_theme" action hook callback.
      *
+     * @return void
+     *
+     * @since 1.4.0
      */
     public function actionAfterSetupTheme() {
 
@@ -175,7 +221,7 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
-     *
+     * @ignore
      */
     private function addPostTypeGallery() {
 
@@ -211,6 +257,10 @@ abstract class Bambee extends BambeeBase {
 
     /**
      * Initializes the shorcode-manager and loads the shortcodes.
+     *
+     * @return void
+     *
+     * @since 1.6.0
      */
     public function initShortcodes() {
 
@@ -228,6 +278,10 @@ abstract class Bambee extends BambeeBase {
 
     /**
      * Initializes the dynamic frontpage depending on the theme option "bambee_dynamic_front_page_show".
+     *
+     * @return void
+     *
+     * @since 1.6.0
      */
     public function initDynamicFrontpage() {
 
@@ -251,7 +305,11 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
-     * Initializes the coocie notice.
+     * Initializes the cookie notice.
+     *
+     * @return void
+     *
+     * @since 1.6.0
      */
     public function initCookieNotice() {
 
@@ -267,20 +325,23 @@ abstract class Bambee extends BambeeBase {
 
     /**
      * Initializes the theme customizer inclusively all customizable theme options:
-     * <ul>
-     *  <li>bambee_dynamic_front_page_show</li>
-     *  <li>bambee_dynamic_front_page_interval</li>
-     *  <li>bambee_comment_textbox_position</li>
-     *  <li>bambee_core_data_address</li>
-     *  <li>bambee_core_data_email</li>
-     *  <li>bambee_core_data_phone</li>
-     *  <li>bambee_google_maps_latitude</li>
-     *  <li>bambee_google_maps_longitude</li>
-     *  <li>bambee_google_maps_zoom</li>
-     *  <li>bambee_google_maps_api_key</li>
-     *  <li>bambee_google_maps_styles</li>
-     *  <li>bambee_google_analytics_tracking_id</li>
-     * </ul>
+     *
+     * - bambee_dynamic_front_page_show
+     * - bambee_dynamic_front_page_interval
+     * - bambee_comment_textbox_position
+     * - bambee_core_data_address
+     * - bambee_core_data_email
+     * - bambee_core_data_phone
+     * - bambee_google_maps_latitude
+     * - bambee_google_maps_longitude
+     * - bambee_google_maps_zoom
+     * - bambee_google_maps_api_key
+     * - bambee_google_maps_styles
+     * - bambee_google_analytics_tracking_id
+     *
+     * @return void
+     *
+     * @since 1.6.0
      */
     public function initThemeCustomizer() {
 
@@ -296,10 +357,13 @@ abstract class Bambee extends BambeeBase {
     /**
      * Adds a "Dynamic frontpage" section to the Wordpress customizer and
      * initializes all customizable dynamic front-page theme settings:
-     * <ul>
-     *  <li>bambee_dynamic_front_page_show</li>
-     *  <li>bambee_dynamic_front_page_interval</li>
-     * </ul>
+     *
+     * - bambee_dynamic_front_page_show
+     * - bambee_dynamic_front_page_interval
+     *
+     * @return void
+     *
+     * @since 1.5.0
      */
     public function initThemeSettingsDynamicFrontPage() {
 
@@ -343,9 +407,12 @@ abstract class Bambee extends BambeeBase {
     /**
      * Adds a "Comments" section to the Wordpress customizer and
      * initializes all customizable comments theme settings:
-     * <ul>
-     *  <li>bambee_comment_textbox_position</li>
-     * </ul>
+     *
+     * - bambee_comment_textbox_position
+     *
+     * @return void
+     *
+     * @since 1.5.0
      */
     public function initThemeSettingsComments() {
 
@@ -373,11 +440,14 @@ abstract class Bambee extends BambeeBase {
     /**
      * Adds a "Core data" section to the Wordpress customizer and
      * initializes all customizable core data theme settings:
-     * <ul>
-     *  <li>bambee_core_data_address</li>
-     *  <li>bambee_core_data_email</li>
-     *  <li>bambee_core_data_phone</li>
-     * </ul>
+     *
+     * - bambee_core_data_address
+     * - bambee_core_data_email
+     * - bambee_core_data_phone
+     *
+     * @return void
+     *
+     * @since 1.5.0
      */
     public function initThemeSettingsCoreData() {
 
@@ -437,14 +507,17 @@ abstract class Bambee extends BambeeBase {
     /**
      * Adds a "Google" panel along with a "Maps" and "Analytics" section to the Wordpress customizer and
      * initializes all customizable core data theme settings:
-     * <ul>
-     *  <li>bambee_google_maps_latitude</li>
-     *  <li>bambee_google_maps_longitude</li>
-     *  <li>bambee_google_maps_zoom</li>
-     *  <li>bambee_google_maps_api_key</li>
-     *  <li>bambee_google_maps_styles</li>
-     *  <li>bambee_google_analytics_tracking_id</li>
-     * </ul>
+     *
+     * - bambee_google_maps_latitude
+     * - bambee_google_maps_longitude
+     * - bambee_google_maps_zoom
+     * - bambee_google_maps_api_key
+     * - bambee_google_maps_styles
+     * - bambee_google_analytics_tracking_id
+     *
+     * @return void
+     *
+     * @since 1.5.0
      */
     public function initThemeSettingsGoogle() {
 
@@ -556,8 +629,9 @@ abstract class Bambee extends BambeeBase {
     /**
      * Get the shortcode manager.
      *
-     * @since 1.4.2
      * @return ShortcodeManager
+     *
+     * @since 1.4.2
      */
     public function getShortcodeManager() {
 
@@ -577,7 +651,11 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
+     * Get the featured image default sizes.
+     *
      * @return array
+     *
+     * @since 1.7.0
      */
     public function getFeaturedImageDefaults() {
 
@@ -586,10 +664,10 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
-     * @deprecated Will be removed in 1.8.0.<br>Can now be set by theme option "bambee_post_thumbnail_width".
-     * @since 1.4.2
-     *
      * @param int $postThumbnailWidth
+     *
+     * @since 1.4.2
+     * @deprecated Will be removed in 1.8.0.<br>Can now be set by theme option "bambee_post_thumbnail_width".
      */
     public function setPostThumbnailWidth( $postThumbnailWidth ) {
 
@@ -598,10 +676,10 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
-     * @deprecated Will be removed in 1.8.0.<br>Can now be set by theme option "bambee_post_thumbnail_height".
-     * @since 1.4.2
-     *
      * @param int $postThumbnailHeight
+     *
+     * @since 1.4.2
+     * @deprecated Will be removed in 1.8.0.<br>Can now be set by theme option "bambee_post_thumbnail_height".
      */
     public function setPostThumbnailHeight( $postThumbnailHeight ) {
 
@@ -610,10 +688,10 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
-     * @deprecated Will be removed in 1.8.0.<br>Can now be set by theme option "bambee_post_thumbnail_corp".
-     * @since 1.4.2
-     *
      * @param boolean $postThumbnailCrop
+     *
+     * @since 1.4.2
+     * @deprecated Will be removed in 1.8.0.<br>Can now be set by theme option "bambee_post_thumbnail_corp".
      */
     public function setPostThumbnailCrop( $postThumbnailCrop ) {
 
@@ -622,12 +700,14 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
-     * Adds an additional menu to register in Wordpress.
+     * Adds an additional menu to register with Wordpress.
+     *
+     * @param $slug     An unique identifier.
+     * @param $title    The displayed title.
+     *
+     * @return void
      *
      * @since 1.4.0
-     *
-     * @param $slug
-     * @param $title
      */
     public function addMenu( $slug, $title ) {
 
@@ -636,10 +716,11 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
-     * Registers all previously added menus.
+     * Registers all menus, added with addMenu, with Wordpress.
+     *
+     * @return void
      *
      * @since 1.0.0
-     * @return void
      */
     public function registerMenus() {
 
@@ -648,12 +729,14 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
-     * Adds an additional post type to register in Wordpress.
-     *
-     * @since 1.4.2
+     * Adds an additional post type to register with Wordpress.
      *
      * @param $postType
      * @param array $args
+     *
+     * @return void
+     *
+     * @since 1.4.2
      */
     public function addPostType( $postType, array $args ) {
 
@@ -662,10 +745,11 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
-     * Register all previously added post types.
+     * Register all post types, added with addPostType, with Wordpress.
+     *
+     * @return void
      *
      * @since 1.0.0
-     * @return void
      */
     public function registerPostTypes() {
 
@@ -679,6 +763,8 @@ abstract class Bambee extends BambeeBase {
      * Returns url to compentents of bambee
      *
      * @return mixed
+     *
+     * @since 1.4.0
      */
     public function getComponentUrl() {
 
@@ -693,11 +779,11 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
-     * Action-hook callbacks
-     */
-
-    /**
+     * Loads the textdomain.
      *
+     * @return void
+     *
+     * @since 1.4.0
      */
     public function loadThemeTextdomain() {
 
@@ -707,7 +793,11 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
+     * Adds the theme support for featured images.
      *
+     * @return void
+     *
+     * @since 1.7.0
      */
     public function addThemeSupportFeaturedImages() {
 
@@ -724,7 +814,11 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
+     * Adds the theme support for the "custom-logo".
      *
+     * @return void
+     *
+     * @since 1.4.0
      */
     public function addThemeSupportCustomLogo() {
 
@@ -733,7 +827,11 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
+     * Adds the theme support for the "custom-header".
      *
+     * @return void
+     *
+     * @since 1.4.0
      */
     public function addThemeSupportCustomHeader() {
 
@@ -742,7 +840,11 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
+     * Adds the theme support for the "custom-background".
      *
+     * @return void
+     *
+     * @since 1.4.0
      */
     public function addThemeSupportCustomBackground() {
 
@@ -751,7 +853,11 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
+     * Adds the post type support "excerpt" for pages.
      *
+     * @return void
+     *
+     * @since 1.4.0
      */
     public function addPostTypeSupportExcerpt() {
 
@@ -760,7 +866,11 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
+     * Get the Bambee instance.
+     *
      * @return static
+     *
+     * @since 1.5.0
      */
     public static function self() {
 

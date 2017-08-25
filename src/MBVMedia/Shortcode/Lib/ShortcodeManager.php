@@ -1,12 +1,27 @@
 <?php
 
+/**
+ * ShortcodeManager.php
+ */
+
 namespace MBVMedia\Shortcode\Lib;
 
 
+/**
+ * Class ShortcodeManager
+ *
+ * @package BambeeCore
+ * @author Holger Terhoeven <h.terhoeven@mbv-media.com>
+ * @licence MIT
+ * @since 1.0.0
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/Shortcode/Lib/ShortcodeManager.html
+ */
 class ShortcodeManager {
 
     /**
      * @var array
+     *
+     * @ignore
      */
     private $shortcodeList;
 
@@ -20,7 +35,12 @@ class ShortcodeManager {
     }
 
     /**
-     * @param array $locationInfo
+     * Load all shortcodes.
+     *
+     * @param array $path
+     * @param mixed $namespace
+     *
+     * @return void
      */
     public function loadShortcodes( $path, $namespace ) {
 
@@ -42,7 +62,9 @@ class ShortcodeManager {
     }
 
     /**
+     * Adds all loaded shortcodes to Wordpress.
      *
+     * @return void
      */
     public function addShortcodes() {
 
@@ -56,7 +78,9 @@ class ShortcodeManager {
     }
 
     /**
+     * Extend tinyMCE.
      *
+     * @return void
      */
     public function extendTinyMCE() {
 
@@ -67,7 +91,9 @@ class ShortcodeManager {
     }
 
     /**
+     * Make the shortcode data available in javascript.
      *
+     * @return void
      */
     public function printShortcodeData() {
 
@@ -89,7 +115,11 @@ class ShortcodeManager {
     }
 
     /**
+     * Registers the shortcode button with tinxMCE.
+     *
      * @param $buttons
+     * @global $current_screen
+     *
      * @return mixed
      */
     public function tinyMceRegisterButton( $buttons ) {
@@ -107,7 +137,10 @@ class ShortcodeManager {
     }
 
     /**
+     * Registers the shortcode plugin with tinyMCE.
+     *
      * @param $pluginArray
+     *
      * @return mixed
      */
     public function tinyMceRegisterPlugin( $pluginArray ) {

@@ -1,17 +1,27 @@
 <?php
+
 /**
- * @since 1.0.0
- * @author hterhoeven
- * @licence MIT
+ * ThemeCustommizer.php
  */
 
 namespace MBVMedia\ThemeCustomizer;
 
 
+/**
+ * Class ThemeCustommizer
+ *
+ * @package BambeeCore
+ * @author Holger Terhoeven <h.terhoeven@mbv-media.com>
+ * @licence MIT
+ * @since 1.5.0
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/ThemeCustomizer/ThemeCustommizer.html
+ */
 class ThemeCustommizer {
 
     /**
      * @var array
+     *
+     * @ignore
      */
     private $elementList;
 
@@ -25,7 +35,11 @@ class ThemeCustommizer {
     }
 
     /**
+     * Add a panel.
+     *
      * @param Panel $panel
+     *
+     * @return void
      */
     public function addPanel( Panel $panel ) {
 
@@ -34,7 +48,11 @@ class ThemeCustommizer {
     }
 
     /**
+     * Add a section.
+     *
      * @param Section $section
+     *
+     * @return void
      */
     public function addSection( Section $section ) {
 
@@ -43,7 +61,10 @@ class ThemeCustommizer {
     }
 
     /**
+     * Get an element.
+     *
      * @param $id
+     *
      * @return ThemeCustommizerElement|null
      */
     public function getElement( $id ) {
@@ -53,7 +74,9 @@ class ThemeCustommizer {
     }
 
     /**
+     * Adds the Wordpress action hook to register the theme customizer elements.
      *
+     * @return void
      */
     public function register() {
 
@@ -62,7 +85,11 @@ class ThemeCustommizer {
     }
 
     /**
+     * Register all theme customizer elements.
+     *
      * @param $wpCustomize
+     *
+     * @return void
      */
     public function actionCustomizeRegister( $wpCustomize ) {
 

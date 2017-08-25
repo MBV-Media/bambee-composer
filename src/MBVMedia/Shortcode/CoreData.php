@@ -1,19 +1,22 @@
 <?php
 
+/**
+ * CoreData.php
+ */
+
 namespace MBVMedia\Shortcode;
 
 
-use MBVMedia\BambeeWebsite;
 use MBVMedia\Shortcode\Lib\BambeeShortcode;
 
 /**
  * Load a core_data field.
  *
- * @package MBVMedia\lib\shortcode
+ * @package BambeeCore
+ * @author Holger Terhoeven <h.terhoeven@mbv-media.com>
+ * @licence MIT
  * @since 1.0.0
- * @param array $args
- * @param string $content
- * @return string
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/Shortcode/CoreData.html
  *
  * @example
  *  Usage:
@@ -22,7 +25,7 @@ use MBVMedia\Shortcode\Lib\BambeeShortcode;
 class CoreData extends BambeeShortcode {
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function handleShortcode( array $atts = [], $content = '' ) {
 

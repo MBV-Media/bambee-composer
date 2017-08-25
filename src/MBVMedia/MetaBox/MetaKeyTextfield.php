@@ -1,8 +1,9 @@
 <?php
+
 /**
- * @since 1.0.0
- * @author hterhoeven
- * @licence MIT
+ * MetaKeyTextfield.php
+ *
+ * @see https://github.com/MBV-Media/bambee-core
  */
 
 namespace MBVMedia\MetaBox;
@@ -10,14 +11,23 @@ namespace MBVMedia\MetaBox;
 
 use MBVMedia\Lib\ThemeView;
 
+/**
+ * Class MetaKeyTextfield
+ *
+ * @package BambeeCore
+ * @author Holger Terhoeven <h.terhoeven@mbv-media.com>
+ * @licence MIT
+ * @since 1.6.0
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/MetaBox/MetaKeyTextfield.html
+ */
 class MetaKeyTextfield extends MetaKey {
 
     /**
      * MetaKeyTextfield constructor.
+     *
      * @param $key
      * @param $label
-     * @param string $inpitType
-     * @param int $type
+     * @param int $type (optional)
      */
     public function __construct( $key, $label, $type = self::TYPE_DEFAULT ) {
 

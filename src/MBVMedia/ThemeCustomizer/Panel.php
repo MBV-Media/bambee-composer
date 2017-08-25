@@ -1,17 +1,26 @@
 <?php
+
 /**
- * @since 1.0.0
- * @author hterhoeven
- * @licence MIT
+ * Panel.php
  */
 
 namespace MBVMedia\ThemeCustomizer;
 
-
+/**
+ * Class Panel
+ *
+ * @package BambeeCore
+ * @author Holger Terhoeven <h.terhoeven@mbv-media.com>
+ * @licence MIT
+ * @since 1.5.0
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/ThemeCustomizer/Panel.html
+ */
 class Panel extends ThemeCustommizerElement {
 
     /**
      * @var array
+     *
+     * @ignore
      */
     private $sectionList;
 
@@ -29,7 +38,11 @@ class Panel extends ThemeCustommizerElement {
     }
 
     /**
+     * Adds a section.
+     *
      * @param Section $section
+     *
+     * @return void
      */
     public function addSection( Section $section ) {
 
@@ -39,7 +52,10 @@ class Panel extends ThemeCustommizerElement {
     }
 
     /**
+     * Get a section.
+     *
      * @param $id
+     *
      * @return Section|null
      */
     public function getSection( $id ) {
@@ -49,7 +65,7 @@ class Panel extends ThemeCustommizerElement {
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function register( \WP_Customize_Manager $wpCustomize ) {
 

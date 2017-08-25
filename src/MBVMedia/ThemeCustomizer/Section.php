@@ -1,22 +1,33 @@
 <?php
+
 /**
- * @since 1.0.0
- * @author hterhoeven
- * @licence MIT
+ * Section.php
  */
 
 namespace MBVMedia\ThemeCustomizer;
 
 
+/**
+ * Class Section
+ *
+ * @package BambeeCore
+ * @author Holger Terhoeven <h.terhoeven@mbv-media.com>
+ * @licence MIT
+ * @since 1.5.0
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/ThemeCustomizer/Section.html
+ */
 class Section extends ThemeCustommizerElement {
 
     /**
      * @var array
+     *
+     * @ignore
      */
     private $settingList;
 
     /**
      * Section constructor.
+     *
      * @param $id
      * @param array $args
      */
@@ -28,7 +39,11 @@ class Section extends ThemeCustommizerElement {
     }
 
     /**
+     * Add a setting.
+     *
      * @param Setting $setting
+     *
+     * @return void
      */
     public function addSetting( Setting $setting ) {
 
@@ -38,7 +53,7 @@ class Section extends ThemeCustommizerElement {
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function register( \WP_Customize_Manager $wpCustomize ) {
 

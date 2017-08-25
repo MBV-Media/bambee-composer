@@ -1,8 +1,9 @@
 <?php
+
 /**
- * @since 1.0.0
- * @author hterhoeven
- * @licence MIT
+ * BambeeBase.php
+ *
+ * @see https://github.com/MBV-Media/bambee-core
  */
 
 namespace MBVMedia;
@@ -10,6 +11,15 @@ namespace MBVMedia;
 
 use MBVMedia\Lib\Singleton;
 
+/**
+ * Class BambeeBase
+ *
+ * @package BambeeCore
+ * @author Holger Terhoeven <h.terhoeven@mbv-media.com>
+ * @licence MIT
+ * @since 1.4.0
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/BambeeBase.html
+ */
 abstract class BambeeBase implements Singleton {
 
     /**

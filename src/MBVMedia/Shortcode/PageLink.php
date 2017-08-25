@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * PageLink.php
+ *
+ * @see https://github.com/MBV-Media/bambee-core
+ */
+
 namespace MBVMedia\Shortcode;
 
 
@@ -8,11 +14,11 @@ use MBVMedia\Shortcode\Lib\BambeeShortcode;
 /**
  * Get permalink by id.
  *
- * @package MBVMedia\lib\shortcode
+ * @package BambeeCore
+ * @author Holger Terhoeven <h.terhoeven@mbv-media.com>
+ * @licence MIT
  * @since 1.0.0
- *
- * @param array $args
- * @return mixed
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/Shortcode/PageLink.html
  *
  * @example
  *  Usage:
@@ -31,7 +37,7 @@ class PageLink extends BambeeShortcode {
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function handleShortcode( array $atts = [], $content = '' ) {
 
@@ -41,7 +47,7 @@ class PageLink extends BambeeShortcode {
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function getShortcodeAlias() {
 

@@ -1,17 +1,29 @@
 <?php
+
 /**
- * @since 1.0.0
- * @author hterhoeven
- * @licence MIT
+ * Session.php
+ *
+ * @see https://github.com/MBV-Media/bambee-core
  */
 
 namespace MBVMedia\Lib;
 
 
+/**
+ * Class Session
+ *
+ * @package BambeeCore
+ * @author Holger Terhoeven <h.terhoeven@mbv-media.com>
+ * @licence MIT
+ * @since 1.5.0
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/Lib/Session.html
+ */
 class Session {
 
     /**
-     * @param int $lifetime
+     * Start the session.
+     *
+     * @param int $lifetime (optional) (default: 0)
      */
     public static function start( $lifetime = 0 ) {
 
@@ -23,7 +35,10 @@ class Session {
     }
 
     /**
+     * Get a session variable.
+     *
      * @param $var
+     *
      * @return mixed|null
      */
     public static function getVar( $var ) {
@@ -37,8 +52,12 @@ class Session {
     }
 
     /**
+     * Set a session variable.
+     *
      * @param $var
      * @param $value
+     *
+     * @return void
      */
     public static function setVar( $var, $value ) {
 

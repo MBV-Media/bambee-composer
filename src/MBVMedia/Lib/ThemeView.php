@@ -1,8 +1,7 @@
 <?php
+
 /**
- * @since 1.0.0
- * @author R4c00n <marcel.kempf93@gmail.com>
- * @licence MIT
+ * ThemeView.php
  */
 
 namespace MBVMedia\Lib;
@@ -13,9 +12,11 @@ use MBVMedia\Bambee;
 /**
  * The class representing a view.
  *
- * @since 1.0.0
+ * @package BambeeCore
  * @author R4c00n <marcel.kempf93@gmail.com>
  * @licence MIT
+ * @since 1.0.0
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/Lib/ThemeView.html
  *
  * @example
  *  Usage:
@@ -27,22 +28,32 @@ use MBVMedia\Bambee;
 class ThemeView {
 
     /**
-     * @since 1.0.0
+     * The arguments passed to the view.
+     *
      * @var array
+     *
+     * @since 1.0.0
      */
     protected $args;
 
     /**
-     * @since 1.0.0
+     * Filename of the view.
+     *
      * @var string
+     *
+     * @since 1.0.0
      */
     protected $file;
 
     /**
-     * @since 1.0.0
+     * ThemeView constructor.
+     *
      * @param string $file
-     * @param array $args
+     * @param array $args (optional)
+     *
      * @return void
+     *
+     * @since 1.0.0
      */
     public function __construct( $file, $args = [] ) {
 
@@ -52,8 +63,12 @@ class ThemeView {
     }
 
     /**
+     * Set an argument.
+     *
      * @param $arg
      * @param $value
+     *
+     * @return void
      */
     public function setArg( $arg, $value ) {
 
@@ -64,8 +79,9 @@ class ThemeView {
     /**
      * Render the view.
      *
-     * @since 1.0.0
      * @return string
+     *
+     * @since 1.0.0
      */
     public function render() {
 
@@ -82,6 +98,8 @@ class ThemeView {
 
     /**
      * Renders and echos the view.
+     *
+     * @return void
      *
      * @since 1.7.0
      */

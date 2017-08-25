@@ -1,8 +1,7 @@
 <?php
+
 /**
- * @since 1.0.0
- * @author hterhoeven
- * @licence MIT
+ * MetaKeyColorPicker.php
  */
 
 namespace MBVMedia\MetaBox;
@@ -10,13 +9,22 @@ namespace MBVMedia\MetaBox;
 
 use MBVMedia\Lib\ThemeView;
 
+/**
+ * Class MetaKeyColorPicker
+ *
+ * @package BambeeCore
+ * @author Holger Terhoeven <h.terhoeven@mbv-media.com>
+ * @licence MIT
+ * @since 1.6.0
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/MetaBox/MetaKeyColorPicker.html
+ */
 class MetaKeyColorPicker extends MetaKey {
 
     /**
      * MetaKeyTextfield constructor.
+     *
      * @param $key
      * @param $label
-     * @param string $inpitType
      * @param int $type
      */
     public function __construct( $key, $label, $type = self::TYPE_DEFAULT ) {
@@ -31,7 +39,9 @@ class MetaKeyColorPicker extends MetaKey {
     }
 
     /**
+     * Admin enqueue scripts action callback
      *
+     * @return void
      */
     public function actionAdminEnqueueScripts() {
 

@@ -1,17 +1,36 @@
 <?php
 
+/**
+ * BambeeShortcode.php
+ */
+
 namespace MBVMedia\Shortcode\Lib;
 
 
+/**
+ * Class BambeeShortcode
+ *
+ * @package BambeeCore
+ * @author Holger Terhoeven <h.terhoeven@mbv-media.com>
+ * @licence MIT
+ * @since 1.0.0
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/Shortcode/Lib/BambeeShortcode.html
+ */
 abstract class BambeeShortcode implements Handleable {
 
     /**
+     * The supported attributes.
+     *
      * @var array
+     * @ignore
      */
     private $supportedAtts;
 
     /**
+     * A description of the shortcode.
+     *
      * @var string
+     * @ignore
      */
     private $description;
 
@@ -23,16 +42,22 @@ abstract class BambeeShortcode implements Handleable {
     }
 
     /**
-     * @return array
+     * Get all supported attributes.
+     *
+     * @return array An array of attributes.
      */
     public function getSupportedAtts() {
         return $this->supportedAtts;
     }
 
     /**
+     * Add an attribute.
+     *
      * @param $name
-     * @param string $default
-     * @param string $type TinyMCE input type
+     * @param string $default (optional)
+     * @param string $type (optional) TinyMCE input type
+     *
+     * @return void
      */
     public function addAttribute( $name, $default = '', $type = 'text' ) {
 
@@ -46,6 +71,8 @@ abstract class BambeeShortcode implements Handleable {
     }
 
     /**
+     * Get the description.
+     *
      * @return mixed
      */
     public function getDescription() {
@@ -55,7 +82,11 @@ abstract class BambeeShortcode implements Handleable {
     }
 
     /**
-     * @param $description
+     * Set the description.
+     *
+     * @param mixed $description
+     *
+     * @return void
      */
     public function setDescription( $description ) {
 
@@ -64,7 +95,9 @@ abstract class BambeeShortcode implements Handleable {
     }
 
     /**
+     * Adds the shortcode to Wordpress.
      *
+     * @return void
      */
     public static function addShortcode() {
 
@@ -80,8 +113,11 @@ abstract class BambeeShortcode implements Handleable {
     }
 
     /**
-     * @param array $atts
-     * @param string $content
+     * Executes the shortcode.
+     *
+     * @param array $atts (optional)
+     * @param string $content (optional)
+     *
      * @return mixed
      */
     public static function doShortcode( $atts = [], $content = '' ) {
@@ -101,6 +137,8 @@ abstract class BambeeShortcode implements Handleable {
     }
 
     /**
+     * Get the alias for the shortcode.
+     *
      * @return string
      */
     public static function getShortcodeAlias() {
@@ -110,6 +148,10 @@ abstract class BambeeShortcode implements Handleable {
     }
 
     /**
+     * Get the unqualified class name.
+     *
+     * @param string|object|null $class (optional)
+     *
      * @return string
      */
     public static function getUnqualifiedClassName( $class = null ) {
