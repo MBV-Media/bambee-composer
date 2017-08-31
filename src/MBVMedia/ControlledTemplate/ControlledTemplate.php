@@ -63,7 +63,7 @@ abstract class ControlledTemplate {
     }
 
     /**
-     * Registers the required actions with Wordpress.
+     * Register the required actions with Wordpress.
      *
      * @return void
      *

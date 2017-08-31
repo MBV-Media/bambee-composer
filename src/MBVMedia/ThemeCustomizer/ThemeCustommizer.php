@@ -74,7 +74,7 @@ class ThemeCustommizer {
     }
 
     /**
-     * Adds the Wordpress action hook to register the theme customizer elements.
+     * Add the Wordpress action hook to register the theme customizer elements.
      *
      * @return void
      */

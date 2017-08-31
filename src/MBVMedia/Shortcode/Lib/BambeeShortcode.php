@@ -95,7 +95,7 @@ abstract class BambeeShortcode implements Handleable {
     }
 
     /**
-     * Adds the shortcode to Wordpress.
+     * Add the shortcode to Wordpress.
      *
      * @return void
      */

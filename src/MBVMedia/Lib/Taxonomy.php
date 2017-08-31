@@ -81,7 +81,7 @@ class Taxonomy {
     }
 
     /**
-     * Registers the taxonomy with Wordpress.
+     * Register the taxonomy with Wordpress.
      *
      * @return void
      *
@@ -102,7 +102,7 @@ class Taxonomy {
     }
 
     /**
-     * Adds a dropdown filter bar on the posts overview page.
+     * Add a dropdown filter bar on the posts overview page.
      * Note: This method is called by the "restrict_manage_posts"-action and should not be called directly.
      *
      * @return void

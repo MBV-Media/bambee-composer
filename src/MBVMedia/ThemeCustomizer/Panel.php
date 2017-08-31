@@ -38,7 +38,7 @@ class Panel extends ThemeCustommizerElement {
     }
 
     /**
-     * Adds a section.
+     * Add a section.
      *
      * @param Section $section
      *

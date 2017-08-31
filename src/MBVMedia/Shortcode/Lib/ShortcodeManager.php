@@ -62,7 +62,7 @@ class ShortcodeManager {
     }
 
     /**
-     * Adds all loaded shortcodes to Wordpress.
+     * Add all loaded shortcodes to Wordpress.
      *
      * @return void
      */
@@ -115,7 +115,7 @@ class ShortcodeManager {
     }
 
     /**
-     * Registers the shortcode button with tinxMCE.
+     * Register the shortcode button with tinxMCE.
      *
      * @param $buttons
      * @global $current_screen
@@ -137,7 +137,7 @@ class ShortcodeManager {
     }
 
     /**
-     * Registers the shortcode plugin with tinyMCE.
+     * Register the shortcode plugin with tinyMCE.
      *
      * @param $pluginArray
      *

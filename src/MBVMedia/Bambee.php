@@ -355,7 +355,7 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
-     * Adds a "Dynamic frontpage" section to the Wordpress customizer and
+     * Add a "Dynamic frontpage" section to the Wordpress customizer and
      * initializes all customizable dynamic front-page theme settings:
      *
      * - bambee_dynamic_front_page_show
@@ -405,7 +405,7 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
-     * Adds a "Comments" section to the Wordpress customizer and
+     * Add a "Comments" section to the Wordpress customizer and
      * initializes all customizable comments theme settings:
      *
      * - bambee_comment_textbox_position
@@ -438,7 +438,7 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
-     * Adds a "Core data" section to the Wordpress customizer and
+     * Add a "Core data" section to the Wordpress customizer and
      * initializes all customizable core data theme settings:
      *
      * - bambee_core_data_address
@@ -505,7 +505,7 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
-     * Adds a "Google" panel along with a "Maps" and "Analytics" section to the Wordpress customizer and
+     * Add a "Google" panel along with a "Maps" and "Analytics" section to the Wordpress customizer and
      * initializes all customizable core data theme settings:
      *
      * - bambee_google_maps_latitude
@@ -700,7 +700,7 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
-     * Adds an additional menu to register with Wordpress.
+     * Add an additional menu to register with Wordpress.
      *
      * @param $slug     An unique identifier.
      * @param $title    The displayed title.
@@ -716,7 +716,7 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
-     * Registers all menus, added with addMenu, with Wordpress.
+     * Register all menus, added with addMenu, with Wordpress.
      *
      * @return void
      *
@@ -729,7 +729,7 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
-     * Adds an additional post type to register with Wordpress.
+     * Add an additional post type to register with Wordpress.
      *
      * @param $postType
      * @param array $args
@@ -793,7 +793,7 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
-     * Adds the theme support for featured images.
+     * Add the theme support for featured images.
      *
      * @return void
      *
@@ -814,7 +814,7 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
-     * Adds the theme support for the "custom-logo".
+     * Add the theme support for the "custom-logo".
      *
      * @return void
      *
@@ -827,7 +827,7 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
-     * Adds the theme support for the "custom-header".
+     * Add the theme support for the "custom-header".
      *
      * @return void
      *
@@ -840,7 +840,7 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
-     * Adds the theme support for the "custom-background".
+     * Add the theme support for the "custom-background".
      *
      * @return void
      *
@@ -853,7 +853,7 @@ abstract class Bambee extends BambeeBase {
     }
 
     /**
-     * Adds the post type support "excerpt" for pages.
+     * Add the post type support "excerpt" for pages.
      *
      * @return void
      *

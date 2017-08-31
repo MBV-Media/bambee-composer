@@ -51,8 +51,6 @@ class ThemeView {
      * @param string $file
      * @param array $args (optional)
      *
-     * @return void
-     *
      * @since 1.0.0
      */
     public function __construct( $file, $args = [] ) {

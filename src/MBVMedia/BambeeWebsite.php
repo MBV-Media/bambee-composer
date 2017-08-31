@@ -444,7 +444,7 @@ abstract class BambeeWebsite extends BambeeBase {
 
 
     /**
-     * Sets a default recipient to contact form 7 mails.
+     * Set a default recipient to contact form 7 mails.
      *
      * @param $cf7
      *
