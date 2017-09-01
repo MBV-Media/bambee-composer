@@ -41,6 +41,7 @@ abstract class BambeeAdmin extends BambeeBase {
      */
     public function addActions() {
 
+        add_action( 'after_switch_theme', [$this, 'addCapabilities'] );
         add_action( 'admin_enqueue_scripts', [ $this, 'enqueueStyles' ] );
         add_action( 'admin_init', [ $this, 'registerMediaSettings' ] );
         add_action( 'admin_init', [ $this, 'displaySvgThumbs' ] );
@@ -57,6 +58,20 @@ abstract class BambeeAdmin extends BambeeBase {
         add_filter( 'upload_mimes', [ $this, 'addSvgMediaSupport' ] );
         add_filter( 'manage_posts_columns', [ $this, 'customColumns' ] );
         add_filter( 'manage_pages_columns', [ $this, 'customColumns' ] );
+
+    }
+
+    /**
+     * Add capabilities to user roles.
+     *
+     * @return void
+     *
+     * @since 1.7.0
+     */
+    public function addCapabilities() {
+
+        $role = get_role( 'administrator' );
+        $role->add_cap( 'debug' );
 
     }
 
