@@ -41,7 +41,7 @@ abstract class BambeeAdmin extends BambeeBase {
      */
     public function addActions() {
 
-        add_action( 'after_switch_theme', [$this, 'addCapabilities'] );
+        add_action( 'after_switch_theme', [ $this, 'addCapabilities' ] );
         add_action( 'admin_enqueue_scripts', [ $this, 'enqueueStyles' ] );
         add_action( 'admin_init', [ $this, 'registerMediaSettings' ] );
         add_action( 'admin_init', [ $this, 'displaySvgThumbs' ] );

@@ -38,6 +38,7 @@ abstract class BambeeShortcode implements Handleable {
      * BambeeShortcode constructor.
      */
     public function __construct() {
+
         $this->supportedAtts = [];
     }
 
@@ -47,6 +48,7 @@ abstract class BambeeShortcode implements Handleable {
      * @return array An array of attributes.
      */
     public function getSupportedAtts() {
+
         return $this->supportedAtts;
     }
 

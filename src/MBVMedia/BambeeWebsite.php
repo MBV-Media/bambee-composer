@@ -600,8 +600,7 @@ abstract class BambeeWebsite extends BambeeBase {
                 the_post();
                 echo $partial->render();
             }
-        }
-        elseif ( null !== $noPosts ) {
+        } elseif ( null !== $noPosts ) {
             echo $noPosts->render();
         }
 

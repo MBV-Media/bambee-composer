@@ -89,14 +89,14 @@ class Taxonomy {
      */
     public function register() {
 
-        if( empty( $this->postTypeList ) ) {
+        if ( empty( $this->postTypeList ) ) {
             $this->postTypeList = get_post_types();
         }
 
         register_taxonomy( $this->name, $this->postTypeList, $this->args );
 
-        if( is_admin() ) {
-            add_action( 'restrict_manage_posts', [$this, 'buildFilters'] );
+        if ( is_admin() ) {
+            add_action( 'restrict_manage_posts', [ $this, 'buildFilters' ] );
         }
 
     }
@@ -113,12 +113,12 @@ class Taxonomy {
 
         global $typenow;
 
-        if( in_array( $typenow, $this->postTypeList ) ) {
+        if ( in_array( $typenow, $this->postTypeList ) ) {
 
             $taxonomy = get_taxonomy( $this->name );
 
             wp_dropdown_categories( [
-                'show_option_all' => sprintf( __('Show all %s', TextDomain ), $taxonomy->label ),
+                'show_option_all' => sprintf( __( 'Show all %s', TextDomain ), $taxonomy->label ),
                 'taxonomy' => $taxonomy->name,
                 'name' => $taxonomy->name,
                 'orderby' => 'term_order',
