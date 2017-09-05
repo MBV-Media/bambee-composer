@@ -667,7 +667,7 @@ abstract class Bambee extends BambeeBase {
      * @param int $postThumbnailWidth
      *
      * @since 1.4.2
-     * @deprecated Will be removed in 1.8.0.<br>Can now be set by theme option "bambee_post_thumbnail_width".
+     * @deprecated Will be removed in later versions.<br>Can now be set by theme option "bambee_featured_images['width']".
      */
     public function setPostThumbnailWidth( $postThumbnailWidth ) {
 
@@ -679,7 +679,7 @@ abstract class Bambee extends BambeeBase {
      * @param int $postThumbnailHeight
      *
      * @since 1.4.2
-     * @deprecated Will be removed in 1.8.0.<br>Can now be set by theme option "bambee_post_thumbnail_height".
+     * @deprecated Will be removed in later versions.<br>Can now be set by theme option "bambee_featured_images['height']".
      */
     public function setPostThumbnailHeight( $postThumbnailHeight ) {
 
@@ -691,7 +691,7 @@ abstract class Bambee extends BambeeBase {
      * @param boolean $postThumbnailCrop
      *
      * @since 1.4.2
-     * @deprecated Will be removed in 1.8.0.<br>Can now be set by theme option "bambee_post_thumbnail_corp".
+     * @deprecated Will be removed in later versions.<br>Can now be set by theme option "bambee_featured_images['corp']".
      */
     public function setPostThumbnailCrop( $postThumbnailCrop ) {
 
