@@ -1,17 +1,36 @@
 <?php
 
+/**
+ * BambeeShortcode.php
+ */
+
 namespace MBVMedia\Shortcode\Lib;
 
 
+/**
+ * Class BambeeShortcode
+ *
+ * @package BambeeCore
+ * @author Holger Terhoeven <h.terhoeven@mbv-media.com>
+ * @licence MIT
+ * @since 1.0.0
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/Shortcode/Lib/BambeeShortcode.html
+ */
 abstract class BambeeShortcode implements Handleable {
 
     /**
+     * The supported attributes.
+     *
      * @var array
+     * @ignore
      */
     private $supportedAtts;
 
     /**
+     * A description of the shortcode.
+     *
      * @var string
+     * @ignore
      */
     private $description;
 
@@ -19,46 +38,68 @@ abstract class BambeeShortcode implements Handleable {
      * BambeeShortcode constructor.
      */
     public function __construct() {
-        $this->supportedAtts = array();
+
+        $this->supportedAtts = [];
     }
 
     /**
-     * @return array
+     * Get all supported attributes.
+     *
+     * @return array An array of attributes.
      */
     public function getSupportedAtts() {
+
         return $this->supportedAtts;
     }
 
     /**
+     * Add an attribute.
+     *
      * @param $name
-     * @param string $default
-     * @param string $type TinyMCE input type
+     * @param string $default (optional)
+     * @param string $type (optional) TinyMCE input type
+     *
+     * @return void
      */
     public function addAttribute( $name, $default = '', $type = 'text' ) {
+
 //        $this->supportedAtts[$name] = $default;
-        $this->supportedAtts[] = array(
-                'name' => $name,
-                'default' => $default,
-                'type' => $type
-        );
+        $this->supportedAtts[] = [
+            'name' => $name,
+            'default' => $default,
+            'type' => $type,
+        ];
+
     }
 
     /**
+     * Get the description.
+     *
      * @return mixed
      */
     public function getDescription() {
+
         return $this->description;
+
     }
 
     /**
-     * @param $description
+     * Set the description.
+     *
+     * @param mixed $description
+     *
+     * @return void
      */
     public function setDescription( $description ) {
+
         $this->description = $description;
+
     }
 
     /**
+     * Add the shortcode to Wordpress.
      *
+     * @return void
      */
     public static function addShortcode() {
 
@@ -69,18 +110,23 @@ abstract class BambeeShortcode implements Handleable {
             $tag = self::getUnqualifiedClassName( $class );
         }
 
-        add_shortcode( $tag, array( $class, 'doShortcode' ) );
+        add_shortcode( $tag, [ $class, 'doShortcode' ] );
+
     }
 
     /**
-     * @param array $atts
-     * @param string $content
+     * Executes the shortcode.
+     *
+     * @param array $atts (optional)
+     * @param string $content (optional)
+     *
      * @return mixed
      */
-    public static function doShortcode( $atts = array(), $content = '' ) {
+    public static function doShortcode( $atts = [], $content = '' ) {
+
         $shortcodeObject = new static();
         $supportedAtts = $shortcodeObject->getSupportedAtts();
-        $defaultAtts = array();
+        $defaultAtts = [];
         foreach ( $supportedAtts as $attribute ) {
             $defaultAtts[$attribute['name']] = $attribute['default'];
         }
@@ -89,23 +135,35 @@ abstract class BambeeShortcode implements Handleable {
         $atts = shortcode_atts( $defaultAtts, $atts );
 
         return do_shortcode( $shortcodeObject->handleShortcode( $atts, $content ) );
+
     }
 
     /**
+     * Get the alias for the shortcode.
+     *
      * @return string
      */
     public static function getShortcodeAlias() {
+
         return self::getUnqualifiedClassName();
+
     }
 
     /**
+     * Get the unqualified class name.
+     *
+     * @param string|object|null $class (optional)
+     *
      * @return string
      */
     public static function getUnqualifiedClassName( $class = null ) {
+
         if ( $class === null ) {
             $class = get_called_class();
         }
         $reflect = new \ReflectionClass( $class );
         return strtolower( $reflect->getShortName() );
+
     }
+
 }

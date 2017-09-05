@@ -1,17 +1,26 @@
 <?php
+/**
+ * BambeeWalkerComment.php
+ */
+
 namespace MBVMedia;
 
 /**
- * @since 1.0.0
- * @author hterhoeven
+ * Class BambeeWalkerComment
+ *
+ * @package BambeeCore
+ * @author Holger Terhoeven <h.terhoeven@mbv-media.com>
  * @licence MIT
+ * @since 1.0.0
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/BambeeWalkerComment.html
  */
 class BambeeWalkerComment extends \Walker_Comment {
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function paged_walk( $elements, $max_depth, $page_num, $per_page ) {
+
         if ( empty( $elements ) || $max_depth < -1 ) {
             return '';
         }
@@ -24,7 +33,7 @@ class BambeeWalkerComment extends \Walker_Comment {
         $count = -1;
         if ( -1 == $max_depth )
             $total_top = count( $elements );
-        if ( $page_num < 1 || $per_page < 0  ) {
+        if ( $page_num < 1 || $per_page < 0 ) {
             // No paging
             $paging = false;
             $start = 0;
@@ -34,21 +43,21 @@ class BambeeWalkerComment extends \Walker_Comment {
         } else {
             $paging = true;
             $start = ( (int)$page_num - 1 ) * (int)$per_page;
-            $end   = $start + $per_page;
+            $end = $start + $per_page;
             if ( -1 == $max_depth )
-                $this->max_pages = ceil($total_top / $per_page);
+                $this->max_pages = ceil( $total_top / $per_page );
         }
 
         // flat display
         if ( -1 == $max_depth ) {
-            if ( !empty($args[0]['reverse_top_level']) ) {
+            if ( !empty( $args[0]['reverse_top_level'] ) ) {
                 $elements = array_reverse( $elements );
                 $oldstart = $start;
                 $start = $total_top - $end;
                 $end = $total_top - $oldstart;
             }
 
-            $empty_array = array();
+            $empty_array = [];
             foreach ( $elements as $e ) {
                 $count++;
                 if ( $count < $start )
@@ -60,7 +69,7 @@ class BambeeWalkerComment extends \Walker_Comment {
             return $output;
         }
 
-        if( !$args[0]['reverse_top_level'] ) {
+        if ( !$args[0]['reverse_top_level'] ) {
             $elements = array_reverse( $elements );
         }
 
@@ -69,22 +78,22 @@ class BambeeWalkerComment extends \Walker_Comment {
          * Children_elements is two dimensional array, e.g.
          * $children_elements[10][] contains all sub-elements whose parent is 10.
          */
-        $top_level_elements = array();
-        $children_elements  = array();
-        foreach ( $elements as $e) {
+        $top_level_elements = [];
+        $children_elements = [];
+        foreach ( $elements as $e ) {
             if ( 0 == $e->$parent_field )
                 $top_level_elements[] = $e;
             else
-                $children_elements[ $e->$parent_field ][] = $e;
+                $children_elements[$e->$parent_field][] = $e;
         }
 
         $total_top = count( $top_level_elements );
         if ( $paging )
-            $this->max_pages = ceil($total_top / $per_page);
+            $this->max_pages = ceil( $total_top / $per_page );
         else
             $end = $total_top;
 
-        if ( !empty($args[0]['reverse_children']) ) {
+        if ( !empty( $args[0]['reverse_children'] ) ) {
             foreach ( $children_elements as $parent => $children )
                 $children_elements[$parent] = array_reverse( $children );
         }
@@ -106,12 +115,14 @@ class BambeeWalkerComment extends \Walker_Comment {
         }
 
         if ( $end >= $total_top && count( $children_elements ) > 0 ) {
-            $empty_array = array();
+            $empty_array = [];
             foreach ( $children_elements as $orphans )
                 foreach ( $orphans as $op )
                     $this->display_element( $op, $empty_array, 1, 0, $args, $output );
         }
 
         return $output;
+
     }
+
 }

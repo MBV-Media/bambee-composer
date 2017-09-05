@@ -2,7 +2,7 @@
   "use strict";
 
   var shortcodeList = new ShortcodeList(),
-      pluginName = 'ShortcodeSelector';
+    pluginName = 'ShortcodeSelector';
 
   tinymce.create('tinymce.plugins.' + pluginName, {
     /**
@@ -23,7 +23,7 @@
         fixedWidth: true,
         onselect: function (e) {
           var item = this,
-              shortcode = shortcodeList.getShortcode(item);
+            shortcode = shortcodeList.getShortcode(item);
 
           ed.windowManager.open({
             title: shortcode.getStartTag(),
@@ -103,9 +103,9 @@
       for (var i = 0; i < window.bambeeShortcodeList.length; ++i) {
         var shortcodeData = window.bambeeShortcodeList[i];
         var shortcode = new Shortcode(
-            shortcodeData.tag,
-            shortcodeData.descr,
-            shortcodeData.atts
+          shortcodeData.tag,
+          shortcodeData.descr,
+          shortcodeData.atts
         );
         addShortcode(shortcode);
       }
@@ -273,7 +273,7 @@
 
       var shortcodeAtts = self.getAtts();
 
-      if(shortcodeAtts.length) {
+      if (shortcodeAtts.length) {
         dialogBody.push({
           type: 'container',
           name: 'descr',
@@ -289,14 +289,14 @@
           value: shortcodeAtts[i].default,
           onKeyUp: function (e) {
             var name = $(this.$el).closest('.mce-container-body').find('.mce-label').text(),
-                value = $(this.$el).val();
+              value = $(this.$el).val();
             self.setAttribute(name, value);
 
             $(this.$el)
-                .closest('.mce-container')
-                .nextAll('.mce-container.mce-last')
-                .find('.mce-container-body')
-                .html(self.getStartTag(true) + self.getEndTag());
+              .closest('.mce-container')
+              .nextAll('.mce-container.mce-last')
+              .find('.mce-container-body')
+              .html(self.getStartTag(true) + self.getEndTag());
           }
         });
       }

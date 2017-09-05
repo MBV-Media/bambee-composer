@@ -1,49 +1,102 @@
 <?php
+
 /**
- * @since 1.0.0
- * @author hterhoeven
- * @licence MIT
+ * ThemeCustommizer.php
  */
 
 namespace MBVMedia\ThemeCustomizer;
 
 
+/**
+ * Class ThemeCustommizer
+ *
+ * @package BambeeCore
+ * @author Holger Terhoeven <h.terhoeven@mbv-media.com>
+ * @licence MIT
+ * @since 1.5.0
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/ThemeCustomizer/ThemeCustommizer.html
+ */
 class ThemeCustommizer {
 
-    const SECTION_ID = 'bambee_comment';
-    const CONTROL_ID = self::SECTION_ID . '_textbox';
-    const SETTING_ID = self::CONTROL_ID . '_position';
+    /**
+     * @var array
+     *
+     * @ignore
+     */
+    private $elementList;
 
-    private $panelList;
-    private $sectionList;
-
+    /**
+     * ThemeCustommizer constructor.
+     */
     public function __construct() {
-        $this->panelList = array();
-        $this->sectionList = array();
+
+        $this->elementList = [];
+
     }
 
+    /**
+     * Add a panel.
+     *
+     * @param Panel $panel
+     *
+     * @return void
+     */
     public function addPanel( Panel $panel ) {
-        $this->panelList[$panel->getId()] = $panel;
+
+        $this->elementList[$panel->getId()] = $panel;
+
     }
 
+    /**
+     * Add a section.
+     *
+     * @param Section $section
+     *
+     * @return void
+     */
     public function addSection( Section $section ) {
-        $this->sectionList[$section->getId()] = $section;
+
+        $this->elementList[$section->getId()] = $section;
+
     }
 
+    /**
+     * Get an element.
+     *
+     * @param $id
+     *
+     * @return ThemeCustommizerElement|null
+     */
+    public function getElement( $id ) {
+
+        return isset( $this->elementList[$id] ) ? $this->elementList[$id] : null;
+
+    }
+
+    /**
+     * Add the Wordpress action hook to register the theme customizer elements.
+     *
+     * @return void
+     */
     public function register() {
-        add_action( 'customize_register', array( $this, 'actionCustomizeRegister' ) );
+
+        add_action( 'customize_register', [ $this, 'actionCustomizeRegister' ] );
+
     }
 
-    public function actionCustomizeRegister( $wp_customize ) {
+    /**
+     * Register all theme customizer elements.
+     *
+     * @param $wpCustomize
+     *
+     * @return void
+     */
+    public function actionCustomizeRegister( $wpCustomize ) {
 
-        $wpCustomize = $wp_customize;
-
-        foreach ( $this->panelList as $panel ) {
-            $panel->register( $wpCustomize );
+        foreach ( $this->elementList as $element ) {
+            $element->register( $wpCustomize );
         }
 
-        foreach ( $this->sectionList as $section ) {
-            $section->register( $wpCustomize );
-        }
     }
+
 }

@@ -1,9 +1,11 @@
 <?php
+
 /**
- * @since 1.0.0
- * @author R4c00n <marcel.kempf93@gmail.com>
- * @licence MIT
+ * BambeeWebsite.php
+ *
+ * @see https://github.com/MBV-Media/bambee-core
  */
+
 namespace MBVMedia;
 
 
@@ -13,291 +15,391 @@ use MBVMedia\ThemeCustomizer\ThemeCustommizerComments;
 /**
  * The class representing the website (user frontend).
  *
- * @since 1.0.0
+ * @package BambeeCore
  * @author R4c00n <marcel.kempf93@gmail.com>
+ * @author Holger Terhoeven <h.terhoeven@mbv-media.com>
  * @licence MIT
+ * @since 1.5.0
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/BambeeWebsite.html
  */
 abstract class BambeeWebsite extends BambeeBase {
 
     /**
-     * @since 1.0.0
      * @var array
+     *
+     * @since 1.0.0
+     * @ignore
      */
     private $scripts;
 
     /**
-     * @since 1.0.0
      * @var array
+     *
+     * @since 1.0.0
+     * @ignore
      */
     private $localizedScripts;
 
     /**
-     * @since 1.0.0
      * @var array
+     *
+     * @since 1.0.0
+     * @ignore
      */
     private $styles;
 
     /**
-     * @since 1.1.0
      * @var string
+     *
+     * @since 1.1.0
+     * @ignore
      */
     private $commentPaginationNextText;
 
     /**
-     * @since 1.1.0
      * @var string
+     *
+     * @since 1.1.0
+     * @ignore
      */
     private $commentPaginationPrevText;
 
     /**
-     * @since 1.1.0
      * @var string
+     *
+     * @since 1.1.0
+     * @ignore
      */
     private $commentPaginationPageTemplate;
 
+    /**
+     * @var BambeeWebsite
+     *
+     * @since 1.5.0
+     * @ignore
+     */
     private static $instance = null;
 
     /**
+     * BambeeWebsite constructor.
+     *
      * @since 1.0.0
-     * @return void
      */
     protected function __construct() {
 
-        $this->scripts = array();
-        $this->localizedScripts = array();
-        $this->styles = array();
+        $this->scripts = [];
+        $this->localizedScripts = [];
+        $this->styles = [];
 
         $this->commentPaginationNextText = __( 'Next &raquo;', TextDomain );
         $this->commentPaginationPrevText = __( '&laquo; Prev', TextDomain );
         $this->commentPaginationPageTemplate = '<li>%s</li>';
 
-        # Grunt livereload (development only)
+        # Gulp livereload (development only)
         if ( WP_DEBUG ) {
             $this->addScript( 'livereload', '//localhost:35729/livereload.js' );
         }
+
     }
 
     /**
-     * @since 1.4.0
+     * Get the comment pagination text for the next-button.
      *
      * @return string
+     *
+     * @since 1.4.0
      */
     public function getCommentPaginationNextText() {
+
         return $this->commentPaginationNextText;
+
     }
 
     /**
-     * @since 1.4.0
+     * Set the comment pagination text for the next-button.
      *
      * @param string $commentPaginationNextText
+     *
+     * @return void
+     *
+     * @since 1.4.0
      */
     public function setCommentPaginationNextText( $commentPaginationNextText ) {
+
         $this->commentPaginationNextText = $commentPaginationNextText;
+
     }
 
     /**
-     * @since 1.4.0
+     * Get the comment pagination text for the previous-button.
      *
      * @return string
+     *
+     * @since 1.4.0
      */
     public function getCommentPaginationPrevText() {
+
         return $this->commentPaginationPrevText;
+
     }
 
     /**
-     * @since 1.4.0
+     * Set the comment pagination text for the previous-button.
      *
      * @param string $commentPaginationPrevText
+     *
+     * @since 1.4.0
      */
     public function setCommentPaginationPrevText( $commentPaginationPrevText ) {
+
         $this->commentPaginationPrevText = $commentPaginationPrevText;
+
     }
 
     /**
-     * @since 1.4.0
+     * Get the comment pagination template.
      *
      * @return string
+     *
+     * @since 1.4.0
      */
     public function getCommentPaginationPageTemplate() {
+
         return $this->commentPaginationPageTemplate;
+
     }
 
     /**
-     * @since 1.4.0
+     * Set the comment pagination template.
      *
      * @param string $commentPaginationPageTemplate
+     *
+     * @since 1.4.0
      */
     public function setCommentPaginationPageTemplate( $commentPaginationPageTemplate ) {
+
         $this->commentPaginationPageTemplate = $commentPaginationPageTemplate;
+
     }
 
     /**
-     *
+     * {@inheritdoc}
      */
     public function addActions() {
-        add_action( 'init', array( $this, 'disableEmojis' ) );
-        add_action( 'wp_enqueue_scripts', array( $this, 'enqueueScripts' ) );
-        add_action( 'wp_enqueue_scripts', array( $this, 'enqueueLocalizeScripts' ) );
-        add_action( 'wp_enqueue_scripts', array( $this, 'enqueueStyles' ) );
-        add_action( 'wp_footer', array( $this, 'printGoogleAnalyticsCode' ) );
-        add_action( 'wpcf7_before_send_mail', array( $this, 'addCF7DefaultRecipient' ) );
 
-        if( get_theme_mod( 'bambee_comment_textbox_position' ) ) {
-            add_filter( 'comment_form_fields', array( $this, 'moveCommentFieldToBottom' ) );
+        add_action( 'init', [ $this, 'disableEmojis' ] );
+        add_action( 'wp_enqueue_scripts', [ $this, 'enqueueScripts' ] );
+        add_action( 'wp_enqueue_scripts', [ $this, 'enqueueLocalizeScripts' ] );
+        add_action( 'wp_enqueue_scripts', [ $this, 'enqueueStyles' ] );
+        add_action( 'wp_footer', [ $this, 'printGoogleAnalyticsCode' ] );
+        add_action( 'wpcf7_before_send_mail', [ $this, 'addCF7DefaultRecipient' ] );
+
+        if ( get_theme_mod( 'bambee_comment_textbox_position' ) ) {
+            add_filter( 'comment_form_fields', [ $this, 'moveCommentFieldToBottom' ] );
         }
+
     }
 
     /**
-     *
+     * {@inheritdoc}
      */
     public function addFilters() {
+
         add_filter( 'show_admin_bar', '__return_false' );
+
     }
 
     /**
-     * Enqueue additional scripts
+     * Register additional scripts.
+     *
+     * @return void
      */
     public function addScripts() {
+
         $this->addScript( 'comment-reply', false );
         $this->addScript(
             'vendor',
             ThemeUrl . '/js/vendor.min.js',
-            array( 'jquery' ),
+            [ 'jquery' ],
             false,
             true
         );
         $this->addScript(
             'main',
             ThemeUrl . '/js/main.min.js',
-            array( 'jquery' ),
+            [ 'jquery' ],
             false,
             true
         );
+
     }
 
     /**
-     * Enqueue additional styles
+     * Register additional styles.
+     *
+     * @return void
      */
     public function addStyles() {
+
         $this->addStyle( 'main', ThemeUrl . '/css/main.min.css' );
+
     }
 
     /**
-     * @since 1.4.0
+     * Register a script.
      *
      * @param $handle
      * @param $src
-     * @param array $deps
-     * @param bool $ver
-     * @param bool $inFooter
+     * @param array $deps (optional)
+     * @param bool $ver (optional)
+     * @param bool $inFooter (optional)
+     *
+     * @return void
+     *
+     * @since 1.4.0
      */
-    public function addScript( $handle, $src, $deps = array(), $ver = false, $inFooter = false ) {
-        $this->scripts[] = array(
-                'handle' => $handle,
-                'src' => $src,
-                'deps' => $deps,
-                'ver' => $ver,
-                'in_footer' => $inFooter
-        );
+    public function addScript( $handle, $src, $deps = [], $ver = false, $inFooter = false ) {
+
+        $this->scripts[] = [
+            'handle' => $handle,
+            'src' => $src,
+            'deps' => $deps,
+            'ver' => $ver,
+            'in_footer' => $inFooter,
+        ];
+
     }
 
     /**
-     * @since 1.4.0
+     * Register a localized script.
      *
      * @param $handle
      * @param $name
      * @param array $data
+     *
+     * @return void
+     *
+     * @since 1.4.0
      */
     public function addLocalizedScript( $handle, $name, array $data ) {
-        $this->localizedScripts[] = array(
-                'handle' => $handle,
-                'name' => $name,
-                'data' => $data
-        );
+
+        $this->localizedScripts[] = [
+            'handle' => $handle,
+            'name' => $name,
+            'data' => $data,
+        ];
+
     }
 
     /**
-     * @since 1.4.0
+     * Regsiter a style.
      *
      * @param $handle
      * @param $src
-     * @param array $deps
-     * @param bool $ver
-     * @param string $media
+     * @param array $deps (optional)
+     * @param bool $ver (optional)
+     * @param string $media (optional)
+     *
+     * @return void
+     *
+     * @since 1.4.0
      */
-    public function addStyle( $handle, $src, $deps = array(), $ver = false, $media = 'all' ) {
-        $this->styles[] = array(
-                'handle' => $handle,
-                'src' => $src,
-                'deps' => $deps,
-                'ver' => $ver,
-                'media' => $media
-        );
+    public function addStyle( $handle, $src, $deps = [], $ver = false, $media = 'all' ) {
+
+        $this->styles[] = [
+            'handle' => $handle,
+            'src' => $src,
+            'deps' => $deps,
+            'ver' => $ver,
+            'media' => $media,
+        ];
+
     }
 
     /**
+     * Disable the Wordpress default emojis.
      *
+     * @return void
      */
     public function disableEmojis() {
+
         remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
         remove_action( 'wp_print_styles', 'print_emoji_styles' );
         remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
         remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
         remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
+
     }
 
     /**
      * Customize the comment list.
      *
-     * @since 1.0.0
      * @param string $comment
      * @param array $args
      * @param int $depth
+     *
      * @return void
+     *
+     * @since 1.0.0
      */
     public function commentList( $comment, $args, $depth ) {
+
         echo $this->getCommentList( $comment, $args, $depth );
+
     }
 
     /**
-     * @since 1.4.2
+     * Get the comment list.
+     *
      * @param $comment
      * @param $args
      * @param $depth
+     *
      * @return string
+     *
+     * @since 1.4.2
      */
     public function getCommentList( $comment, $args, $depth ) {
+
         $GLOBALS['comment'] = $comment;
 
         $tag = ( 'div' == $args['style'] ) ? 'div' : 'li';
         $addBelow = 'comment';
 
-        $commentListTemplate = new ThemeView( '/partials/comment-list.php', array(
+        $commentListTemplate = new ThemeView( '/partials/comment-list.php', [
             'comment' => $comment,
             'arguments' => $args,
             'depth' => $depth,
             'tag' => $tag,
             'addBelow' => $addBelow,
-        ) );
+        ] );
         return $commentListTemplate->render();
+
     }
 
     /**
-     * Display comments pagination.
+     * Renders the comment pagination.
+     *
+     * @return void
      *
      * @since 1.1.0
-     * @return void
      */
     public function commentPagination() {
+
         echo $this->getCommentPagination();
+
     }
 
     /**
-     * @since 1.4.2
+     * Get the comment pagination.
+     *
      * @return string
+     *
+     * @since 1.4.2
      */
     public function getCommentPagination() {
-        $pagination = paginate_comments_links( array(
+
+        $pagination = paginate_comments_links( [
             'echo' => false,
             'mid_size' => 2,
             'end_size' => 3,
@@ -305,7 +407,7 @@ abstract class BambeeWebsite extends BambeeBase {
             'add_fragment' => '',
             'next_text' => $this->commentPaginationNextText,
             'prev_text' => $this->commentPaginationPrevText,
-        ) );
+        ] );
 
         $paginationPages = '';
         $paginationPrev = '';
@@ -331,50 +433,63 @@ abstract class BambeeWebsite extends BambeeBase {
             }
         }
 
-        $template = new ThemeView( '/partials/comment-pagination.php', array(
+        $template = new ThemeView( '/partials/comment-pagination.php', [
             'paginationPrev' => $paginationPrev,
             'paginationPages' => $paginationPages,
             'paginationNext' => $paginationNext,
-        ) );
+        ] );
         return $template->render();
+
     }
 
 
     /**
-     * @since 1.4.2
+     * Set a default recipient to contact form 7 mails.
      *
      * @param $cf7
+     *
+     * @since 1.4.2
      */
     public function addCF7DefaultRecipient( $cf7 ) {
+
         $mail = $cf7->prop( 'mail' );
 
-        if( !empty( $mail['recipient'] ) ) {
+        if ( !empty( $mail['recipient'] ) ) {
             return;
         }
 
         $mail['recipient'] = get_bloginfo( 'admin_email' );
-        $cf7->set_properties( array(
+        $cf7->set_properties( [
             'mail' => $mail,
-        ) );
+        ] );
+
     }
 
     /**
+     * Moves the comment textfield to the bottom of the form.
+     *
      * @param $fields
+     *
      * @return mixed
      */
     public function moveCommentFieldToBottom( $fields ) {
+
         $commentField = $fields['comment'];
         unset( $fields['comment'] );
         $fields['comment'] = $commentField;
         return $fields;
+
     }
 
     /**
      * Enqueue all added JS files.
      *
+     * @return void
+     *
      * @since 1.4.2
      */
     public function enqueueScripts() {
+
         if ( !empty( $this->scripts ) ) {
             foreach ( $this->scripts as $script ) {
                 wp_enqueue_script(
@@ -386,14 +501,18 @@ abstract class BambeeWebsite extends BambeeBase {
                 );
             }
         }
+
     }
 
     /**
      * Enqueue all added localize JS files.
      *
+     * @return void
+     *
      * @since 1.4.2
      */
     public function enqueueLocalizeScripts() {
+
         if ( !empty( $this->localizedScripts ) ) {
             foreach ( $this->localizedScripts as $localized_script ) {
                 wp_localize_script(
@@ -403,14 +522,18 @@ abstract class BambeeWebsite extends BambeeBase {
                 );
             }
         }
+
     }
 
     /**
      * Enqueue all added CSS files.
      *
+     * @return void
+     *
      * @since 1.4.2
      */
     public function enqueueStyles() {
+
         if ( !empty( $this->styles ) ) {
             foreach ( $this->styles as $style ) {
                 wp_enqueue_style(
@@ -422,87 +545,109 @@ abstract class BambeeWebsite extends BambeeBase {
                 );
             }
         }
+
     }
 
     /**
      * Prints the Google Analytics code if a tracking code is set.
      *
+     * @return void
+     *
      * @since 1.4.2
      */
     public function printGoogleAnalyticsCode() {
 
-        if( WP_DEBUG ) {
+        if ( WP_DEBUG ) {
             return;
         }
 
         $googleTrackingId = get_option( 'bambee_google_analytics_tracking_id' );
-        if ( ! empty( $googleTrackingId )) {
+        if ( !empty( $googleTrackingId ) ) {
             ?>
             <script>
-                (function (b, o, i, l, e, r) {
-                    b.GoogleAnalyticsObject = l;
-                    b[l] || (b[l] =
-                        function () {
-                            (b[l].q = b[l].q || []).push(arguments)
-                        });
-                    b[l].l = +new Date;
-                    e = o.createElement(i);
-                    r = o.getElementsByTagName(i)[0];
-                    e.src = 'https://www.google-analytics.com/analytics.js';
-                    r.parentNode.insertBefore(e, r)
-                }(window, document, 'script', 'ga'));
-                ga('create', '<?php echo $googleTrackingId; ?>', 'auto');
-                ga('send', 'pageview');
+              (function (b, o, i, l, e, r) {
+                b.GoogleAnalyticsObject = l;
+                b[l] || (b[l] =
+                  function () {
+                    (b[l].q = b[l].q || []).push(arguments)
+                  });
+                b[l].l = +new Date;
+                e = o.createElement(i);
+                r = o.getElementsByTagName(i)[0];
+                e.src = 'https://www.google-analytics.com/analytics.js';
+                r.parentNode.insertBefore(e, r)
+              }(window, document, 'script', 'ga'));
+              ga('create', '<?php echo $googleTrackingId; ?>', 'auto');
+              ga('send', 'pageview');
             </script>
             <?php
         }
+
     }
 
     /**
+     * Performs the Wordpress main loop.
+     *
      * @param ThemeView $partial
+     * @param ThemeView|null $noPosts
+     *
+     * @return void
      */
-    public function mainLoop( ThemeView $partial ) {
-        while ( have_posts() ) {
-            the_post();
-            echo $partial->render();
+    public function mainLoop( ThemeView $partial, ThemeView $noPosts = null ) {
+
+        if ( have_posts() ) {
+            while ( have_posts() ) {
+                the_post();
+                echo $partial->render();
+            }
+        } elseif ( null !== $noPosts ) {
+            echo $noPosts->render();
         }
+
     }
 
     /**
+     * Performs a custom loop.
+     *
      * @param ThemeView $partial
      * @param array $queryArgs
      * @param ThemeView|null $noPosts
+     *
+     * @return void
      */
-    public function customLoop( ThemeView $partial, array $queryArgs = array(), ThemeView $noPosts = null ) {
+    public function customLoop( ThemeView $partial, array $queryArgs = [], ThemeView $noPosts = null ) {
 
         $theQuery = new \WP_Query( $queryArgs );
 
-        if( $theQuery->have_posts() ) {
+        if ( $theQuery->have_posts() ) {
 
             $partial->setArg( 'theQuery', $theQuery );
 
-            while( $theQuery->have_posts() ) {
+            while ( $theQuery->have_posts() ) {
 
                 $theQuery->the_post();
                 echo $partial->render();
             }
-        }
-        elseif( null !== $noPosts ) {
+        } elseif ( null !== $noPosts ) {
             $noPosts->setArg( 'theQuery', $theQuery );
             echo $noPosts->render();
         }
 
         wp_reset_postdata();
+
     }
 
     /**
-     * @return static
+     * {@inheritdoc}
      */
     public static function self() {
-        if( null === self::$instance ) {
+
+        if ( null === self::$instance ) {
             self::$instance = new static();
         }
 
         return self::$instance;
+
     }
+
 }

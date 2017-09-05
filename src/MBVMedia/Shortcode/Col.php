@@ -1,4 +1,7 @@
 <?php
+/**
+ * Col.php
+ */
 
 namespace MBVMedia\Shortcode;
 
@@ -8,11 +11,11 @@ use MBVMedia\Shortcode\Lib\BambeeShortcode;
 /**
  * Generate a foundation grid column.
  *
- * @package MBVMedia\lib\shortcode
+ * @package BambeeCore
+ * @author Holger Terhoeven <h.terhoeven@mbv-media.com>
+ * @licence MIT
  * @since 1.0.0
- * @param array $args
- * @param string $content
- * @return string
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/Shortcode/Col.html
  *
  * @example
  *  Usage:
@@ -20,14 +23,23 @@ use MBVMedia\Shortcode\Lib\BambeeShortcode;
  */
 class Col extends BambeeShortcode {
 
+    /**
+     * Col constructor.
+     */
     public function __construct() {
+
         $this->addAttribute( 'small' );
         $this->addAttribute( 'medium' );
         $this->addAttribute( 'large' );
         $this->addAttribute( 'class' );
+
     }
 
-    public function handleShortcode( array $atts = array(), $content = '' ) {
+    /**
+     * {@inheritdoc}
+     */
+    public function handleShortcode( array $atts = [], $content = '' ) {
+
         $class = 'column ';
 
         if ( !empty( $atts['small'] ) ) {
@@ -45,11 +57,13 @@ class Col extends BambeeShortcode {
         }
 
         $content = sprintf(
-                '<div class="%s">%s</div>',
-                $class,
-                $content
+            '<div class="%s">%s</div>',
+            $class,
+            $content
         );
 
         return $content;
+
     }
+
 }

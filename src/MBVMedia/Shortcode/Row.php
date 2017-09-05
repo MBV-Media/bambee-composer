@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Row.php
+ */
+
 namespace MBVMedia\Shortcode;
 
 
@@ -8,11 +12,11 @@ use MBVMedia\Shortcode\Lib\BambeeShortcode;
 /**
  * Generate a foundation grid row.
  *
- * @package MBVMedia\lib\shortcode
+ * @package BambeeCore
+ * @author Holger Terhoeven <h.terhoeven@mbv-media.com>
+ * @licence MIT
  * @since 1.0.0
- * @param array $args
- * @param string $content
- * @return string
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/Shortcode/Row.html
  *
  * @example
  *  Usage:
@@ -20,17 +24,27 @@ use MBVMedia\Shortcode\Lib\BambeeShortcode;
  */
 class Row extends BambeeShortcode {
 
+    /**
+     * Row constructor.
+     */
     public function __construct() {
+
         $this->addAttribute( 'class' );
+
     }
 
-    public function handleShortcode( array $atts = array(), $content = '' ) {
+    /**
+     * {@inheritdoc}
+     */
+    public function handleShortcode( array $atts = [], $content = '' ) {
+
         $class = isset( $atts['class'] ) ? $atts['class'] : '';
         $content = sprintf(
-                '<div class="row %s">%s</div>',
-                $class,
-                $content
+            '<div class="row %s">%s</div>',
+            $class,
+            $content
         );
         return $content;
+
     }
 }

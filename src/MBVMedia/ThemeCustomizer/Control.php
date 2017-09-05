@@ -1,36 +1,29 @@
 <?php
 /**
- * @since 1.0.0
- * @author hterhoeven
- * @licence MIT
+ * Control.php
  */
 
 namespace MBVMedia\ThemeCustomizer;
 
 
+/**
+ * Class Control
+ *
+ * @package BambeeCore
+ * @author Holger Terhoeven <h.terhoeven@mbv-media.com>
+ * @licence MIT
+ * @since 1.5.0
+ * @see https://mbv-media.github.io/bambee-core-api/MBVMedia/ThemeCustomizer/Control.html
+ */
 class Control extends ThemeCustommizerElement {
 
     /**
-     * @var Setting
+     * {@inheritdoc}
      */
-    private $setting;
-
-    public function __construct( $id, array $args, Setting $setting = null ) {
-        parent::__construct( $id, $args );
-        $this->setSetting( $setting );
-    }
-
-    public function getSetting() {
-        return $this->setting;
-    }
-
-    public function setSetting( Setting $setting ) {
-        $this->setArg( 'settings', $setting->getId() );
-        $this->setting = $setting;
-    }
-
     public function register( \WP_Customize_Manager $wpCustomize ) {
-        $this->setting->register( $wpCustomize );
+
         $wpCustomize->add_control( $this->getId(), $this->getArgs() );
+
     }
+
 }
