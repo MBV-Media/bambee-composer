@@ -578,6 +578,7 @@ abstract class BambeeWebsite extends BambeeBase {
                 r.parentNode.insertBefore(e, r)
               }(window, document, 'script', 'ga'));
               ga('create', '<?php echo $googleTrackingId; ?>', 'auto');
+              ga('set', 'anonymizeIp', true);
               ga('send', 'pageview');
             </script>
             <?php
